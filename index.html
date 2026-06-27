@@ -215,6 +215,39 @@
   .case-row.dimmed { opacity: 0.18; pointer-events: none; }
   .case-row.highlighted { background: rgba(200,216,240,0.12); border-color: rgba(200,216,240,0.4); }
 
+  /* EDITIONS */
+  .editions-grid { display: flex; flex-direction: column; gap: 16px; max-width: 900px; }
+  .edition-card {
+    background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px;
+    padding: 28px 32px; display: grid; grid-template-columns: auto 1fr auto; gap: 24px; align-items: start;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .edition-card:hover { border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.1); }
+  .edition-card.current { border-color: rgba(200,216,240,0.45); background: rgba(200,216,240,0.08); }
+  .edition-num {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 2.4rem;
+    line-height: 1; color: var(--pale); min-width: 56px;
+  }
+  .edition-body h3 {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.35rem;
+    text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.03em;
+  }
+  .edition-date { font-size: 0.78rem; color: rgba(255,255,255,0.45); margin-bottom: 12px; letter-spacing: 0.04em; }
+  .edition-highlights { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .edition-highlights li {
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em;
+    padding: 4px 10px; border-radius: 4px;
+    background: rgba(255,255,255,0.07); border: 1px solid var(--card-border);
+    color: rgba(255,255,255,0.75);
+  }
+  .edition-status {
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 5px 10px; border-radius: 4px; white-space: nowrap; align-self: start;
+  }
+  .edition-status.released { color: var(--navy); background: var(--green); }
+  .edition-status.in-progress { color: var(--navy); background: var(--pale); }
+  .edition-status.planned { color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.08); border: 1px solid var(--card-border); }
+
   @media (max-width: 900px) {
     .body-map-layout { grid-template-columns: 1fr; }
     .body-svg-wrap { max-width: 240px; }
@@ -228,6 +261,9 @@
     .modal-body { padding: 24px 24px 32px; }
     .modal-title { font-size: 2rem; }
     footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
+    .edition-card { grid-template-columns: 1fr; gap: 12px; padding: 24px; }
+    .edition-num { font-size: 1.8rem; }
+    .edition-status { justify-self: start; }
   }
 </style>
 </head>
@@ -241,6 +277,7 @@
   <a href="#cases" class="nav-link">Cases</a>
   <a href="#journal" class="nav-link">Journal</a>
   <a href="#glossary" class="nav-link">Glossary</a>
+  <a href="#editions" class="nav-link">Editions</a>
   <div class="nav-spacer"></div>
   <span class="nav-tag">Case Collection 2026</span>
 </nav>
@@ -529,6 +566,77 @@
     <div style="break-inside:avoid;margin-bottom:18px;">
       <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">W</div>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Weight-bearing:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The ability of bones and joints to support the body's weight during movement or standing.</span></p>
+    </div>
+
+  </div>
+</div>
+
+<!-- EDITIONS -->
+<div class="section" id="editions" style="border-top: 1px solid rgba(255,255,255,0.1);">
+  <p class="section-label">Project Roadmap</p>
+  <h2 class="section-title">Editions</h2>
+  <p style="font-size:0.95rem;line-height:1.7;color:rgba(255,255,255,0.65);max-width:640px;margin:-32px 0 40px;">Each edition marks a major milestone — not a calendar deadline. New releases ship when the work is ready.</p>
+
+  <div class="editions-grid">
+
+    <div class="edition-card current">
+      <div class="edition-num">1.0</div>
+      <div class="edition-body">
+        <h3>First Edition</h3>
+        <p class="edition-date">Released · June 2026</p>
+        <ul class="edition-highlights">
+          <li>20 cases</li>
+          <li>4 phases</li>
+          <li>Glossary</li>
+          <li>Website launch</li>
+        </ul>
+      </div>
+      <span class="edition-status released">Released</span>
+    </div>
+
+    <div class="edition-card">
+      <div class="edition-num">1.5</div>
+      <div class="edition-body">
+        <h3>Feature Update</h3>
+        <p class="edition-date">In development</p>
+        <ul class="edition-highlights">
+          <li>Search bar</li>
+          <li>Individual case pages</li>
+          <li>Recovery timelines</li>
+          <li>Reading progress</li>
+        </ul>
+      </div>
+      <span class="edition-status in-progress">In Progress</span>
+    </div>
+
+    <div class="edition-card">
+      <div class="edition-num">2.0</div>
+      <div class="edition-body">
+        <h3>Expanded Collection</h3>
+        <p class="edition-date">Planned</p>
+        <ul class="edition-highlights">
+          <li>15 new cases</li>
+          <li>5–6 phases</li>
+          <li>Improved body map</li>
+          <li>Related case links</li>
+        </ul>
+      </div>
+      <span class="edition-status planned">Planned</span>
+    </div>
+
+    <div class="edition-card">
+      <div class="edition-num">3.0</div>
+      <div class="edition-body">
+        <h3>Major Overhaul</h3>
+        <p class="edition-date">Planned</p>
+        <ul class="edition-highlights">
+          <li>Pediatric injuries</li>
+          <li>Expanded glossary</li>
+          <li>Design overhaul</li>
+          <li>Interactive skeleton</li>
+        </ul>
+      </div>
+      <span class="edition-status planned">Planned</span>
     </div>
 
   </div>
