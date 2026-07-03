@@ -1,0 +1,1039 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Human Repair Log</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a3a7c;
+    --royal: #1e4db7;
+    --pale: #c8d8f0;
+    --white: #ffffff;
+    --card-bg: rgba(255,255,255,0.08);
+    --card-border: rgba(255,255,255,0.15);
+    --red: #e53935;
+    --green: #7ec8a0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Barlow', sans-serif; background: var(--navy); color: var(--white); min-height: 100vh; }
+
+  .circle-bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .circle-bg span { position: absolute; border-radius: 50%; border: 5px solid rgba(255,255,255,0.09); }
+  .circle-bg span:nth-child(1) { width: 560px; height: 560px; top: -180px; left: -180px; }
+  .circle-bg span:nth-child(2) { width: 440px; height: 440px; bottom: 8%; right: -120px; }
+  .circle-bg span:nth-child(3) { width: 340px; height: 340px; top: 38%; left: -100px; }
+  .circle-bg span:nth-child(4) { width: 660px; height: 660px; bottom: -220px; left: 28%; }
+  .circle-bg span:nth-child(5) { width: 280px; height: 280px; top: 15%; right: 10%; }
+
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(26,58,124,0.95); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--card-border);
+    padding: 0 40px; display: flex; align-items: center; gap: 32px; height: 60px;
+  }
+  .nav-logo { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.1rem; letter-spacing: 0.05em; color: var(--white); text-decoration: none; text-transform: uppercase; white-space: nowrap; }
+  .nav-logo span { color: var(--pale); }
+  nav a.nav-link { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.2s; white-space: nowrap; }
+  nav a.nav-link:hover { color: var(--white); }
+  .nav-spacer { flex: 1; }
+  .nav-tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy); background: var(--pale); padding: 4px 10px; border-radius: 4px; }
+
+  /* HERO */
+  .hero { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 80px 60px 60px; max-width: 1100px; margin: 0 auto; }
+  .hero-eyebrow { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pale); margin-bottom: 20px; }
+  .hero h1 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(4rem,9vw,8rem); line-height: 0.92; text-transform: uppercase; margin-bottom: 28px; }
+  .hero h1 span { color: var(--pale); }
+  .hero-sub { font-size: 1.1rem; line-height: 1.6; color: rgba(255,255,255,0.75); max-width: 560px; margin-bottom: 40px; }
+  .hero-meta { display: flex; gap: 40px; align-items: center; flex-wrap: wrap; }
+  .hero-stat .num { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 2.5rem; line-height: 1; }
+  .hero-stat .label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--pale); margin-top: 2px; }
+  .hero-divider { width: 1px; height: 48px; background: var(--card-border); }
+  .scroll-cue { position: absolute; bottom: 32px; left: 60px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); display: flex; align-items: center; gap: 8px; }
+  .scroll-cue::before { content: ''; width: 24px; height: 1px; background: rgba(255,255,255,0.3); }
+
+  /* SECTION */
+  .section { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 80px 60px; }
+  .section-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pale); margin-bottom: 12px; }
+  .section-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(2rem,4vw,3.2rem); text-transform: uppercase; line-height: 1; margin-bottom: 48px; }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+  .about-text p { font-size: 1rem; line-height: 1.75; color: rgba(255,255,255,0.8); margin-bottom: 16px; }
+  .about-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 32px; }
+  .about-card h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.3rem; text-transform: uppercase; margin-bottom: 16px; color: var(--pale); }
+  .about-card p { font-size: 0.9rem; line-height: 1.7; color: rgba(255,255,255,0.75); }
+  .about-card .creator { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--card-border); font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.4rem; text-transform: uppercase; }
+
+  /* BODY MAP */
+  .body-map-section { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 80px 60px; }
+  .body-map-layout { display: grid; grid-template-columns: 1fr 420px; gap: 60px; align-items: start; }
+  .body-map-left { }
+  .body-map-hint { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-bottom: 32px; letter-spacing: 0.02em; }
+  .body-svg-wrap { position: relative; width: 100%; max-width: 320px; margin: 0 auto; }
+  .body-svg-wrap svg { width: 100%; height: auto; }
+
+  /* hotspot dots on the body */
+  .hotspot {
+    position: absolute;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hotspot.active {
+    background: rgba(200,216,240,0.25);
+    border: 2.5px solid var(--pale);
+    box-shadow: 0 0 0 6px rgba(200,216,240,0.12);
+    animation: pulse 2s infinite;
+  }
+  .hotspot.inactive {
+    background: rgba(255,255,255,0.06);
+    border: 2px solid rgba(255,255,255,0.2);
+    cursor: default;
+  }
+  .hotspot.active:hover { transform: translate(-50%,-50%) scale(1.25); }
+  .hotspot-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--pale); }
+  .hotspot.inactive .hotspot-dot { background: rgba(255,255,255,0.25); }
+  @keyframes pulse {
+    0%,100% { box-shadow: 0 0 0 4px rgba(200,216,240,0.12); }
+    50% { box-shadow: 0 0 0 10px rgba(200,216,240,0.04); }
+  }
+
+  /* case list panel */
+  .case-panel { }
+  .phase-group { margin-bottom: 36px; }
+  .phase-group-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--navy); background: var(--pale); padding: 3px 9px; border-radius: 3px; display: inline-block; margin-bottom: 14px; }
+  .case-row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 12px 16px; border-radius: 8px; margin-bottom: 6px;
+    border: 1px solid transparent;
+    transition: background 0.15s, border-color 0.15s;
+    cursor: pointer;
+  }
+  .case-row.filed { border-color: var(--card-border); background: var(--card-bg); }
+  .case-row.filed:hover { background: rgba(255,255,255,0.13); border-color: rgba(255,255,255,0.28); }
+  .case-row.filed.highlighted { background: rgba(200,216,240,0.15); border-color: rgba(200,216,240,0.5); }
+  .case-row.upcoming { opacity: 0.38; cursor: default; }
+  .case-row-num { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; color: var(--pale); min-width: 44px; }
+  .case-row-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.05rem; text-transform: uppercase; flex: 1; }
+  .case-row-badge { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .case-row-badge.done { color: var(--green); }
+  .case-row-badge.soon { color: rgba(255,255,255,0.25); }
+  .case-row-zone { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
+
+  /* MODAL */
+  .modal-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(10,25,60,0.88); backdrop-filter: blur(8px); overflow-y: auto; padding: 40px 20px; }
+  .modal-overlay.open { display: flex; justify-content: center; align-items: flex-start; }
+  .modal { background: var(--royal); border: 1px solid var(--card-border); border-radius: 16px; width: 100%; max-width: 700px; position: relative; overflow: hidden; }
+  .modal-circles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .modal-circles span { position: absolute; border-radius: 50%; border: 5px solid rgba(255,255,255,0.08); }
+  .modal-circles span:nth-child(1) { width: 320px; height: 320px; top: -90px; right: -90px; }
+  .modal-circles span:nth-child(2) { width: 220px; height: 220px; bottom: 10px; left: -60px; }
+  .modal-header { padding: 40px 40px 24px; border-bottom: 1px solid var(--card-border); position: relative; }
+  .modal-phase-tag { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--navy); background: var(--pale); padding: 3px 8px; border-radius: 3px; display: inline-block; margin-bottom: 12px; }
+  .modal-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 2.8rem; text-transform: uppercase; line-height: 0.95; margin-bottom: 8px; }
+  .modal-date { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1rem; color: rgba(255,255,255,0.45); letter-spacing: 0.1em; }
+  .modal-close { position: absolute; top: 20px; right: 20px; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.1); border: none; color: white; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+  .modal-close:hover { background: rgba(255,255,255,0.2); }
+  .modal-body { padding: 32px 40px 40px; }
+  .patient-case { background: rgba(255,255,255,0.07); border: 1px solid var(--card-border); border-radius: 10px; padding: 24px; margin-bottom: 28px; }
+  .patient-case h4 { font-weight: 700; font-size: 0.85rem; text-decoration: underline; text-align: center; margin-bottom: 10px; }
+  .patient-case p { font-size: 0.9rem; line-height: 1.7; text-align: center; color: rgba(255,255,255,0.85); }
+  .modal-section { margin-bottom: 24px; }
+  .modal-section h4 { font-weight: 700; font-size: 0.85rem; text-decoration: underline; text-align: center; margin-bottom: 10px; }
+  .modal-section p { font-size: 0.9rem; line-height: 1.7; color: rgba(255,255,255,0.85); }
+  .modal-section ul { list-style: none; padding: 0; }
+  .modal-section ul li { font-size: 0.9rem; line-height: 1.6; color: rgba(255,255,255,0.85); padding: 4px 0 4px 16px; position: relative; }
+  .modal-section ul li::before { content: '•'; position: absolute; left: 0; color: var(--pale); }
+  .modal-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; background: rgba(255,255,255,0.07); border: 1px solid var(--card-border); border-radius: 10px; padding: 24px; }
+  .modal-two-col h4 { font-weight: 700; font-size: 0.85rem; text-decoration: underline; margin-bottom: 10px; }
+  .modal-two-col p { font-size: 0.88rem; line-height: 1.65; color: rgba(255,255,255,0.82); }
+  .modal-date-stamp { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 2rem; text-align: center; color: var(--pale); letter-spacing: 0.05em; padding-top: 20px; border-top: 1px solid var(--card-border); }
+
+  footer { position: relative; z-index: 1; border-top: 1px solid var(--card-border); padding: 32px 60px; display: flex; align-items: center; justify-content: space-between; }
+  .footer-logo { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+  .footer-right { font-size: 0.75rem; color: rgba(255,255,255,0.3); text-align: right; line-height: 1.5; }
+
+
+  .region-label {
+    position: absolute;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em;
+    color: rgba(200,216,240,0.6);
+    pointer-events: none;
+    white-space: nowrap;
+    transition: color 0.2s;
+  }
+  .body-region:hover ~ .region-label,
+  .region-label.active { color: var(--pale); }
+  .body-region { transition: opacity 0.15s; }
+  .body-region:hover { opacity: 0.3; }
+  .body-svg-wrap svg .body-region.active-region { fill: rgba(200,216,240,0.15); }
+
+  /* removed */ .region-panel-title-old {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 1.6rem; text-transform: uppercase;
+    letter-spacing: 0.04em; margin-bottom: 20px;
+    padding-bottom: 14px; border-bottom: 1px solid var(--card-border);
+  }
+
+  .body-part {
+    fill: rgba(200,216,240,0.10);
+    stroke: rgba(200,216,240,0.30);
+    stroke-width: 1.5;
+    cursor: pointer;
+    transition: fill 0.2s, stroke 0.2s;
+  }
+  .body-part:hover, .body-part.active-part {
+    fill: rgba(200,216,240,0.28);
+    stroke: rgba(200,216,240,0.8);
+  }
+  .body-part-stroke {
+    stroke: rgba(200,216,240,0.30);
+    cursor: pointer;
+    transition: stroke 0.2s;
+  }
+  .body-part-stroke:hover, .body-part-stroke.active-part {
+    stroke: rgba(200,216,240,0.8);
+  }
+  .region-chip {
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em;
+    padding: 6px 12px; border-radius: 6px; cursor: pointer;
+    border: 1px solid var(--card-border);
+    background: var(--card-bg);
+    color: rgba(255,255,255,0.55);
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    display: inline-block;
+  }
+  .region-chip:hover { background: rgba(255,255,255,0.12); color: var(--white); }
+  .region-chip.active-chip { background: rgba(200,216,240,0.2); border-color: var(--pale); color: var(--white); }
+  .case-row.dimmed { opacity: 0.18; pointer-events: none; }
+  .case-row.highlighted { background: rgba(200,216,240,0.12); border-color: rgba(200,216,240,0.4); }
+
+  /* EDITIONS */
+  .editions-grid { display: flex; flex-direction: column; gap: 16px; max-width: 900px; }
+  .edition-card {
+    background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px;
+    padding: 28px 32px; display: grid; grid-template-columns: auto 1fr auto; gap: 24px; align-items: start;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .edition-card:hover { border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.1); }
+  .edition-card.current { border-color: rgba(200,216,240,0.45); background: rgba(200,216,240,0.08); }
+  .edition-num {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 2.4rem;
+    line-height: 1; color: var(--pale); min-width: 56px;
+  }
+  .edition-body h3 {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.35rem;
+    text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.03em;
+  }
+  .edition-date { font-size: 0.78rem; color: rgba(255,255,255,0.45); margin-bottom: 12px; letter-spacing: 0.04em; }
+  .edition-highlights { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .edition-highlights li {
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em;
+    padding: 4px 10px; border-radius: 4px;
+    background: rgba(255,255,255,0.07); border: 1px solid var(--card-border);
+    color: rgba(255,255,255,0.75);
+  }
+  .edition-status {
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 5px 10px; border-radius: 4px; white-space: nowrap; align-self: start;
+  }
+  .edition-status.released { color: var(--navy); background: var(--green); }
+  .edition-status.in-progress { color: var(--navy); background: var(--pale); }
+  .edition-status.planned { color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.08); border: 1px solid var(--card-border); }
+
+  /* SEARCH */
+  .search-wrap { position:relative; max-width:380px; margin-bottom:24px; }
+  .search-wrap input {
+    width:100%; padding:11px 16px; border-radius:8px;
+    border:1px solid var(--card-border); background:var(--card-bg);
+    color:var(--white); font-size:0.88rem; outline:none;
+    transition:border-color 0.2s, background 0.2s;
+  }
+  .search-wrap input:focus { border-color:var(--pale); background:rgba(255,255,255,0.12); }
+  .search-wrap input::placeholder { color:rgba(255,255,255,0.3); }
+  .search-clear { position:absolute; right:10px; top:50%; transform:translateY(-50%); background:none; border:none; color:rgba(255,255,255,0.25); cursor:pointer; font-size:0.75rem; display:none; padding:4px;  font-family: sans-serif; }
+  .search-clear:hover { color:var(--white); }
+  .search-clear.visible { display:block; }
+  .search-empty { text-align:center; padding:40px 20px; color:rgba(255,255,255,0.25); font-size:0.85rem; display:none; }
+
+  /* TIMELINE */
+  .timeline-wrap { margin:16px 0 4px; }
+  .timeline-bar { position:relative; height:6px; background:rgba(255,255,255,0.08); border-radius:3px; margin:0 0 6px; overflow:hidden; }
+  .timeline-fill { height:100%; border-radius:3px; background:linear-gradient(90deg,var(--pale),var(--green)); width:0%; transition:width 0.5s ease; }
+  .timeline-weeks { display:flex; justify-content:space-between; position:relative; margin-bottom:8px; }
+  .timeline-week { display:flex; flex-direction:column; align-items:center; flex:1; position:relative; }
+  .timeline-tick { width:1px; height:8px; background:rgba(255,255,255,0.25); margin-bottom:3px; }
+  .timeline-week-label { font-size:0.55rem; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; color:rgba(255,255,255,0.35); white-space:nowrap; }
+  .timeline-week-desc { font-size:0.6rem; font-weight:600; color:var(--pale); text-align:center; line-height:1.3; margin-top:2px; min-height:2.2em; padding:0 2px; letter-spacing:0.02em; }
+  .timeline-desc { font-size:0.78rem; line-height:1.5; color:rgba(255,255,255,0.5); text-align:center; margin-top:4px; }
+
+  /* READING PROGRESS */
+  .progress-row { display:flex; align-items:center; gap:12px; margin-top:4px; }
+  .progress-track { flex:1; height:4px; background:rgba(255,255,255,0.08); border-radius:2px; overflow:hidden; min-width:80px; }
+  .progress-fill { height:100%; background:var(--green); border-radius:2px; transition:width 0.5s ease; }
+  .progress-num { font-size:0.7rem; font-weight:700; letter-spacing:0.08em; color:var(--pale); white-space:nowrap; }
+  .case-row.read { opacity:0.6; }
+  .case-row.read .case-row-num { color:var(--green); }
+  .case-row.read .case-row-badge.done { opacity:0.5; }
+
+  @media (max-width: 900px) {
+    .body-map-layout { grid-template-columns: 1fr; }
+    .body-svg-wrap { max-width: 240px; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; gap: 16px; }
+    .hero, .section, .body-map-section { padding: 60px 24px; }
+    .about-grid { grid-template-columns: 1fr; }
+    .modal-two-col { grid-template-columns: 1fr; }
+    .modal-header { padding: 28px 24px 20px; }
+    .modal-body { padding: 24px 24px 32px; }
+    .modal-title { font-size: 2rem; }
+    footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
+    .edition-card { grid-template-columns: 1fr; gap: 12px; padding: 24px; }
+    .edition-num { font-size: 1.8rem; }
+    .edition-status { justify-self: start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="circle-bg"><span></span><span></span><span></span><span></span><span></span></div>
+
+<nav>
+  <a href="#" class="nav-logo">HRL <span>|</span> Human Repair Log</a>
+  <a href="#about" class="nav-link">About</a>
+  <a href="#cases" class="nav-link">Cases</a>
+  <a href="#journal" class="nav-link">Journal</a>
+  <a href="#glossary" class="nav-link">Glossary</a>
+  <a href="#editions" class="nav-link">Editions</a>
+  <div class="nav-spacer"></div>
+  <span class="nav-tag">Case Collection 2026</span>
+</nav>
+
+<div class="hero">
+  <p class="hero-eyebrow">A Personal Case Journal</p>
+  <h1>The Human<br><span>Repair</span> Log</h1>
+  <p class="hero-sub">Documenting how the human body breaks, adapts, and heals — from common sports trauma to complex orthopedic cases.</p>
+  <div class="hero-meta">
+    <div class="hero-stat"><div class="num">20</div><div class="label">Cases Filed</div></div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat"><div class="num">3</div><div class="label">Phases Complete</div></div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat" id="readingStat"><div class="num" id="readCount">0</div><div class="label">Cases Read</div></div>
+  </div>
+  <div class="scroll-cue">Scroll to explore</div>
+</div>
+
+<div class="section" id="about">
+  <p class="section-label">About the Project</p>
+  <h2 class="section-title">Every Injury Tells a Story</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>The Human Repair Log documents individual cases concerning how our bodies react to damage, treatment, and rehabilitation. Every case entry explores what happens internally to the body, the resulting symptoms, treatment, and rehabilitation until full function is restored.</p>
+      <p>Each case follows real-life inspired scenarios — from athletes on the field to everyday accidents — and breaks down the biology of healing in plain terms anyone can understand.</p>
+      <p>The project spans four phases of increasing severity, from common sports injuries to extreme orthopedic cases that push the limits of the body's repair systems.</p>
+    </div>
+    <div class="about-card">
+      <h3>Creator &amp; Author</h3>
+      <p>This project was built out of a genuine fascination with how the human body repairs itself after being damaged — exploring the anatomy that allows people to walk, run, play sports, and recover after something goes wrong.</p>
+      <div class="creator">Muntasir Mahir</div>
+    </div>
+  </div>
+</div>
+
+<!-- BODY MAP -->
+<div class="body-map-section" id="cases">
+  <p class="section-label">Interactive Case Files</p>
+  <h2 class="section-title">Explore the Body</h2>
+
+  <div class="body-map-layout">
+
+    <!-- LEFT: body with clickable regions -->
+    <div class="body-map-left">
+      <div class="search-wrap">
+        <input type="text" id="searchInput" placeholder="Search cases by name or body part..." autocomplete="off" style="padding-left:16px;">
+        <button class="search-clear" id="searchClear">&#x2715;</button>
+      </div>
+      <p style="color:rgba(255,255,255,0.45);font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:20px;font-weight:600;">Click a region</p>
+      <div class="body-svg-wrap" id="bodySvgWrap">
+        <svg viewBox="0 0 220 520" xmlns="http://www.w3.org/2000/svg" id="bodySvg">
+          <!-- Head -->
+          <ellipse cx="110" cy="38" rx="28" ry="34" class="body-part" data-region="head"/>
+          <!-- Neck -->
+          <rect x="101" y="68" width="18" height="20" rx="4" class="body-part" data-region="head"/>
+          <!-- Torso -->
+          <path d="M72 88 Q65 92 62 110 Q58 135 60 165 Q62 190 68 205 L152 205 Q158 190 160 165 Q162 135 158 110 Q155 92 148 88 Z" class="body-part" data-region="hip"/>
+          <!-- Left upper arm -->
+          <path d="M70 92 Q54 100 48 120 Q44 138 50 158 Q55 168 64 170" fill="none" class="body-part-stroke" data-region="shoulder" stroke-width="14" stroke-linecap="round"/>
+          <!-- Left forearm -->
+          <path d="M50 158 Q44 172 42 192 Q40 210 44 228 L56 226 Q54 208 56 192 Q58 175 64 170 Z" class="body-part" data-region="wrist"/>
+          <!-- Left hand -->
+          <ellipse cx="50" cy="236" rx="10" ry="14" class="body-part" data-region="wrist"/>
+          <!-- Right upper arm -->
+          <path d="M150 92 Q166 100 172 120 Q176 138 170 158 Q165 168 156 170" fill="none" class="body-part-stroke" data-region="shoulder" stroke-width="14" stroke-linecap="round"/>
+          <!-- Right forearm -->
+          <path d="M170 158 Q176 172 178 192 Q180 210 176 228 L164 226 Q166 208 164 192 Q162 175 156 170 Z" class="body-part" data-region="wrist"/>
+          <!-- Right hand -->
+          <ellipse cx="170" cy="236" rx="10" ry="14" class="body-part" data-region="wrist"/>
+          <!-- Hips -->
+          <path d="M68 205 Q58 215 58 235 Q58 250 68 258 L152 258 Q162 250 162 235 Q162 215 152 205 Z" class="body-part" data-region="hip"/>
+          <!-- Left thigh -->
+          <path d="M68 258 Q60 272 58 300 Q56 325 60 348 L80 348 Q78 325 80 300 Q82 272 80 258 Z" class="body-part" data-region="thigh"/>
+          <!-- Left knee -->
+          <ellipse cx="70" cy="354" rx="20" ry="14" class="body-part" data-region="knee"/>
+          <!-- Left shin -->
+          <path d="M58 364 Q56 392 57 418 Q58 435 62 448 L80 448 Q82 435 82 418 Q82 392 82 364 Z" class="body-part" data-region="shin"/>
+          <!-- Left foot -->
+          <path d="M58 450 Q55 462 56 470 Q57 478 68 480 Q85 482 92 474 Q96 466 92 458 L80 450 Z" class="body-part" data-region="foot"/>
+          <!-- Right thigh -->
+          <path d="M140 258 Q138 272 140 300 Q142 325 140 348 L160 348 Q164 325 162 300 Q160 272 152 258 Z" class="body-part" data-region="thigh"/>
+          <!-- Right knee -->
+          <ellipse cx="150" cy="354" rx="20" ry="14" class="body-part" data-region="knee"/>
+          <!-- Right shin -->
+          <path d="M138 364 Q138 392 138 418 Q138 435 140 448 L158 448 Q162 435 162 418 Q162 392 162 364 Z" class="body-part" data-region="shin"/>
+          <!-- Right foot -->
+          <path d="M138 450 Q124 458 128 470 Q132 480 148 480 Q162 478 162 468 Q164 458 160 450 Z" class="body-part" data-region="foot"/>
+        </svg>
+      </div>
+
+      <!-- Region legend below body -->
+      <div style="margin-top:24px;display:flex;flex-direction:column;gap:6px;">
+        <div class="region-chip" data-region="head">Head</div>
+        <div class="region-chip" data-region="shoulder">Shoulder</div>
+        <div class="region-chip" data-region="wrist">Wrist</div>
+        <div class="region-chip" data-region="hip">Hip</div>
+        <div class="region-chip" data-region="thigh">Thigh</div>
+        <div class="region-chip" data-region="knee">Knee</div>
+        <div class="region-chip" data-region="shin">Shin</div>
+        <div class="region-chip" data-region="foot">Foot &amp; Ankle</div>
+        <div class="region-chip active-chip" id="showAllChip" data-region="all">↩ Show All</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: full case list, grouped by phase -->
+    <div class="case-panel" id="casePanel">
+      <div class="search-empty" id="searchEmpty">No cases match your search.</div>
+
+      <div class="phase-group">
+        <span class="phase-group-label">Phase 1 · Common Sports Injuries</span>
+        <div class="case-row filed" data-case="ankle" data-region="foot"><span class="case-row-num">01</span><span class="case-row-name">Ankle Sprain</span><span class="case-row-zone">Foot &amp; Ankle</span><span class="case-row-badge done">✓</span></div>
+        <div class="case-row filed" data-case="acl" data-region="knee"><span class="case-row-num">02</span><span class="case-row-name">ACL Tear</span><span class="case-row-zone">Knee</span><span class="case-row-badge done">✓</span></div>
+        <div class="case-row filed" data-case="meniscus" data-region="knee"><span class="case-row-num">03</span><span class="case-row-name">Meniscus Tear</span><span class="case-row-zone">Knee</span><span class="case-row-badge done">✓</span></div>
+        <div class="case-row filed" data-case="hamstring" data-region="thigh"><span class="case-row-num">04</span><span class="case-row-name">Hamstring Strain</span><span class="case-row-zone">Thigh</span><span class="case-row-badge done">✓</span></div>
+        <div class="case-row filed" data-case="concussion" data-region="head"><span class="case-row-num">05</span><span class="case-row-name">Concussion</span><span class="case-row-zone">Head</span><span class="case-row-badge done">✓</span></div>
+      </div>
+
+      <div class="phase-group">
+        <span class="phase-group-label">Phase 2 · Moderate Injuries</span>
+        <div class="case-row filed" data-case="stress" data-region="shin"><span class="case-row-num">06</span><span class="case-row-name">Stress Fracture</span><span class="case-row-zone">Shin</span><span class="case-row-badge done">✓</span></div>
+        <div class="case-row filed" data-case="wrist" data-region="wrist"><span class="case-row-num">07</span><span class="case-row-name">Wrist Fracture</span><span class="case-row-zone">Wrist</span><span class="case-row-badge done">✓</span></div>
+        <div class="case-row filed" data-case="rotator" data-region="shoulder"><span class="case-row-num">08</span><span class="case-row-name">Rotator Cuff Tear</span><span class="case-row-zone">Shoulder</span><span class="case-row-badge done">✓</span></div>
+        <div class="case-row filed" data-case="shoulder" data-region="shoulder"><span class="case-row-num">09</span><span class="case-row-name">Dislocated Shoulder</span><span class="case-row-zone">Shoulder</span><span class="case-row-badge done">✓</span></div>
+        <div class="case-row filed" data-case="achilles" data-region="foot"><span class="case-row-num">10</span><span class="case-row-name">Achilles Tendon Rupture</span><span class="case-row-zone">Foot &amp; Ankle</span><span class="case-row-badge done">✓</span></div>
+      </div>
+
+      <div class="phase-group">
+        <span class="phase-group-label">Phase 3 · Major Injuries</span>
+        <div class="case-row filed" data-case="tibia" data-region="shin"><span class="case-row-num">11</span><span class="case-row-name">Tibia/Fibula Fracture</span><span class="case-row-zone">Shin</span><span class="case-row-badge done">✓</span></div>
+        <div class="case-row filed" data-case="mcl_acl" data-region="knee"><span class="case-row-num">12</span><span class="case-row-name">Torn MCL + ACL</span><span class="case-row-zone">Knee</span><span class="case-row-badge done">✓</span></div>
+        <div class="case-row filed" data-case="femur" data-region="thigh"><span class="case-row-num">13</span><span class="case-row-name">Femur Fracture</span><span class="case-row-zone">Thigh</span><span class="case-row-badge done">✓</span></div>
+        <div class="case-row filed" data-case="hip" data-region="hip"><span class="case-row-num">14</span><span class="case-row-name">Hip Labrum Tear</span><span class="case-row-zone">Hip</span><span class="case-row-badge done">✓</span></div>
+        <div class="case-row filed" data-case="multi_ligament" data-region="knee"><span class="case-row-num">15</span><span class="case-row-name">Multiple Ligament Knee</span><span class="case-row-zone">Knee</span><span class="case-row-badge done">✓</span></div>
+      </div>
+
+      <div class="phase-group">
+        <span class="phase-group-label">Phase 4 · Extreme Cases</span>
+        <div class="case-row filed" data-case="ucl" data-region="shoulder"><span class="case-row-num">16</span><span class="case-row-name">UCL Tear</span><span class="case-row-zone">Elbow</span><span class="case-row-badge done">✓</span></div>
+        <div class="case-row filed" data-case="disc" data-region="hip"><span class="case-row-num">17</span><span class="case-row-name">Spinal Disc Herniation</span><span class="case-row-zone">Spine</span><span class="case-row-badge done">✓</span></div>
+        <div class="case-row filed" data-case="patellar" data-region="knee"><span class="case-row-num">18</span><span class="case-row-name">Patellar Tendon Rupture</span><span class="case-row-zone">Knee</span><span class="case-row-badge done">✓</span></div>
+        <div class="case-row filed" data-case="ocd" data-region="knee"><span class="case-row-num">19</span><span class="case-row-name">Osteochondritis Dissecans</span><span class="case-row-zone">Knee</span><span class="case-row-badge done">✓</span></div>
+        <div class="case-row filed" data-case="dislocation" data-region="knee"><span class="case-row-num">20</span><span class="case-row-name">Traumatic Knee Dislocation</span><span class="case-row-zone">Knee</span><span class="case-row-badge done">✓</span></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- AUTHOR'S JOURNAL -->
+<div class="section" id="journal" style="border-top: 1px solid rgba(255,255,255,0.1);">
+  <p class="section-label">Author's Journal</p>
+  <h2 class="section-title">Phase Reflections</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;max-width:900px;">
+
+    <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:32px;">
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#1a3a7c;background:#c8d8f0;padding:3px 9px;border-radius:3px;display:inline-block;margin-bottom:16px;">Phase 1 Reflection</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.4rem;text-transform:uppercase;margin-bottom:16px;line-height:1.1;">What I Learned About Healing</div>
+      <p style="font-size:0.92rem;line-height:1.78;color:rgba(255,255,255,0.82);font-style:italic;">After studying five common sports injuries, I noticed that healing depends heavily on the type of tissue involved. Muscles, ligaments, cartilage, and the brain all respond differently to damage, which explains why recovery timelines can vary so much. I was especially surprised to learn that some injuries, such as ACL tears and concussions, can have long-term effects even after the initial pain disappears. These cases taught me that recovery is not just about reducing symptoms. Instead, it's about restoring function and stability to the body.</p>
+    </div>
+
+    <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:32px;">
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#1a3a7c;background:#c8d8f0;padding:3px 9px;border-radius:3px;display:inline-block;margin-bottom:16px;">Phase 2 Reflection</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.4rem;text-transform:uppercase;margin-bottom:16px;line-height:1.1;">What I Learned About Severe Injuries</div>
+      <p style="font-size:0.92rem;line-height:1.78;color:rgba(255,255,255,0.82);font-style:italic;">The injuries in Phase 2 showed me how important structural support is to the human body. Bones, tendons, and major joints are responsible for movement, stability, and force transmission, so damage to these structures often requires longer recovery periods. I was fascinated by how the body repairs broken bones through remodeling and how tendons can slowly rebuild themselves despite having limited blood supply. The injury that surprised me the most was the Achilles tendon rupture. I expected the strongest tendon in the body to be nearly impossible to tear, but I learned that even it can fail under sudden stress. That challenged my assumption that strength alone protects a structure from injury. Studying these injuries deepened my interest in orthopedic medicine and helped me appreciate the complexity of the healing process.</p>
+    </div>
+
+
+    <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:32px;grid-column:1/-1;">
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#1a3a7c;background:#c8d8f0;padding:3px 9px;border-radius:3px;display:inline-block;margin-bottom:16px;">Phase 3 Reflection</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.4rem;text-transform:uppercase;margin-bottom:16px;line-height:1.1;">What I Learned About Severe Injuries</div>
+      <p style="font-size:0.92rem;line-height:1.78;color:rgba(255,255,255,0.82);font-style:italic;">The injuries in Phase 3 showed me how complex joint stability and movement really are. Ligaments, cartilage, and other soft tissues work together to keep joints functioning properly, and damage to these structures can significantly affect mobility and athletic performance. I was fascinated by how the body responds to these injuries through inflammation, tissue repair, and rehabilitation, even though some structures have a limited ability to heal on their own. The injury that surprised me the most was the hip labrum tear. I did not realize that a small ring of cartilage could play such an important role in stabilizing the hip joint and that a tear could cause long-term pain and movement problems. Studying these injuries deepened my understanding of orthopedic medicine and showed me that successful recovery often depends on both the body's natural healing process and carefully guided rehabilitation.</p>
+    </div>
+  </div>
+</div>
+
+<!-- GLOSSARY -->
+<div class="section" id="glossary" style="border-top: 1px solid rgba(255,255,255,0.1);">
+  <p class="section-label">Reference</p>
+  <h2 class="section-title">Glossary of Terms</h2>
+  <div style="columns:2;column-gap:48px;max-width:900px;" id="glossaryGrid">
+
+    <div style="break-inside:avoid;margin-bottom:18px;">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">A</div>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Adhesion:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">Bands of scar-like tissue that form between internal tissues or organs, often limiting movement after injury.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Ankle:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A joint connecting the foot and lower leg, responsible for movement such as walking, running, and balance.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Anatomy:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The study of the structure of the human body and how its parts are organized.</span></p>
+    </div>
+
+    <div style="break-inside:avoid;margin-bottom:18px;">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">B</div>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Biomechanics:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The study of how forces interact with the human body and how the body responds to movement and stress.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Bruise:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">An injury where small blood vessels break under the skin, causing discoloration and tenderness.</span></p>
+    </div>
+
+    <div style="break-inside:avoid;margin-bottom:18px;">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">C</div>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Cartilage:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A smooth, flexible connective tissue that cushions joints and reduces friction between bones.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Contraction (muscle):</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The process where muscle fibers shorten to produce movement or maintain tension.</span></p>
+    </div>
+
+    <div style="break-inside:avoid;margin-bottom:18px;">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">D</div>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Dislocation:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">An injury where a bone is forced out of its normal position within a joint.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Diagnosis:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The identification of an injury or condition based on symptoms, examination, and evaluation.</span></p>
+    </div>
+
+    <div style="break-inside:avoid;margin-bottom:18px;">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">E</div>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Edema:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">Swelling caused by excess fluid trapped in body tissues, often following injury.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Extension (joint movement):</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A movement that increases the angle between two body parts, such as straightening the knee.</span></p>
+    </div>
+
+    <div style="break-inside:avoid;margin-bottom:18px;">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">F</div>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Fascia:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A layer of connective tissue that surrounds muscles, organs, and structures in the body.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Fracture:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A partial or complete break in a bone caused by trauma or excessive force.</span></p>
+    </div>
+
+    <div style="break-inside:avoid;margin-bottom:18px;">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">G</div>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Gait:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The pattern of walking or movement of the legs and feet.</span></p>
+    </div>
+
+    <div style="break-inside:avoid;margin-bottom:18px;">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">H</div>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Hematoma:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A collection of blood outside blood vessels, usually forming a firm swelling after injury.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Hyperextension:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">An injury caused by a joint being forced beyond its normal range of motion.</span></p>
+    </div>
+
+    <div style="break-inside:avoid;margin-bottom:18px;">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">I</div>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Inflammation:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The body's response to injury, characterized by swelling, redness, heat, and pain.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Immobilization:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">Restricting movement of an injured area to promote healing and prevent further damage.</span></p>
+    </div>
+
+    <div style="break-inside:avoid;margin-bottom:18px;">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">J</div>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Joint:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The connection between two bones that allows movement and flexibility.</span></p>
+    </div>
+
+    <div style="break-inside:avoid;margin-bottom:18px;">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">L</div>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Ligament:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A strong band of tissue that connects bone to bone and stabilizes joints.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Load-bearing:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The ability of bones, muscles, or joints to support body weight and external force.</span></p>
+    </div>
+
+    <div style="break-inside:avoid;margin-bottom:18px;">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">M</div>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Meniscus:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A C-shaped cartilage in the knee that cushions and stabilizes the joint.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Muscle strain:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">An injury caused by overstretching or tearing of muscle fibers or tendons.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Mobility:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The ability of a joint or body part to move freely and easily.</span></p>
+    </div>
+
+    <div style="break-inside:avoid;margin-bottom:18px;">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">N</div>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Nerve:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A structure that carries signals between the brain, spinal cord, and body.</span></p>
+    </div>
+
+    <div style="break-inside:avoid;margin-bottom:18px;">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">O</div>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Orthopedics:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A branch of medicine focused on the musculoskeletal system, including bones, joints, and muscles.</span></p>
+    </div>
+
+    <div style="break-inside:avoid;margin-bottom:18px;">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">P</div>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Pain response:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The body's reaction to injury or harmful stimuli, signaling damage or stress in tissues.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Physiology:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The study of how the body functions and performs its biological processes.</span></p>
+    </div>
+
+    <div style="break-inside:avoid;margin-bottom:18px;">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">R</div>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Range of Motion (ROM):</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The full movement potential of a joint, measured in degrees.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Rehabilitation:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A structured recovery process designed to restore strength, movement, and function after injury.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Repair phase:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The stage of healing where damaged tissue is rebuilt and strengthened.</span></p>
+    </div>
+
+    <div style="break-inside:avoid;margin-bottom:18px;">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">S</div>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Scar tissue:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">Fibrous tissue that replaces normal tissue after injury, often less flexible than original tissue.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Sprain:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">An injury to a ligament caused by stretching or tearing.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Synovial fluid:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A lubricating fluid found in joints that reduces friction and supports smooth movement.</span></p>
+    </div>
+
+    <div style="break-inside:avoid;margin-bottom:18px;">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">T</div>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Tendon:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A strong connective tissue that connects muscle to bone.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Tissue:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A group of similar cells that work together to perform a function in the body.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Trauma:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">Physical injury or damage to the body caused by external force.</span></p>
+    </div>
+
+    <div style="break-inside:avoid;margin-bottom:18px;">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">W</div>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Weight-bearing:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The ability of bones and joints to support the body's weight during movement or standing.</span></p>
+    </div>
+
+  </div>
+</div>
+
+<!-- EDITIONS -->
+<div class="section" id="editions" style="border-top: 1px solid rgba(255,255,255,0.1);">
+  <p class="section-label">Project Roadmap</p>
+  <h2 class="section-title">Editions</h2>
+  <p style="font-size:0.95rem;line-height:1.7;color:rgba(255,255,255,0.65);max-width:640px;margin:-32px 0 40px;">Each edition marks a major milestone — not a calendar deadline. New releases ship when the work is ready.</p>
+
+  <div class="editions-grid">
+
+    <div class="edition-card current">
+      <div class="edition-num">1.0</div>
+      <div class="edition-body">
+        <h3>First Edition</h3>
+        <p class="edition-date">Released · June 2026</p>
+        <ul class="edition-highlights">
+          <li>20 cases</li>
+          <li>4 phases</li>
+          <li>Glossary</li>
+          <li>Website launch</li>
+        </ul>
+      </div>
+      <span class="edition-status released">Released</span>
+    </div>
+
+    <div class="edition-card current">
+      <div class="edition-num">1.5</div>
+      <div class="edition-body">
+        <h3>Feature Update</h3>
+        <p class="edition-date">Released · July 2026</p>
+        <ul class="edition-highlights">
+          <li>Search bar</li>
+          <li>Individual case pages</li>
+          <li>Recovery timelines</li>
+          <li>Reading progress</li>
+        </ul>
+      </div>
+      <span class="edition-status released">Released</span>
+    </div>
+
+    <div class="edition-card">
+      <div class="edition-num">2.0</div>
+      <div class="edition-body">
+        <h3>Expanded Collection</h3>
+        <p class="edition-date">Planned</p>
+        <ul class="edition-highlights">
+          <li>15 new cases</li>
+          <li>5–6 phases</li>
+          <li>Improved body map</li>
+          <li>Related case links</li>
+        </ul>
+      </div>
+      <span class="edition-status planned">Planned</span>
+    </div>
+
+    <div class="edition-card">
+      <div class="edition-num">3.0</div>
+      <div class="edition-body">
+        <h3>Major Overhaul</h3>
+        <p class="edition-date">Planned</p>
+        <ul class="edition-highlights">
+          <li>Pediatric injuries</li>
+          <li>Expanded glossary</li>
+          <li>Design overhaul</li>
+          <li>Interactive skeleton</li>
+        </ul>
+      </div>
+      <span class="edition-status planned">Planned</span>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">HRL | The Human Repair Log</div>
+  <div class="footer-right">Case Collection 2026 · By Muntasir Mahir<br>Every injury tells a story of damage, adaptation, and repair.</div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modal">
+    <div class="modal-circles"><span></span><span></span></div>
+    <div class="modal-header">
+      <div class="modal-phase-tag" id="modalPhaseTag"></div>
+      <div class="modal-title" id="modalTitle"></div>
+      <div class="modal-date" id="modalDate"></div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+
+<script>
+const cases = {
+  ankle: { phase:"Phase 1 · Common Sports Injuries",title:"Case 01: Ankle Sprain",date:"6/12/2026",weeks:[{label:"Wk 1",desc:"Rest & Ice"},{label:"Wk 2",desc:"Motion"},{label:"Wk 3",desc:"Walking"},{label:"Wk 4-6",desc:"Strength & Return"}],risks:"Chronic instability, recurrent sprains, peroneal tendonitis, and post-traumatic arthritis if ligaments heal in a lengthened position.",mechanism:"Inversion force exceeds lateral ligament tensile strength, causing Grade I-III fiber disruption in the anterior talofibular ligament. Proprioceptive fibers are also damaged, reducing ankle position sense.",patient:{name:"Maya, Age 14",story:"Maya was playing badminton during gym class when she jumped to reach a shot. As she landed, her foot rolled inward. She immediately felt a sharp pain in her ankle and had trouble putting weight on it. Within an hour, her ankle became swollen and bruised. At the doctor\'s office, she learned she had suffered a lateral ankle sprain."},inside:"Ligaments are tough, fibrous tissues that connect bone to bone to stabilize your joints. During an ankle sprain, a sudden twist forces the joint beyond its normal range, overstretching or tearing these fibers to varying degrees.",symptoms:["Pain around the ankle joint","Swelling and inflammation","Difficulty putting weight on the foot","A feeling of instability or weakness in the ankle"],treatment:["Resting the ankle and avoiding stress","Ice to reduce swelling","Compression with bandages or wraps","Elevate the ankle to reduce inflammation","Gradual movement and rehabilitation exercises once pain decreases"],recovery:"Ankle sprain recovery takes 1–3 weeks for mild sprains (Grade I) and 3–6 weeks for partial tears (Grade II). Complete tears (Grade III) can take 2–4 months or longer.",insight:"The body first triggers inflammation to clear dead tissue and bring healing cells to the area. It then lays down new collagen fibers, which gradually strengthen and align over months to restore joint stability." },
+  acl: { phase:"Phase 1 · Common Sports Injuries",title:"Case 02: ACL Tear",date:"6/13/2026",weeks:[{label:"Wk 1-2",desc:"Brace & rest"},{label:"Wk 4-8",desc:"PT begins"},{label:"Mo 3",desc:"Strength"},{label:"Mo 6",desc:"Running"},{label:"Mo 9-12",desc:"Sport return"}],risks:"Graft failure or re-rupture (2-5%), persistent knee instability, secondary meniscal tears, early-onset osteoarthritis.",mechanism:"Sudden deceleration with rotational torque exceeds ACL load tolerance (~2000 N), causing partial or complete midsubstance rupture. Loss of tibiofemoral restraint leads to anterior translation of the tibia.",patient:{name:"Jordan, Age 15",story:"Jordan was playing soccer when he quickly changed direction to avoid a defender. As he planted his foot and twisted, he felt a sudden pop in his knee. It became swollen immediately and he couldn\'t stand without his knee giving way. An MRI confirmed a torn ACL."},inside:"The ACL is a strong band of tissue in the knee that keeps the joint stable during movement. A sudden twist or pivot places too much force on the ligament, causing it to stretch or tear, leading to instability and swelling.",symptoms:["Sudden pain after twisting movement","Rapid swelling","Difficulty walking or bearing weight","Knee \'giving way\' sensation","Reduced range of motion"],treatment:["Rest and ice to reduce swelling","Brace or crutches for support","Physical therapy to restore strength","Surgery for complete tears in active individuals","9–12 month recovery protocol"],recovery:"Partial tears may recover in 3–6 months. Full ACL reconstruction surgery requires 9–12 months before return to sport.",insight:"The ACL has very poor blood supply and cannot regenerate on its own. Surgical grafts — often from the patient\'s own patellar tendon — are incorporated through a process called ligamentization over many months." },
+  meniscus: { phase:"Phase 1 · Common Sports Injuries",title:"Case 03: Meniscus Tear",date:"6/14/2026",weeks:[{label:"Wk 1",desc:"Rest"},{label:"Wk 3",desc:"Motion"},{label:"Wk 6",desc:"Return (minor)"},{label:"Mo 3-6",desc:"Full (surgery)"}],risks:"Joint locking, recurrent catching, knee instability, and accelerated cartilage wear leading to osteoarthritis if left untreated.",mechanism:"Axial loading with rotational shear traps the medial meniscus between femoral condyle and tibial plateau, creating radial or bucket-handle tears. The inner two-thirds lack vascular supply, preventing spontaneous healing.",patient:{name:"Aisha, Age 16",story:"Aisha landed awkwardly after a basketball jump and felt a pop in her knee. Pain and swelling followed over the next few days, especially when twisting or fully bending the knee. An MRI confirmed a torn medial meniscus."},inside:"The meniscus is a C-shaped cartilage cushion between the thigh and shin bones. Twisting while bearing weight can tear it. The outer edge can heal due to blood supply, but inner tears often need surgery.",symptoms:["Pain when twisting the knee","Swelling and stiffness","Difficulty straightening fully","Feeling of the knee catching or locking","Knee giving way"],treatment:["RICE protocol","Anti-inflammatory medications","Physical therapy","Arthroscopic surgery for larger tears","Gradual return to activity"],recovery:"Minor tears heal in 6–8 weeks. Surgery cases typically recover in 3–6 months.",insight:"The meniscus\'s inner two-thirds have no blood supply, so the body can\'t heal those zones naturally. Surgery is often required to either repair or remove the torn section to restore smooth joint movement." },
+  hamstring: { phase:"Phase 1 · Common Sports Injuries",title:"Case 04: Hamstring Strain",date:"6/15/2026",weeks:[{label:"Wk 1",desc:"Rest & Ice"},{label:"Wk 2",desc:"Light stretch"},{label:"Wk 4",desc:"Strength"},{label:"Wk 8",desc:"Return"},{label:"Mo 3-6",desc:"Full (Grade III)"}],risks:"High re-injury rate (up to 30%), chronic hamstring tightness, scar tissue formation, and reduced running speed.",mechanism:"Eccentric overload during terminal swing phase of sprinting exceeds muscle-tendon unit extensibility, causing sarcomere disruption near the proximal myotendinous junction of the biceps femoris.",patient:{name:"Marcus, Age 17",story:"Marcus felt a sudden sharp pain at the back of his thigh while sprinting at track practice. By the next morning, bruising had appeared. His coach referred him to a sports medicine doctor who diagnosed a Grade II hamstring strain."},inside:"The hamstring is a group of three muscles at the back of the thigh. A strain occurs when fibers are overstretched during explosive movements like sprinting. Severity is graded I–III based on how many fibers tear.",symptoms:["Sudden sharp pain at the back of the thigh","Tenderness and swelling","Bruising 24–48 hours later","Weakness in the leg","Pain when bending the knee against resistance"],treatment:["Immediate rest","Ice for 48–72 hours","Compression bandaging","Progressive physical therapy","Gradual return to full activity"],recovery:"Grade I: 1–3 weeks. Grade II: 4–8 weeks. Grade III: 3–6 months, may need surgery.",insight:"Hamstring repair follows three phases: inflammation (days 1–5), proliferation (days 5–21), and remodeling (weeks to months). Controlled loading during physical therapy helps realign collagen fibers for stronger healing." },
+  concussion: { phase:"Phase 1 · Common Sports Injuries",title:"Case 05: Concussion",date:"6/16/2026",weeks:[{label:"Day 1-2",desc:"Complete rest"},{label:"Day 4",desc:"Light activity"},{label:"Day 7",desc:"School"},{label:"Day 10",desc:"Sport clearance"}],risks:"Second-impact syndrome (catastrophic), post-concussion syndrome, persistent headaches, cognitive deficits, and increased risk of future concussions.",mechanism:"Linear or rotational acceleration of the brain within the skull stretches neuronal axons and disrupts cellular ion homeostasis, triggering a neurometabolic cascade of glucose depletion and reduced cerebral blood flow.",patient:{name:"Liam, Age 14",story:"Liam collided with another player while going for a header in soccer. He felt dizzy and developed a headache, making it difficult to focus. After evaluation, he was diagnosed with a concussion."},inside:"A concussion is a mild traumatic brain injury from a sudden jolt that makes the brain move inside the skull. This stretches brain cells and disrupts neural communication, temporarily affecting memory, balance, and coordination.",symptoms:["Headache","Dizziness or balance problems","Nausea","Sensitivity to light or noise","Difficulty concentrating","Fatigue and confusion"],treatment:["Physical and mental rest","Limiting symptom-worsening activities","Gradual return to school and activity","Doctor-supervised return-to-play protocol","Monitor for worsening symptoms"],recovery:"Most concussions resolve in 7–10 days. Young athletes take longer. Medical clearance is required before contact sports.",insight:"A concussion triggers a neurometabolic cascade — neurons fire uncontrollably, depleting glucose and disrupting ion balance. The brain is then in a vulnerable window where second-impact syndrome can be catastrophic, making rest medically essential." },
+  stress: { phase:"Phase 2 · Moderate Injuries",title:"Case 06: Stress Fracture",date:"6/17/2026",weeks:[{label:"Wk 1-2",desc:"Rest & boot"},{label:"Wk 4",desc:"Walking"},{label:"Wk 6",desc:"Jogging"},{label:"Wk 8-12",desc:"Full return"}],risks:"Complete bone fracture, delayed union or non-union, chronic exertional compartment syndrome, and stress reactions in other bones if biomechanics are not corrected.",mechanism:"Repetitive submaximal loading exceeds bone remodeling capacity, causing microcrack accumulation along the compression side of the tibial cortex. Without rest, crack propagation outpaces osteonal repair.",patient:{name:"Sofia, Age 15",story:"Sofia began noticing a dull ache in her lower leg during intensive cross-country training. After weeks of pushing through, imaging confirmed a stress fracture in her tibia."},inside:"A stress fracture is a tiny crack in a bone caused by repetitive force rather than a single traumatic event. Repeated impact from running creates microscopic damage faster than the bone can repair itself, gradually weakening its structure. As the damage builds up, the bone becomes painful and may eventually develop a small fracture.",symptoms:["Pain that worsens with activity","Tenderness over the affected bone","Mild swelling","Pain that improves with rest","Difficulty running or jumping","Pain that gradually becomes more severe over time"],treatment:["Rest from high-impact activities","Ice to reduce pain and swelling","Wearing a walking boot or brace if needed","Physical therapy to restore strength","Gradual return to activity after the bone heals"],recovery:"Recovery usually takes 6 to 8 weeks, although more severe stress fractures may require up to 12 weeks. Returning to sports too early can increase the risk of a complete fracture, so activity should be resumed gradually.",insight:"Stress fractures demonstrate that bones are constantly rebuilding themselves through a process called remodeling. When repetitive stress exceeds the bone\'s ability to repair microscopic damage, small cracks begin to form. With proper rest and reduced impact, the body replaces the damaged bone with stronger new tissue, allowing the bone to regain its strength." },
+  wrist: { phase:"Phase 2 · Moderate Injuries",title:"Case 07: Wrist Fracture",date:"6/18/2026",weeks:[{label:"Wk 1",desc:"Cast applied"},{label:"Wk 3",desc:"Healing"},{label:"Wk 6",desc:"Cast off"},{label:"Wk 8",desc:"Strength"},{label:"Mo 3-6",desc:"Full return"}],risks:"Malunion or non-union, carpal tunnel syndrome, complex regional pain syndrome (CRPS), and long-term wrist stiffness.",mechanism:"Fall onto outstretched hand (FOOSH) transmits axial compression through the carpus to the distal radial metaphysis, causing failure at the weakest cortical point — typically 2-3 cm proximal to the joint surface.",patient:{name:"Ethan, Age 13",story:"Ethan fell off his skateboard and instinctively threw his hands out to catch himself. He felt immediate pain and noticed swelling and deformity. An X-ray revealed a distal radius fracture — the most common wrist fracture."},inside:"A wrist fracture usually occurs when the force of a fall travels through the hand into the bones of the wrist, most commonly the radius. The impact causes the bone to crack or break, damaging nearby blood vessels and soft tissues. Almost immediately, the body begins an inflammatory response, sending blood cells and healing proteins to the fracture site to start the repair process.",symptoms:["Severe wrist pain","Swelling and bruising","Difficulty moving the wrist","Tenderness to the touch","Visible deformity in severe fractures","Weak grip strength"],treatment:["Immobilizing the wrist with a splint or cast","Ice and elevation to reduce swelling","Pain medication if needed","Surgery for displaced or severe fractures","Physical therapy after the bone has healed"],recovery:"Most wrist fractures heal within 6 to 8 weeks, although more severe fractures may require 3 to 6 months for full recovery. Strength and flexibility gradually return through rehabilitation before normal activities can be resumed.",insight:"A wrist fracture highlights the body\'s ability to rebuild damaged bone through a process called bone remodeling. After inflammation clears away damaged tissue, new bone begins forming around the fracture, creating a callus that reconnects the broken pieces. Over time, the body reshapes and strengthens the new bone until the wrist regains much of its normal function." },
+  rotator: { phase:"Phase 2 · Moderate Injuries",title:"Case 08: Rotator Cuff Tear",date:"6/19/2026",weeks:[{label:"Wk 1-2",desc:"Rest & sling"},{label:"Wk 4",desc:"PT start"},{label:"Mo 3",desc:"Strength"},{label:"Mo 6",desc:"Return"},{label:"Mo 9-12",desc:"Full strength"}],risks:"Re-tear (up to 25%), frozen shoulder (adhesive capsulitis), persistent weakness, and progression to cuff tear arthropathy.",mechanism:"Chronic repetitive overhead activity leads to tendon degeneration and neovascularization. Acute overload on the degenerated supraspinatus insertion causes partial or full-thickness avulsion from the greater tuberosity.",patient:{name:"Coach Rivera, Age 38",story:"Coach Rivera had chronic shoulder pain before suddenly reaching to catch a ball, feeling sharp pain and immediate weakness. An MRI confirmed a partial supraspinatus tendon tear — the most commonly torn rotator cuff muscle."},inside:"The rotator cuff is a group of four muscles and tendons that stabilize the shoulder and allow it to move in many directions. When Daniel threw the ball, excessive force caused one of these tendons to tear, reducing the shoulder\'s strength and stability. The injury triggered inflammation around the torn tendon, leading to pain, swelling, and difficulty moving the arm.",symptoms:["Shoulder pain, especially when lifting the arm","Weakness in the shoulder","Difficulty reaching overhead","Pain during throwing or lifting","Limited range of motion","Clicking or popping sensations in the shoulder"],treatment:["Rest and avoiding activities that worsen the pain","Ice to reduce inflammation","Physical therapy to restore strength and mobility","Anti-inflammatory medications if recommended","Surgery for severe or complete tendon tears"],recovery:"Partial tears treated conservatively often improve in 3 to 6 months. Surgical repair of complete tears typically requires 4 to 6 months before return to full activity, with some patients needing up to a year.",insight:"Tendons have poor blood supply compared to muscle, which slows healing. After surgical reattachment, tendons heal to bone through a fibrovascular scar — not true tendon-to-bone integration. The healing interface gradually matures over 12 to 18 months, which is why physical therapy timing and load progression are critical to long-term success." },
+  shoulder: { phase:"Phase 2 · Moderate Injuries",title:"Case 09: Dislocated Shoulder",date:"6/20/2026",weeks:[{label:"Wk 1-2",desc:"Sling"},{label:"Wk 4",desc:"Motion"},{label:"Wk 8",desc:"Strength"},{label:"Mo 4-6",desc:"Return"}],risks:"High recurrence rate in young athletes (up to 90%), Bankart lesions, Hill-Sachs defects, and early glenohumeral arthritis.",mechanism:"Forced abduction and external rotation levers the humeral head anteriorly out of the glenoid fossa, tearing the inferior glenohumeral ligament complex and often stripping the anterior labrum (Bankart lesion).",patient:{name:"Tyler, Age 16",story:"Tyler was tackled in football, his arm forced outward. He heard a pop and couldn\'t move his shoulder. The deformity was visible — his shoulder looked squared off. ER confirmed an anterior shoulder dislocation and performed closed reduction."},inside:"A shoulder dislocation occurs when the head of the upper arm bone (humerus) is forced out of the shoulder socket. As the joint dislocates, the surrounding ligaments, joint capsule, and muscles are stretched or torn, making the shoulder unstable. The injury also triggers inflammation, causing pain, swelling, and muscle spasms that make moving the shoulder extremely difficult.",symptoms:["Severe shoulder pain","Visible deformity or the shoulder appearing out of place","Inability to move the arm normally","Swelling and bruising","Weakness or numbness in the arm","Muscle spasms around the shoulder"],treatment:["A doctor carefully repositions the shoulder into the socket","Immobilizing the shoulder with a sling","Ice to reduce pain and swelling","Physical therapy to restore strength and stability","Surgery for severe or recurring dislocations"],recovery:"Initial recovery from a first-time dislocation takes 4 to 8 weeks. Young athletes face a high recurrence rate without proper rehabilitation. Surgical stabilization has a much lower recurrence rate but requires 4 to 6 months of recovery.",insight:"First-time shoulder dislocations often damage the anterior labrum in what\'s called a Bankart lesion — a tear of the cartilage rim that deepens the socket. The younger the patient, the higher the recurrence rate, because the soft tissues are more elastic and the bone hasn\'t fully matured, making stable healing harder without surgical intervention." },
+
+
+  femur: {
+    phase:"Phase 3 · Major Injuries", title:"Case 13: Femur Fracture", date:"6/24/2026",
+    weeks:[{label:"Wk 1-2",desc:"Surgery"},{label:"Wk 6",desc:"Healing"},{label:"Mo 3",desc:"Walking"},{label:"Mo 6",desc:"Strength"},{label:"Mo 9-12",desc:"Return"}],
+    risks:"Avascular necrosis of the femoral head, non-union, DVT/pulmonary embolism, nerve injury (sciatic), and leg length discrepancy.",
+    mechanism:"High-energy axial load transmitted through the knee to the femoral shaft exceeds cortical bone yield strength. The thick femoral cortex creates a stress riser, often producing bending or comminuted fracture patterns with significant soft tissue stripping.",
+    patient:{name:"Olivia, Age 15", story:"Olivia was playing basketball when she jumped to grab a rebound and collided with another player. She landed awkwardly on her arm and immediately felt intense pain in her shoulder. At the emergency room, doctors confirmed that she had suffered a dislocated shoulder."},
+    inside:"A shoulder dislocation occurs when the head of the upper arm bone (humerus) is forced out of the shoulder socket. As the joint dislocates, the surrounding ligaments, joint capsule, and muscles are stretched or torn, making the shoulder unstable. The injury also triggers inflammation, causing pain, swelling, and muscle spasms that make moving the shoulder extremely difficult.",
+    symptoms:["Severe shoulder pain","Visible deformity or the shoulder appearing out of place","Inability to move the arm normally","Swelling and bruising","Weakness or numbness in the arm","Muscle spasms around the shoulder"],
+    treatment:["A doctor carefully repositions the shoulder into the socket","Immobilizing the shoulder with a sling","Ice to reduce pain and swelling","Physical therapy to restore strength and stability","Surgery for severe or recurring dislocations"],
+    recovery:"Initial recovery from a first-time dislocation takes 4 to 8 weeks. Young athletes face a high recurrence rate without proper rehabilitation. Surgical stabilization has a much lower recurrence rate but requires 4 to 6 months of recovery.",
+    insight:"First-time shoulder dislocations often damage the anterior labrum in what\'s called a Bankart lesion — a tear of the cartilage rim that deepens the socket. The younger the patient, the higher the recurrence rate, because the soft tissues are more elastic and the bone hasn\'t fully matured, making stable healing harder without surgical intervention."
+  },
+  hip: {
+    phase:"Phase 3 · Major Injuries", title:"Case 14: Hip Labrum Tear", date:"6/24/2026",
+    weeks:[{label:"Wk 1-2",desc:"Rest"},{label:"Wk 4",desc:"PT start"},{label:"Wk 8-12",desc:"Strength"},{label:"Mo 4-6",desc:"Return"}],
+    risks:"Chronic groin pain, labrum re-tear, femoroacetabular impingement (FAI), and early hip osteoarthritis.",
+    mechanism:"Repetitive pivoting or hip hyperextension causes shear stress at the chondrolabral junction, peeling the labrum from the acetabular rim. The labrum's limited vascularity restricts healing, and the tear disrupts the joint's suction seal.",
+    inside:"The labrum is a ring of cartilage that surrounds the hip socket, helping keep the ball of the femur securely in place. When Sofia twisted her hip, part of this cartilage tore, reducing the stability and cushioning of the joint. The tear can also cause the damaged tissue to catch between moving bones, leading to pain, clicking, or locking sensations.",
+    symptoms:["Deep pain in the hip or groin","Clicking, popping, or locking sensations","Stiffness in the hip joint","Pain during running, twisting, or squatting","Reduced range of motion","Discomfort after sitting for long periods"],
+    treatment:["Rest and activity modification","Ice to reduce pain and inflammation","Physical therapy to strengthen surrounding muscles","Anti-inflammatory medications if recommended","Arthroscopic surgery for severe or persistent tears"],
+    recovery:"Recovery from a hip labrum tear can take 6 to 12 weeks with rest and physical therapy. If surgery is needed, recovery may take 4 to 6 months before returning to sports and high-impact activities.",
+    insight:"Unlike bone, cartilage has a limited blood supply, which makes labrum injuries slower to heal. The body works to reduce inflammation and strengthen the muscles around the hip to improve stability and protect the joint. In more severe cases, surgery may be needed to repair or remove damaged portions of the labrum so smooth movement can return."
+  },
+  multi_ligament: {
+    phase:"Phase 3 · Major Injuries", title:"Case 15: Multiple Ligament Knee Injury", date:"6/24/2026",
+    weeks:[{label:"Wk 1-4",desc:"Brace"},{label:"Mo 3",desc:"PT start"},{label:"Mo 6",desc:"Walking"},{label:"Mo 9",desc:"Strength"},{label:"Mo 12-18",desc:"Return"}],
+    risks:"Severe knee stiffness (arthrofibrosis), persistent instability, peroneal nerve injury, vascular compromise, and advanced post-traumatic arthritis.",
+    mechanism:"Knee dislocation from high-energy trauma sequentially ruptures ACL, PCL, collateral ligaments, and often the posterolateral corner. The popliteal artery is stretched or torn, creating a limb-threatening vascular emergency requiring immediate reduction.",
+    inside:"The knee relies on several ligaments working together to keep the joint stable during movement. When a powerful twisting force or direct impact occurs, multiple ligaments can tear at the same time, causing the knee to lose much of its stability. The injury triggers immediate inflammation, swelling, and bleeding within the joint as the body begins responding to the damage.",
+    symptoms:["A popping sensation during the injury","Severe pain and swelling","Difficulty or inability to walk","Knee instability or giving way","Reduced range of motion","Bruising around the knee"],
+    treatment:["Rest and protection of the knee","Ice and elevation to reduce swelling","Crutches and knee bracing","Physical therapy","Surgical reconstruction or repair of damaged ligaments in severe cases"],
+    recovery:"Recovery often takes 9 to 18 months, depending on the number of ligaments injured and whether surgery is required. Rehabilitation is lengthy and focuses on restoring strength, stability, flexibility, and normal movement patterns before returning to sports.",
+    insight:"Multiple ligament knee injuries are among the most serious joint injuries because several stabilizing structures are damaged at once. While the body begins repairing tissue immediately through inflammation and scar tissue formation, some ligaments have limited healing ability and may require surgical reconstruction. Recovery depends heavily on rehabilitation, which helps retrain the muscles and joint to work together and restore stability."
+  },
+  tibia: {
+    phase:"Phase 3 · Major Injuries", title:"Case 11: Tibia/Fibula Fracture", date:"6/23/2026",
+    weeks:[{label:"Wk 1",desc:"Cast/surgery"},{label:"Wk 6",desc:"Healing"},{label:"Mo 3",desc:"Walking"},{label:"Mo 6",desc:"Return"}],
+    risks:"Compartment syndrome, non-union or malunion, infection (if open fracture), DVT, and long-term gait abnormalities.",
+    mechanism:"High-energy direct blow or rotational force causes bending or spiral failure of the tibial diaphysis. The fibula fractures concomitantly in ~80% of cases, destabilizing the ankle mortise.",
+    patient:{name:"Ethan, Age 16", story:"Ethan was playing soccer when another player accidentally slid into his lower leg during a tackle. He immediately felt intense pain and was unable to stand or put weight on the injured leg. At the hospital, X-rays revealed that he had suffered a tibia and fibula fracture."},
+    inside:"The tibia (shinbone) and fibula are the two bones that make up the lower leg. A tibia/fibula fracture occurs when a strong force causes one or both bones to crack or break. This injury can damage nearby muscles, blood vessels, and soft tissues while triggering the body\'s bone-healing response.",
+    symptoms:["Severe pain in the lower leg","Inability to stand or walk","Swelling and bruising","Tenderness around the fracture site","A visible deformity in more severe fractures"],
+    treatment:["Immobilizing the leg with a splint or cast","Avoiding weight-bearing on the injured leg","Applying ice and elevating the leg to reduce swelling","Physical therapy after the bone begins to heal","Surgery may be required to realign and stabilize the bones with plates, screws, or rods"],
+    recovery:"Most tibia and fibula fractures take 3 to 6 months to heal, depending on severity. Complex fractures or those requiring surgery may take 6 months or longer before a full return to sports.",
+    insight:"When the tibia or fibula breaks, the body first forms a blood clot around the fracture to protect the injured area. Specialized bone-building cells then create a soft callus that gradually hardens into new bone. Over time, the bone remodels itself, restoring strength and helping the leg return to normal function."
+  },
+  mcl_acl: {
+    phase:"Phase 3 · Major Injuries", title:"Case 12: Torn MCL + ACL", date:"6/24/2026",
+    weeks:[{label:"Wk 1-2",desc:"Brace"},{label:"Wk 6",desc:"PT start"},{label:"Mo 3",desc:"Strength"},{label:"Mo 6",desc:"Running"},{label:"Mo 9-12",desc:"Sport"}],
+    risks:"Persistent knee instability, arthrofibrosis (stiffness), graft failure, meniscal re-tear, and early osteoarthritis.",
+    mechanism:"Valgus force with external rotation of the tibia sequentially disrupts the MCL (primary medial restraint) then the ACL (secondary rotational restraint), creating combined coronal and sagittal plane instability.",
+    patient:{name:"Ryan, Age 17", story:"Ryan was playing football when he was tackled from the side while his foot was planted firmly on the ground. He felt a painful pop in his knee and immediately collapsed. His knee swelled rapidly, and after an MRI, doctors determined that he had torn both his Medial Collateral Ligament (MCL) and Anterior Cruciate Ligament (ACL)."},
+    inside:"The ACL helps prevent the shin bone from sliding forward, while the MCL stabilizes the inner side of the knee. A strong twisting force combined with a blow to the side of the knee can tear both ligaments at the same time. This causes severe instability, making it difficult for the knee to support normal movement.",
+    symptoms:["A popping sensation at the time of injury","Rapid swelling of the knee","Severe pain and tenderness","Difficulty walking or bearing weight","A feeling that the knee is unstable or giving way","Reduced range of motion"],
+    treatment:["Resting and protecting the injured knee","Applying ice to reduce swelling and pain","Using crutches or a knee brace for support","Physical therapy to restore strength and mobility","Surgery is often required to reconstruct the ACL and repair associated damage"],
+    recovery:"Recovery from a combined MCL and ACL injury typically takes 6 to 12 months or longer. Many athletes require surgery followed by extensive rehabilitation before safely returning to sports.",
+    insight:"When both the MCL and ACL are torn, the body immediately triggers inflammation to remove damaged tissue and begin repairs. While the MCL often has the ability to heal on its own due to better blood supply, the ACL has a limited healing capacity and frequently requires surgical reconstruction. Rehabilitation plays a critical role in rebuilding strength, stability, and coordination throughout the recovery process."
+  },
+  achilles: { phase:"Phase 2 · Moderate Injuries",title:"Case 10: Achilles Tendon Rupture",date:"6/21/2026",weeks:[{label:"Wk 1-2",desc:"Cast/boot"},{label:"Wk 6",desc:"Walking"},{label:"Mo 3",desc:"Jogging"},{label:"Mo 6",desc:"Strength"},{label:"Mo 9-12",desc:"Sport"}],risks:"Re-rupture (2% surgical vs 10-15% conservative), persistent calf weakness, gait asymmetry, and deep vein thrombosis (DVT).",mechanism:"Sudden eccentric load on a dorsiflexed ankle generates forces exceeding tendon tensile strength, causing complete midsubstance rupture 2-6 cm above the calcaneal insertion — the region of poorest vascular supply.",patient:{name:"Mr. Davidson, Age 42",story:"Mr. Davidson was playing recreational basketball when he pushed off to sprint and heard a loud pop in his lower leg — thinking he had been kicked, but no one was near him. He couldn\'t push off his foot at all. ER confirmed a complete Achilles tendon rupture."},inside:"The Achilles is the largest tendon in the body, connecting the calf to the heel bone. Ruptures occur during explosive push-off movements with sudden eccentric load. Middle-aged recreational athletes are most at risk.",symptoms:["Sudden loud pop at the back of the ankle","Sharp heel pain that may ease quickly","Swelling and bruising","Inability to push off or stand on tiptoe","Palpable gap in the tendon"],treatment:["Surgical repair recommended for active individuals","Conservative boot treatment for some patients","Non-weight-bearing 4–6 weeks post-surgery","Progressive physical therapy","Return to sport at 9–12 months"],recovery:"Full recovery takes 6–12 months. Re-rupture rate: ~2% with surgery vs 10–15% without.",insight:"The Achilles heals through scar tissue, not true regeneration. Scar tissue is weaker and less elastic than native tendon. Progressive loading during rehab signals tenocytes to produce aligned collagen, gradually restoring function." },
+  ucl: {
+    phase:"Phase 4 · Extreme Cases", title:"Case 16: UCL Tear", date:"7/1/2026",
+    weeks:[{label:"Wk 1-2",desc:"Rest & brace"},{label:"Wk 6",desc:"Motion"},{label:"Mo 3-4",desc:"Strength"},{label:"Mo 6-9",desc:"Throwing"},{label:"Mo 9-14",desc:"Sport"}],
+    risks:"Re-tear after Tommy John surgery (5-10%), ulnar nerve damage, loss of elbow extension, and inability to return to previous throwing velocity.",
+    mechanism:"Repetitive valgus stress during overhead throwing causes microtrauma accumulation in the anterior bundle of the UCL. A single high-velocity throw exceeds the ligament's ultimate tensile strength, causing complete midsubstance rupture at the epicondylar origin.",
+    inside:"The elbow relies on the ulnar collateral ligament (UCL) to keep the joint stable against the massive forces generated during throwing. When an extreme overhead force or sudden overstretch occurs, the ligament can tear completely, causing the elbow to lose its structural stability. The injury triggers immediate inflammation and swelling, while stretching of the nearby ulnar nerve causes tingling sensations to shoot down the arm into the fingers.",
+    symptoms:["A popping sensation during the injury","Severe pain and swelling on the inner elbow","Difficulty or inability to throw or grip objects","Elbow instability or a feeling of giving way","Reduced range of motion when straightening the arm","Bruising along the inside of the arm","Numbness or tingling in the pinky and ring fingers"],
+    treatment:["Rest and activity modification","Ice and anti-inflammatory medications","A hinged elbow brace","Targeted physical therapy","Platelet-rich plasma (PRP) injections","Tommy John surgery","Ligament repair with internal bracing","A structured throwing program"],
+    recovery:"Recovery from a UCL tear can take 6 to 12 weeks with rest and physical therapy for partial tears. If surgery is needed, recovery may take 9 to 14 months before returning to competitive throwing and high-impact sports. Most patients gradually regain strength, stability, and range of motion through a structured rehabilitation program.",
+    insight:"The ulnar collateral ligament is the primary stabilizer of the elbow against the extreme stress of overhead throwing. Over time, repetitive motion can cause micro-tears that weaken the tissue until a single high-effort move causes a complete structural failure. While surgical reconstruction is highly successful, the long recovery demands intense physical and mental commitment from the patient. Ultimate success relies heavily on correcting throwing mechanics and managing future workloads to avoid re-injury."
+  },
+  disc: {
+    phase:"Phase 4 · Extreme Cases", title:"Case 17: Spinal Disc Herniation", date:"7/2/2026",
+    weeks:[{label:"Wk 1",desc:"Rest"},{label:"Wk 4",desc:"PT start"},{label:"Wk 8",desc:"Return"},{label:"Mo 3-4",desc:"Full (surgery)"}],
+    risks:"Chronic lower back pain, permanent nerve damage (foot drop, numbness), cauda equina syndrome (emergency), and recurrent herniation.",
+    mechanism:"Combined flexion and axial compression increases intradiscal pressure beyond annulus fibrosus tensile strength, causing nuclear pulposus extrusion through radial fissures. The extruded material impinges on the spinal nerve root, causing inflammation and radiating pain.",
+    inside:"The spine relies on rubbery spinal discs to act as cushions between the vertebrae and allow for flexible movement. When a sudden twisting motion or heavy lifting force occurs, the tough outer layer of the disc can tear, allowing the soft inner gel to push outward. This protruding material directly presses against nearby spinal nerves, causing severe inflammation, shooting pain, and neurological symptoms down the leg.",
+    symptoms:["A popping or tearing sensation in the back during the injury","Severe lower back pain that worsens when sitting or bending","Shooting pain radiating down the buttock and leg","Numbness or tingling in the foot or toes","Reduced range of motion when trying to bend or twist","Muscle weakness in the affected leg or foot"],
+    treatment:["Rest and activity modification","Ice and heat therapy","Anti-inflammatory medications or muscle relaxers","Targeted physical therapy","Epidural steroid injections","Microdiscectomy surgery","Core stabilization program"],
+    recovery:"Recovery from a spinal disc herniation can take 4 to 8 weeks with rest and physical therapy for conservative cases. If surgery is needed, recovery may take 3 to 4 months before returning to heavy lifting and high-impact sports. Most patients gradually regain strength, flexibility, and pain-free movement through a structured rehabilitation program.",
+    insight:"Spinal disc herniations are most commonly caused by gradual, age-related wear and tear combined with poor lifting mechanics. Over time, the outer ring of the disc weakens, making it highly vulnerable to sudden rupture under heavy or awkward loads. Fortunately, the vast majority of cases resolve without surgery as the body naturally absorbs the displaced disc material over time. Long-term prevention relies heavily on maintaining a strong core and utilizing proper posture to protect the spine from uneven pressure."
+  },
+  patellar: {
+    phase:"Phase 4 · Extreme Cases", title:"Case 18: Patellar Tendon Rupture", date:"7/3/2026",
+    weeks:[{label:"Wk 1-6",desc:"Brace"},{label:"Wk 8-12",desc:"Motion"},{label:"Mo 4",desc:"Strength"},{label:"Mo 6-9",desc:"Sport"}],
+    risks:"Re-rupture, persistent quadriceps atrophy, patella baja, knee stiffness, and difficulty returning to jumping sports.",
+    mechanism:"Eccentric overload of the quadriceps during a bent-knee landing generates forces exceeding patellar tendon tensile strength, causing avulsion from the inferior patellar pole. The patella migrates proximally, disrupting the extensor mechanism entirely.",
+    inside:"The knee relies on the patellar tendon to connect the kneecap to the shinbone, allowing the thigh muscles to straighten the leg. When a sudden, powerful force is applied while the knee is bent, the tendon can tear completely away from the bone, disrupting the knee's extension mechanism. This causes the kneecap to shift upward into the thigh because the quadriceps muscle pulls it without opposition. The injury triggers immediate internal bleeding, massive swelling, and an absolute loss of leg control.",
+    symptoms:["A violent popping or tearing sensation at the moment of injury","Severe pain and rapid swelling directly below the kneecap","Inability to straighten the leg or perform a straight leg raise","An indentation or gap in the tendon just underneath the kneecap","A displaced kneecap that rides visibly higher up the thigh","Inability to bear weight or walk on the affected leg"],
+    treatment:["Surgical tendon repair","A long-leg hinged brace","Early range of motion exercises","Targeted physical therapy","Quadriceps activation training","Progressive weight-bearing protocol"],
+    recovery:"Recovery from a patellar tendon rupture typically requires surgery, as complete tears rarely heal on their own. Initial recovery and brace protection take about 6 to 12 weeks to allow the reattached tendon to secure itself to the bone. Full recovery and a safe return to high-impact sports or heavy lifting usually take 6 to 9 months.",
+    insight:"A patellar tendon rupture is a severe, relatively rare injury that usually requires rapid surgical intervention to restore the knee's extension function. It most frequently occurs in athletes under the age of 40 during activities involving explosive jumping, landing, or sudden changes of direction. Often, the tendon has been weakened over time by chronic inflammation, known as patellar tendinitis or jumper's knee, before the ultimate failure occurs. Regaining full quadriceps mass and explosive power is the most challenging phase of recovery, demanding strict adherence to a long rehabilitation program."
+  },
+  ocd: {
+    phase:"Phase 4 · Extreme Cases", title:"Case 19: Osteochondritis Dissecans", date:"7/4/2026",
+    weeks:[{label:"Wk 1-4",desc:"Rest & brace"},{label:"Wk 8",desc:"PT start"},{label:"Mo 4",desc:"Strength"},{label:"Mo 6-9",desc:"Return"}],
+    risks:"Loose body formation, recurrent joint locking, premature osteoarthritis, and incomplete healing in skeletally mature patients.",
+    mechanism:"Repetitive microtrauma compromises subchondral blood supply, causing avascular necrosis of a localized bone segment. The overlying cartilage fissures and separates, creating an unstable osteochondral fragment that may detach and become a loose body.",
+    inside:"The joints rely on a steady blood supply to keep the bone beneath the protective surface cartilage healthy and strong. When a localized loss of blood flow occurs, a small segment of bone begins to die and weaken, causing the overlying cartilage to crack and separate from the joint surface. If left untreated or subjected to repetitive impact, this damaged piece can completely break away and float freely inside the joint space. The loose fragment triggers immediate inflammation, severe pain, and mechanical catching or locking as it blocks normal joint movement.",
+    symptoms:["A dull, persistent ache deep inside the joint that worsens with activity","Intermittent swelling and stiffness after prolonged periods of walking or running","A catching, clicking, or locking sensation during joint movement","Joint instability or a feeling that the knee or ankle is giving way","Reduced range of motion when trying to fully bend or straighten the limb","Tenderness to the touch along the joint line"],
+    treatment:["Rest and strict activity modification","Protected weight-bearing with crutches","Immobilization in a brace or cast","Targeted physical therapy","Arthroscopic drilling to stimulate blood flow","Surgical fixation to pin loose fragments back in place","Cartilage grafting or restoration procedures"],
+    recovery:"Recovery from osteochondritis dissecans can take 3 to 6 months with non-surgical rest and bracing for stable fragments in growing adolescents. If surgery is needed to fix or remove a loose piece, recovery may take 4 to 9 months before safely returning to competitive sports and high-impact activities. Most patients gradually regain joint mobility, lower limb alignment, and muscle strength through a highly customized rehabilitation program.",
+    insight:"Osteochondritis dissecans is a joint condition most frequently diagnosed in active children, adolescents, and young adults. It typically affects the knee, though it can also occur in the elbow or ankle due to micro-trauma, repetitive stress, or genetic blood supply variances. A patient's age plays a massive role in the prognosis, as skeletally immature children with open growth plates have a much higher rate of spontaneous healing without surgery. Successful long-term outcomes depend entirely on early detection, protecting the joint surface from premature arthritis, and avoiding high-impact loads until imaging confirms the bone has completely healed."
+  },
+  dislocation: {
+    phase:"Phase 4 · Extreme Cases", title:"Case 20: Traumatic Knee Dislocation", date:"7/5/2026",
+    weeks:[{label:"Wk 1-4",desc:"Fixator"},{label:"Mo 3",desc:"Motion"},{label:"Mo 6",desc:"Walking"},{label:"Mo 9",desc:"Strength"},{label:"Mo 12-18",desc:"Return"}],
+    risks:"Limb-threatening vascular injury (popliteal artery), peroneal nerve palsy leading to foot drop, compartment syndrome, and severe post-traumatic arthritis.",
+    mechanism:"High-energy tibiofemoral dislocation ruptures all four major ligaments and often compromises the popliteal artery (20-40% of cases), creating a limb-threatening emergency. Peroneal nerve injury occurs in 20-30% of patients, often resulting in permanent foot drop.",
+    patient:{name:"Carlos, Age 26", story:"Carlos was riding a motorcycle when he was involved in a collision that struck the front of his shin while his foot was caught on the footpeg. He felt a horrific tear and collapse as his knee visibly deformed and shifted entirely out of its socket. He was in excruciating pain, completely unable to move his leg, and noted that his foot felt cold and numb. After a manual reduction in the emergency room and an urgent MRI, doctors discovered that he had sustained a complete traumatic knee dislocation with ruptures of his ACL, PCL, and LCL."},
+    inside:"A knee dislocation is a limb-threatening emergency where the shinbone completely separates from the thighbone, ripping apart multiple major ligaments in the process. When this massive structural failure occurs, the major blood vessels and nerves running directly behind the knee joint are stretched, compressed, or torn. This disruption of the popliteal artery can completely cut off blood flow to the lower leg and foot, risking tissue death if not treated instantly. The injury causes extreme internal destruction, profound swelling, and complete loss of joint integrity.",
+    symptoms:["A visible deformity where the knee appears severely twisted or out of place","Excruciating pain and rapid, massive swelling surrounding the entire joint","Complete inability to move the leg or bear any weight","Absence of or weak pulses in the foot, indicating a vascular emergency","Numbness, tingling, or foot drop from damage to the peroneal nerve","Extreme joint laxity where the lower leg moves freely in multiple abnormal directions"],
+    treatment:["Immediate emergency reduction to pop the joint back into alignment","Urgent vascular checking using angiography or Doppler ultrasound","Temporary external fixation with metal pins to keep the leg completely rigid","Staged surgical reconstruction to rebuild all torn ligaments","Strict non-weight-bearing with a locked long-leg brace","Extensive physical therapy to safely restore basic mobility"],
+    recovery:"Recovery from a traumatic knee dislocation is a prolonged process that can take 9 to 18 months, or even longer, depending on nerve and blood vessel damage. Because multiple major surgeries are required, the first 3 to 6 months are focused purely on protective healing, gentle range of motion, and preventing scar tissue lockup. Returning to high-impact sports or demanding physical labor is highly variable, with many patients requiring over a year of intensive rehabilitation to regain functional leg strength and stability.",
+    insight:"Traumatic knee dislocations are rare, high-energy injuries that represent a true medical emergency requiring immediate orthopedic intervention. Unlike a common patellar dislocation where just the kneecap slips, a true tibiofemoral dislocation fundamentally destroys the structural foundation of the leg. The absolute highest priority in the first hours of care is assessing and restoring blood flow to the foot, as a missed vascular injury can lead to amputation. Long-term recovery is exceptionally challenging, and the primary clinical goal often shifts from returning to elite athletics to restoring a stable, pain-free walking gait while preventing early-onset osteoarthritis."
+  }
+};
+
+function renderTimeline(recoveryText, weeks) {
+  if (!weeks || weeks.length === 0) {
+    return `<div class="timeline-wrap"><div class="timeline-desc">${recoveryText}</div></div>`;
+  }
+  const totalWeeks = weeks.length;
+  const pct = Math.min(100, Math.round((totalWeeks / (totalWeeks + 2)) * 100));
+  return `<div class="timeline-wrap">
+    <div class="timeline-weeks">${weeks.map(w => `<div class="timeline-week"><div class="timeline-tick"></div><div class="timeline-week-label">${w.label}</div><div class="timeline-week-desc">${w.desc}</div></div>`).join('')}</div>
+    <div class="timeline-bar"><div class="timeline-fill" style="width:${pct}%"></div></div>
+    <div class="timeline-desc">${recoveryText}</div>
+  </div>`;
+}
+
+function markCaseRead(key) {
+  const read = getReadCases();
+  if (!read.includes(key)) {
+    read.push(key);
+    localStorage.setItem('hrl_read', JSON.stringify(read));
+  }
+  document.querySelectorAll(`.case-row[data-case="${key}"]`).forEach(r => r.classList.add('read'));
+  updateProgress();
+}
+
+function getReadCases() {
+  try { return JSON.parse(localStorage.getItem('hrl_read')) || []; } catch { return []; }
+}
+
+function updateProgress() {
+  const read = getReadCases();
+  const total = Object.keys(cases).length;
+  const count = read.length;
+  const el = document.getElementById('readCount');
+  if (el) el.textContent = count;
+  const statEl = document.getElementById('readingStat');
+  if (statEl) {
+    let bar = statEl.querySelector('.progress-row');
+    if (!bar) {
+      bar = document.createElement('div');
+      bar.className = 'progress-row';
+      bar.innerHTML = '<div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><span class="progress-num" id="progressPct">0%</span>';
+      statEl.appendChild(bar);
+    }
+    const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+    const fill = document.getElementById('progressFill');
+    if (fill) fill.style.width = pct + '%';
+    const pctEl = document.getElementById('progressPct');
+    if (pctEl) pctEl.textContent = pct + '%';
+  }
+}
+
+function openModal(key) {
+  const c = cases[key];
+  if (!c) return;
+  document.getElementById('modalPhaseTag').textContent = c.phase;
+  document.getElementById('modalTitle').textContent = c.title;
+  document.getElementById('modalDate').textContent = c.date;
+
+  document.querySelectorAll('.case-row').forEach(r => r.classList.remove('highlighted'));
+  document.querySelectorAll(`.case-row[data-case="${key}"]`).forEach(r => r.classList.add('highlighted'));
+
+  markCaseRead(key);
+
+  document.getElementById('modalBody').innerHTML = `
+    <div class="patient-case"><h4>Patient: ${c.patient.name}</h4><p><strong>Trigger:</strong> ${c.patient.story.split('.')[0]}.</p></div>
+    <div class="modal-section"><h4>Biomechanics</h4><p>${c.mechanism || c.inside}</p></div>
+    <div class="modal-section"><h4>Symptoms</h4><ul>${c.symptoms.map(s=>`<li>${s}</li>`).join('')}</ul></div>
+    <div class="modal-two-col"><div><h4>How It Heals</h4><ul>${c.treatment.map(t=>`<li>${t}</li>`).join('')}</ul></div><div><h4>Risks &amp; Complications</h4><p>${c.risks || 'Without proper treatment, delayed healing, chronic instability, re-injury, and early-onset arthritis are possible. Adherence to rehab reduces these risks significantly.'}</p></div></div>
+    <div class="modal-section"><h4>Recovery Timeline</h4>${renderTimeline(c.recovery, c.weeks)}</div>
+    <div class="modal-date-stamp">${c.date}</div>`;
+
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  window.location.hash = 'case-' + key;
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  document.querySelectorAll('.case-row').forEach(r => r.classList.remove('highlighted'));
+  if (window.location.hash.startsWith('#case-')) {
+    history.pushState('', document.title, window.location.pathname + window.location.search);
+  }
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+// Region filtering
+function filterRegion(region) {
+  const allRows = document.querySelectorAll('.case-row');
+  const allChips = document.querySelectorAll('.region-chip');
+  const allParts = document.querySelectorAll('.body-part, .body-part-stroke');
+
+  allChips.forEach(c => c.classList.remove('active-chip'));
+  allParts.forEach(p => p.classList.remove('active-part'));
+
+  if (region === 'all') {
+    allRows.forEach(r => { r.classList.remove('dimmed'); r.classList.remove('highlighted'); });
+    const showAll = document.getElementById('showAllChip');
+    if (showAll) showAll.classList.add('active-chip');
+    return;
+  }
+
+  document.querySelectorAll(`.region-chip[data-region="${region}"]`).forEach(c => c.classList.add('active-chip'));
+  document.querySelectorAll(`.body-part[data-region="${region}"], .body-part-stroke[data-region="${region}"]`).forEach(p => p.classList.add('active-part'));
+
+  allRows.forEach(r => {
+    if (r.dataset.region === region) {
+      r.classList.remove('dimmed');
+      r.classList.add('highlighted');
+    } else {
+      r.classList.add('dimmed');
+      r.classList.remove('highlighted');
+    }
+  });
+
+  const first = document.querySelector(`.case-row[data-region="${region}"]`);
+  if (first) first.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// Body part clicks
+document.querySelectorAll('.body-part, .body-part-stroke').forEach(p => {
+  p.addEventListener('click', () => filterRegion(p.dataset.region));
+});
+
+// Region chip clicks
+document.querySelectorAll('.region-chip').forEach(c => {
+  c.addEventListener('click', () => filterRegion(c.dataset.region));
+});
+
+// Case row clicks
+document.querySelectorAll('.case-row.filed').forEach(r => {
+  r.addEventListener('click', () => openModal(r.dataset.case));
+});
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const href = a.getAttribute('href');
+    if (href.startsWith('#case-')) return;
+    const t = document.querySelector(href);
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+
+// Hash routing for individual case pages
+function handleHash() {
+  const hash = window.location.hash;
+  if (hash.startsWith('#case-')) {
+    const key = hash.replace('#case-', '');
+    if (cases[key]) openModal(key);
+  }
+}
+window.addEventListener('hashchange', handleHash);
+
+// Search
+function performSearch(query) {
+  const q = query.toLowerCase().trim();
+  const allRows = document.querySelectorAll('.case-row');
+  const empty = document.getElementById('searchEmpty');
+  const clearBtn = document.getElementById('searchClear');
+  let visibleCount = 0;
+
+  allRows.forEach(r => {
+    const name = r.querySelector('.case-row-name')?.textContent?.toLowerCase() || '';
+    const zone = r.querySelector('.case-row-zone')?.textContent?.toLowerCase() || '';
+    if (!q || name.includes(q) || zone.includes(q)) {
+      r.style.display = '';
+      visibleCount++;
+    } else {
+      r.style.display = 'none';
+    }
+  });
+
+  if (empty) empty.style.display = q && visibleCount === 0 ? 'block' : 'none';
+  if (clearBtn) clearBtn.classList.toggle('visible', q.length > 0);
+}
+
+document.getElementById('searchInput')?.addEventListener('input', function() {
+  performSearch(this.value);
+});
+
+document.getElementById('searchClear')?.addEventListener('click', function() {
+  const input = document.getElementById('searchInput');
+  if (input) { input.value = ''; input.focus(); performSearch(''); }
+});
+
+// Reading progress on load
+(function initReadingProgress() {
+  const read = getReadCases();
+  read.forEach(key => {
+    document.querySelectorAll(`.case-row[data-case="${key}"]`).forEach(r => r.classList.add('read'));
+  });
+  updateProgress();
+  handleHash();
+
+  // If hash existed on load, don't scroll to a section that was prevented
+  if (window.location.hash.startsWith('#case-')) {
+    // override the nav link scroll behavior for the hash
+  }
+})();
+</script>
+</body>
+</html>
