@@ -157,6 +157,18 @@
   .modal-diagram svg { width: 100%; display: block; }
   .modal-date-stamp { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 2rem; text-align: center; color: var(--pale); letter-spacing: 0.05em; padding-top: 20px; border-top: 1px solid var(--card-border); }
 
+  /* RECOVERY TIMELINE */
+  .timeline-wrap { background: rgba(255,255,255,0.07); border: 1px solid var(--card-border); border-radius: 10px; padding: 24px; margin-bottom: 28px; }
+  .timeline-wrap h4 { font-weight: 700; font-size: 0.85rem; text-decoration: underline; text-align: center; margin-bottom: 20px; }
+  .timeline-strip { display: flex; gap: 0; position: relative; padding: 4px 0; }
+  .timeline-step { flex: 1; position: relative; text-align: center; min-width: 0; }
+  .timeline-step .tl-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--pale); border: 2px solid var(--navy); margin: 0 auto 6px; position: relative; z-index: 2; }
+  .timeline-step .tl-time { font-size: 0.68rem; font-weight: 700; color: var(--pale); letter-spacing: 0.04em; margin-bottom: 2px; }
+  .timeline-step .tl-label { font-size: 0.78rem; font-weight: 600; color: var(--white); margin-bottom: 2px; }
+  .timeline-step .tl-desc { font-size: 0.7rem; color: rgba(255,255,255,0.55); line-height: 1.3; }
+  .timeline-bar { position: relative; height: 3px; background: rgba(255,255,255,0.15); margin: 0 7px; top: -13px; z-index: 1; }
+  .timeline-bar-fill { height: 100%; background: var(--pale); border-radius: 2px; }
+
   footer { position: relative; z-index: 1; border-top: 1px solid var(--card-border); padding: 32px 60px; display: flex; align-items: center; justify-content: space-between; }
   .footer-logo { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
   .footer-right { font-size: 0.75rem; color: rgba(255,255,255,0.3); text-align: right; line-height: 1.5; }
@@ -702,7 +714,12 @@ const cases = {
     inside:"A lateral ankle sprain occurs when the foot rolls inward with enough force to overstretch or tear the ligaments on the outside of the ankle. These ligaments, especially the anterior talofibular ligament (ATFL), help stabilize the joint and prevent excessive movement. When damaged, the ankle becomes less stable and inflammation develops as the body begins repairing the injured tissue.",
     symptoms:["Pain around the ankle joint","Swelling and inflammation","Difficulty putting weight on the foot","A feeling of instability or weakness in the ankle"],
     treatment:["Resting the ankle and avoiding applying stress to it","Ice to reduce swelling","Compressing the ankle with bandages or wraps","Elevate the ankle to reduce inflammation","Gradual movement and rehabilitation exercises once pain decreases"],
-    recovery:"Ankle sprain recovery typically takes 1 to 3 weeks for a mild stretch (Grade I) and 3 to 6 weeks for a partial tear (Grade II). A complete ligament tear (Grade III) is more severe and can take 2 to 4 months or longer to heal fully.",
+    timeline: [
+      {time:"Wk 1", label:"Acute Phase", desc:"Rest, ice, compression, elevation, pain management"},
+      {time:"Wk 2-4", label:"Rehabilitation", desc:"Range of motion, strengthening, balance training"},
+      {time:"Wk 4-6+", label:"Return to Activity", desc:"Sport-specific drills, gradual return, full recovery"}
+    ],
+    recovery:"Most lateral ankle sprains heal within 4 to 6 weeks with proper care. Severe sprains may take up to 12 weeks for a full recovery, and physical therapy is often recommended to restore strength, balance, and range of motion.",
     insight:"Following a sprain, the body launches an inflammatory response to remove damaged tissue and deliver healing cells to the injured ligament. Fibroblasts then produce new collagen fibers that gradually strengthen and reorganize along the direction of stress. Although pain may improve within weeks, ligament remodeling can continue for several months."
   },
   acl: {
@@ -711,6 +728,12 @@ const cases = {
     inside:"The ACL is one of the primary stabilizing ligaments of the knee, helping control forward movement and rotation of the shin bone. During a sudden pivot, landing, or change in direction, excessive force can exceed the ligament\'s strength and cause its fibers to tear. This loss of stability can make the knee feel as though it may buckle or give way during movement.",
     symptoms:["Pain in the knee, especially after a sudden twisting movement","Swelling that develops quickly after the injury","Difficulty walking, running, or putting weight on the leg","A feeling of instability or the knee \"giving way\" during movement","Reduced range of motion in the knee"],
     treatment:["Resting the knee and avoiding activities that place stress on it","Applying ice to reduce swelling and pain","Using a brace or crutches to support the knee during recovery","Physical therapy to restore strength, stability, and range of motion","Surgery may be recommended for complete ACL tears, especially for active individuals who plan to return to sports"],
+    timeline: [
+      {time:"Wk 1-2", label:"Acute Phase", desc:"Rest, ice, pain management, early mobilization"},
+      {time:"Wk 3-12", label:"Early Rehabilitation", desc:"Range of motion, quadriceps activation, gait training"},
+      {time:"Month 4-6", label:"Strengthening", desc:"Progressive resistance, neuromuscular control, agility"},
+      {time:"Month 6-9", label:"Return to Activity", desc:"Sport-specific training, plyometrics, full clearance"}
+    ],
     recovery:"Recovery from an ACL tear depends on the severity of the injury and whether surgery is required. A mild ACL sprain may heal in a few weeks to a few months, while a partial tear often takes 3 to 6 months of rehabilitation. A complete ACL tear that requires surgery typically takes 6 to 12 months before a full return to sports is recommended.",
     insight:"When the ACL tears, inflammation helps clear damaged tissue and initiate repair. However, because the ligament sits within the knee joint and receives a limited blood supply, complete tears rarely heal naturally. This is one reason why many athletes require reconstructive surgery and extensive rehabilitation."
   },
@@ -720,6 +743,12 @@ const cases = {
     inside:"The meniscus is a C-shaped pad of fibrocartilage that distributes weight and absorbs shock within the knee joint. When excessive twisting forces are applied to a planted knee, the cartilage can tear, reducing its ability to cushion and stabilize the joint. Depending on the location of the tear, healing potential may vary significantly.",
     symptoms:["Pain in the knee, especially after a sudden twisting movement","Swelling that develops quickly after the injury","Difficulty walking, running, or putting weight on the leg","A feeling of instability or the knee \"giving way\" during movement","Reduced range of motion in the knee"],
     treatment:["Resting the knee and avoiding twisting or deep bending movements","Ice to reduce pain and swelling","Compression and elevation to control inflammation","Physical therapy to restore strength and movement","Surgery may be needed for large or \"locked\" tears, especially in active individuals"],
+    timeline: [
+      {time:"Wk 1-2", label:"Acute Phase", desc:"Rest, ice, compression, protected weight-bearing"},
+      {time:"Wk 3-6", label:"Rehabilitation", desc:"Range of motion, quadriceps strengthening, balance"},
+      {time:"Wk 6-8", label:"Progressive Loading", desc:"Sport-specific training, return to activity"},
+      {time:"Month 3-6", label:"Full Recovery (Surgical)", desc:"Advanced strengthening, full clearance for high-impact sports"}
+    ],
     recovery:"Recovery depends on the size and location of the tear. Small meniscus tears may heal in 4 to 8 weeks with rest and therapy. More serious tears, or those requiring surgery, can take 3 to 6 months to recover fully.",
     insight:"The outer portion of the meniscus receives a blood supply that supports healing, while the inner portion receives very little circulation. As a result, tears near the outer edge often recover more successfully than tears closer to the center. This difference makes the location of the injury just as important as its size."
   },
@@ -729,6 +758,11 @@ const cases = {
     inside:"The hamstrings are a group of muscles located along the back of the thigh that help bend the knee and extend the hip. During rapid acceleration, sprinting, or sudden stretching, the muscle fibers can become overloaded and partially tear. This damage reduces the muscle\'s ability to generate force and causes pain during movement.",
     symptoms:["Sudden pain in the back of the thigh","Tenderness or soreness in the affected area","Swelling or bruising","Muscle weakness","Difficulty walking, running, or bending the knee"],
     treatment:["Resting the injured leg and avoiding strenuous activity","Applying ice to reduce pain and swelling","Compression and elevation to control inflammation","Gentle stretching and strengthening exercises during recovery","Physical therapy for more severe strains"],
+    timeline: [
+      {time:"Wk 1", label:"Acute Phase", desc:"Rest, ice, compression, gentle stretching"},
+      {time:"Wk 2-4", label:"Rehabilitation", desc:"Strengthening, flexibility, neuromuscular control"},
+      {time:"Wk 4-8", label:"Return to Activity", desc:"Sport-specific training, eccentric loading, full clearance"}
+    ],
     recovery:"A mild hamstring strain may heal in 1 to 3 weeks, while a moderate strain can take 4 to 8 weeks. More severe muscle tears may require several months of rehabilitation before a full return to sport",
     insight:"Following a strain, the body removes damaged muscle fibers and begins producing new tissue to repair the injury. Although muscles have a greater ability to regenerate than ligaments, scar tissue can still develop during healing. Rehabilitation helps ensure that the repaired muscle regains both strength and flexibility."
   },
@@ -738,6 +772,11 @@ const cases = {
     inside:"A concussion is a mild traumatic brain injury caused by a sudden impact or rapid acceleration of the head. The force causes the brain to move within the skull, stretching brain cells and disrupting normal communication between neurons. These changes can temporarily affect memory, concentration, balance, and other cognitive functions.",
     symptoms:["Headache","Dizziness or balance problems","Nausea","Sensitivity to light or noise","Difficulty concentrating or remembering things","Feeling tired or confused"],
     treatment:["Physical and mental rest during the early stages of recovery","Limiting activities that worsen symptoms","Gradually returning to school and daily activities as symptoms improve","Following a doctor-supervised return-to-play plan before resuming sports","Monitoring for worsening symptoms"],
+    timeline: [
+      {time:"Day 1-3", label:"Acute Rest", desc:"Physical and cognitive rest, symptom monitoring"},
+      {time:"Day 4-10", label:"Gradual Return", desc:"Light activity, school/work as tolerated, reduce screen time"},
+      {time:"Wk 2-4", label:"Full Recovery", desc:"Return to sport protocol, exercise tolerance testing"}
+    ],
     recovery:"Most concussions improve within 1 to 4 weeks, although some symptoms may last longer. Returning to sports too soon can increase the risk of further injury, so a gradual recovery process is important.",
     insight:"Unlike many orthopedic injuries, a concussion often affects function rather than structure. Brain scans may appear normal even when symptoms are significant because the injury involves disruptions in cellular activity rather than obvious physical damage. Recovery occurs as the brain gradually restores its normal chemical balance and communication pathways."
   },
@@ -747,6 +786,11 @@ const cases = {
     inside:"A stress fracture is a tiny crack in a bone caused by repetitive force rather than a single traumatic event. Repeated impact from running creates microscopic damage faster than the bone can repair itself, gradually weakening its structure. As the damage builds up, the bone becomes painful and may eventually develop a small fracture.",
     symptoms:["Pain that worsens with activity","Tenderness over the affected bone","Mild swelling","Pain that improves with rest","Difficulty running or jumping","Pain that gradually becomes more severe over time"],
     treatment:["Rest from high-impact activities","Ice to reduce pain and swelling","Wearing a walking boot or brace if needed","Physical therapy to restore strength","Gradual return to activity after the bone heals"],
+    timeline: [
+      {time:"Wk 1-2", label:"Rest & Protection", desc:"Non-weight-bearing, immobilization if needed, ice"},
+      {time:"Wk 3-6", label:"Rehabilitation", desc:"Gradual weight-bearing, low-impact cross-training"},
+      {time:"Wk 6-8", label:"Return to Activity", desc:"Progressive loading, sport-specific training, full clearance"}
+    ],
     recovery:"Recovery usually takes 6 to 8 weeks, although more severe stress fractures may require up to 12 weeks. Returning to sports too early can increase the risk of a complete fracture, so activity should be resumed gradually.",
     insight:"Stress fractures demonstrate that bones are constantly rebuilding themselves through a process called remodeling. When repetitive stress exceeds the bone\'s ability to repair microscopic damage, small cracks begin to form. With proper rest and reduced impact, the body replaces the damaged bone with stronger new tissue, allowing the bone to regain its strength."
   },
@@ -756,6 +800,11 @@ const cases = {
     inside:"A wrist fracture usually occurs when the force of a fall travels through the hand into the bones of the wrist, most commonly the radius. The impact causes the bone to crack or break, damaging nearby blood vessels and soft tissues. Almost immediately, the body begins an inflammatory response, sending blood cells and healing proteins to the fracture site to start the repair process.",
     symptoms:["Severe wrist pain","Swelling and bruising","Difficulty moving the wrist","Tenderness to the touch","Visible deformity in severe fractures","Weak grip strength"],
     treatment:["Immobilizing the wrist with a splint or cast","Ice and elevation to reduce swelling","Pain medication if needed","Surgery for displaced or severe fractures","Physical therapy after the bone has healed"],
+    timeline: [
+      {time:"Wk 1-2", label:"Immobilization", desc:"Cast or splint, ice, elevation, pain management"},
+      {time:"Wk 3-6", label:"Healing Phase", desc:"Bone remodeling, cast removal, gentle range of motion"},
+      {time:"Wk 6-8", label:"Rehabilitation", desc:"Strengthening, flexibility exercises, return to daily activities"}
+    ],
     recovery:"Most wrist fractures heal within 6 to 8 weeks, although more severe fractures may require 3 to 6 months for full recovery. Strength and flexibility gradually return through rehabilitation before normal activities can be resumed.",
     insight:"A wrist fracture highlights the body\'s ability to rebuild damaged bone through a process called bone remodeling. After inflammation clears away damaged tissue, new bone begins forming around the fracture, creating a callus that reconnects the broken pieces. Over time, the body reshapes and strengthens the new bone until the wrist regains much of its normal function."
   },
@@ -765,6 +814,12 @@ const cases = {
     inside:"The rotator cuff is a group of four muscles and tendons that stabilize the shoulder and allow it to move in many directions. When Daniel threw the ball, excessive force caused one of these tendons to tear, reducing the shoulder\'s strength and stability. The injury triggered inflammation around the torn tendon, leading to pain, swelling, and difficulty moving the arm.",
     symptoms:["Shoulder pain, especially when lifting the arm","Weakness in the shoulder","Difficulty reaching overhead","Pain during throwing or lifting","Limited range of motion","Clicking or popping sensations in the shoulder"],
     treatment:["Rest and avoiding activities that worsen the pain","Ice to reduce inflammation","Physical therapy to restore strength and mobility","Anti-inflammatory medications if recommended","Surgery for severe or complete tendon tears"],
+    timeline: [
+      {time:"Wk 1-2", label:"Protection Phase", desc:"Rest, sling immobilization, ice, pain-free range of motion"},
+      {time:"Wk 3-8", label:"Early Rehabilitation", desc:"Passive/active range of motion, isometric strengthening"},
+      {time:"Month 3-4", label:"Strengthening", desc:"Progressive resistance, rotator cuff strengthening"},
+      {time:"Month 4-6", label:"Return to Sport", desc:"Sport-specific drills, overhead activity, full clearance"}
+    ],
     recovery:"Recovery usually takes 6 to 12 weeks with physical therapy for mild tears. If surgery is required, full recovery may take 4 to 6 months, with athletes often needing additional rehabilitation before returning to sports.",
     insight:"A rotator cuff tear demonstrates how important tendons are for both movement and joint stability. Because tendons have a limited blood supply, they heal more slowly than muscles and often require months of rehabilitation. Strengthening the surrounding shoulder muscles is essential for restoring normal function and preventing future injuries."
   },
@@ -774,6 +829,11 @@ const cases = {
     inside:"A shoulder dislocation occurs when the head of the upper arm bone (humerus) is forced out of the shoulder socket. As the joint dislocates, the surrounding ligaments, joint capsule, and muscles are stretched or torn, making the shoulder unstable. The injury also triggers inflammation, causing pain, swelling, and muscle spasms that make moving the shoulder extremely difficult.",
     symptoms:["Severe shoulder pain","Visible deformity or the shoulder appearing out of place","Inability to move the arm normally","Swelling and bruising","Weakness or numbness in the arm","Muscle spasms around the shoulder"],
     treatment:["A doctor carefully repositions the shoulder into the socket","Immobilizing the shoulder with a sling","Ice to reduce pain and swelling","Physical therapy to restore strength and stability","Surgery for severe or recurring dislocations"],
+    timeline: [
+      {time:"Wk 1-2", label:"Protection Phase", desc:"Sling immobilization, ice, pain management"},
+      {time:"Wk 3-6", label:"Motion & Stability", desc:"Range of motion, isometric strengthening, scapular control"},
+      {time:"Wk 6-12", label:"Strengthening", desc:"Progressive resistance, sport-specific training, return to activity"}
+    ],
     recovery:"Recovery usually takes 6 to 12 weeks, depending on the severity of the injury. Physical therapy is important for rebuilding shoulder strength and stability, and athletes may need additional time before returning to sports.",
     insight:"A dislocated shoulder shows how important the ligaments, muscles, and joint capsule are for keeping the shoulder stable. Although the bones can be placed back into position quickly, the surrounding soft tissues need time to heal and regain their strength. Proper rehabilitation helps restore normal movement while reducing the risk of future dislocations."
   },
@@ -783,6 +843,12 @@ const cases = {
     inside:"The Achilles tendon is the strongest and largest tendon in the human body, connecting the calf muscles to the heel bone. When Liam pushed off with explosive force, the tendon was stretched beyond its limit and completely tore apart. This sudden rupture prevents the calf muscles from effectively pulling on the heel, making it difficult or impossible to walk, run, or stand on the toes.",
     symptoms:["A sudden popping or snapping sensation","Sharp pain in the back of the ankle","Difficulty or inability to walk","Inability to stand on the toes","Swelling and bruising","Weakness when pushing off the foot"],
     treatment:["Immobilizing the ankle in a walking boot or cast","Ice and elevation to reduce swelling","Physical therapy to restore strength and flexibility","Surgery to reconnect the torn tendon in many active patients","Gradual return to weight-bearing activities"],
+    timeline: [
+      {time:"Wk 1-2", label:"Immobilization", desc:"Non-weight-bearing, boot or cast, ice, elevation"},
+      {time:"Wk 3-12", label:"Rehabilitation", desc:"Protected weight-bearing, range of motion, calf strengthening"},
+      {time:"Month 4-6", label:"Strengthening", desc:"Eccentric loading, balance/ proprioception, plyometrics"},
+      {time:"Month 6-9", label:"Return to Activity", desc:"Sport-specific training, running progression, full clearance"}
+    ],
     recovery:"Recovery typically takes 6 to 12 months, depending on the severity of the rupture and whether surgery is performed. Physical therapy is essential for rebuilding strength, flexibility, and balance before returning to sports or high-impact activities.",
     insight:"An Achilles tendon rupture highlights how even the strongest tendon in the body can fail under sudden, excessive force. Because tendons have a limited blood supply, healing is slower than it is for muscles and often requires months of rehabilitation. With proper treatment and consistent therapy, the tendon gradually regains strength, allowing patients to safely return to normal movement."
   },
@@ -792,6 +858,11 @@ const cases = {
     inside:"The tibia (shinbone) and fibula are the two bones that make up the lower leg. A tibia/fibula fracture occurs when a strong force causes one or both bones to crack or break. This injury can damage nearby muscles, blood vessels, and soft tissues while triggering the body\'s bone-healing response.",
     symptoms:["Severe pain in the lower leg","Inability to stand or walk","Swelling and bruising","Tenderness around the fracture site","A visible deformity in more severe fractures"],
     treatment:["Immobilizing the leg with a splint or cast","Avoiding weight-bearing on the injured leg","Applying ice and elevating the leg to reduce swelling","Physical therapy after the bone begins to heal","Surgery may be required to realign and stabilize the bones with plates, screws, or rods"],
+    timeline: [
+      {time:"Wk 1-4", label:"Acute Phase", desc:"Immobilization, non-weight-bearing, ice, elevation"},
+      {time:"Month 2-3", label:"Rehabilitation", desc:"Progressive weight-bearing, range of motion, muscle activation"},
+      {time:"Month 3-6", label:"Return to Activity", desc:"Strengthening, gait training, sport-specific drills, full clearance"}
+    ],
     recovery:"Most tibia and fibula fractures take 3 to 6 months to heal, depending on the severity of the break. More complex fractures or those requiring surgery may take 6 months or longer before a full return to sports and strenuous activities.",
     insight:"When the tibia or fibula breaks, the body first forms a blood clot around the fracture to protect the injured area. Specialized bone-building cells then create a soft callus that gradually hardens into new bone. Over time, the bone remodels itself, restoring strength and helping the leg return to normal function."
   },
@@ -801,6 +872,12 @@ const cases = {
     inside:"The ACL helps prevent the shin bone from sliding forward, while the MCL stabilizes the inner side of the knee. A strong twisting force combined with a blow to the side of the knee can tear both ligaments at the same time. This causes severe instability, making it difficult for the knee to support normal movement.",
     symptoms:["A popping sensation at the time of injury","Rapid swelling of the knee","Severe pain and tenderness","Difficulty walking or bearing weight","A feeling that the knee is unstable or giving way","Reduced range of motion"],
     treatment:["Resting and protecting the injured knee","Applying ice to reduce swelling and pain","Using crutches or a knee brace for support","Physical therapy to restore strength and mobility","Surgery is often required to reconstruct the ACL and repair associated damage"],
+    timeline: [
+      {time:"Wk 1-2", label:"Acute Phase", desc:"Rest, brace, crutches, ice, inflammation control"},
+      {time:"Wk 3-12", label:"Early Rehabilitation", desc:"Range of motion, quadriceps activation, gait training"},
+      {time:"Month 4-6", label:"Strengthening", desc:"Progressive resistance, neuromuscular control, balance"},
+      {time:"Month 6-12", label:"Return to Activity", desc:"Sport-specific training, agility, plyometrics, full clearance"}
+    ],
     recovery:"Recovery from a combined MCL and ACL injury typically takes 6 to 12 months or longer. Many athletes require surgery followed by extensive rehabilitation before safely returning to sports.",
     insight:"When both the MCL and ACL are torn, the body immediately triggers inflammation to remove damaged tissue and begin repairs. While the MCL often has the ability to heal on its own, the ACL has a limited healing capacity and frequently requires surgical reconstruction. Rehabilitation plays a critical role in rebuilding strength, stability, and coordination throughout the recovery process."
   },
@@ -810,6 +887,12 @@ const cases = {
     inside:"The femur is the strongest and largest bone in the body, so it takes a significant force to break it. When the bone fractures, nearby blood vessels tear, causing bleeding, swelling, and intense pain. The body immediately starts an inflammatory response, sending white blood cells to clean up damaged tissue and prepare the area for healing.",
     symptoms:["Severe pain in the thigh","Inability to stand or walk","Swelling and bruising","Visible deformity of the leg","Shortening or abnormal positioning of the injured leg","Muscle spasms around the fracture site","Difficulty moving the hip or knee"],
     treatment:["Emergency stabilization of the injured leg","Pain management and monitoring for blood loss","X-rays and imaging to assess the fracture","Surgery using metal rods, plates, or screws to realign and stabilize the bone","Physical therapy to regain strength and mobility","Gradual return to weight-bearing activities as healing progresses"],
+    timeline: [
+      {time:"Wk 1-2", label:"Acute Phase", desc:"Pain management, immobilization, non-weight-bearing"},
+      {time:"Wk 3-8", label:"Early Rehabilitation", desc:"Gentle range of motion, muscle activation, partial weight-bearing"},
+      {time:"Month 3-4", label:"Strengthening", desc:"Progressive resistance, gait training, functional exercises"},
+      {time:"Month 4-6", label:"Return to Activity", desc:"Sport-specific training, full weight-bearing, full clearance"}
+    ],
     recovery:"Recovery from a femur fracture typically takes 4 to 6 months, though more severe fractures may require longer. Many patients can begin limited movement within weeks after surgery, but full strength and function often take several months to return.",
     insight:"After the fracture occurs, the body forms a blood clot around the break to stabilize the injury and begin repairs. Bone-building cells then create a soft callus that bridges the broken pieces together. Over time, this callus hardens into new bone, and the body remodels it until the femur becomes stronger and more functional again."
   },
@@ -819,6 +902,12 @@ const cases = {
     inside:"The labrum is a ring of cartilage that surrounds the hip socket, helping keep the ball of the femur securely in place. When Sofia twisted her hip, part of this cartilage tore, reducing the stability and cushioning of the joint. The tear can also cause the damaged tissue to catch between moving bones, leading to pain, clicking, or locking sensations.",
     symptoms:["Deep pain in the hip or groin","Clicking, popping, or locking sensations","Stiffness in the hip joint","Pain during running, twisting, or squatting","Reduced range of motion","Discomfort after sitting for long periods"],
     treatment:["Rest and activity modification","Ice to reduce pain and inflammation","Physical therapy to strengthen surrounding muscles","Anti-inflammatory medications if recommended","Arthroscopic surgery for severe or persistent tears"],
+    timeline: [
+      {time:"Wk 1-2", label:"Protection Phase", desc:"Activity modification, ice, pain-free range of motion"},
+      {time:"Wk 3-6", label:"Rehabilitation", desc:"Hip strengthening, core stability, neuromuscular control"},
+      {time:"Wk 6-12", label:"Progressive Loading", desc:"Sport-specific training, return to running/agility"},
+      {time:"Month 4-6", label:"Full Recovery (Surgical)", desc:"Advanced strengthening, high-impact clearance"}
+    ],
     recovery:"Recovery from a hip labrum tear can take 6 to 12 weeks with rest and physical therapy. If surgery is needed, recovery may take 4 to 6 months before returning to sports and high-impact activities. Most patients gradually regain strength, stability, and range of motion through rehabilitation.",
     insight:"Unlike bone, cartilage has a limited blood supply, which makes labrum injuries slower to heal. The body works to reduce inflammation and strengthen the muscles around the hip to improve stability and protect the joint. In more severe cases, surgery may be needed to repair or remove damaged portions of the labrum so smooth movement can return."
   },
@@ -828,6 +917,12 @@ const cases = {
     inside:"The knee relies on several ligaments working together to keep the joint stable during movement. When a powerful twisting force or direct impact occurs, multiple ligaments can tear at the same time, causing the knee to lose much of its stability. The injury triggers immediate inflammation, swelling, and bleeding within the joint as the body begins responding to the damage.",
     symptoms:["A popping sensation during the injury","Severe pain and swelling","Difficulty or inability to walk","Knee instability or giving way","Reduced range of motion","Bruising around the knee"],
     treatment:["Rest and protection of the knee","Ice and elevation to reduce swelling","Crutches and knee bracing","Physical therapy","Surgical reconstruction or repair of damaged ligaments in severe cases"],
+    timeline: [
+      {time:"Month 1-2", label:"Acute Phase", desc:"Rest, brace, crutches, ice, wound/inflammation control"},
+      {time:"Month 3-6", label:"Early Rehabilitation", desc:"Range of motion, muscle activation, protected weight-bearing"},
+      {time:"Month 6-12", label:"Strengthening", desc:"Progressive resistance, neuromuscular control, balance"},
+      {time:"Month 12-18", label:"Return to Activity", desc:"Sport-specific training, agility, plyometrics, full clearance"}
+    ],
     recovery:"Recovery often takes 9 to 18 months, depending on the number of ligaments injured and whether surgery is required. Rehabilitation is lengthy and focuses on restoring strength, stability, flexibility, and normal movement patterns before returning to sports.",
     insight:"Multiple ligament knee injuries are among the most serious joint injuries because several stabilizing structures are damaged at once. While the body begins repairing tissue immediately through inflammation and scar tissue formation, some ligaments have limited healing ability and may require surgical reconstruction. Recovery depends heavily on rehabilitation, which helps retrain the muscles and joint to work together and restore stability."
   },
@@ -837,6 +932,12 @@ const cases = {
     inside:"The elbow relies on the ulnar collateral ligament (UCL) to keep the joint stable against the massive forces generated during throwing. When an extreme overhead force or sudden overstretch occurs, the ligament can tear completely, causing the elbow to lose its structural stability. The injury triggers immediate inflammation and swelling, while stretching of the nearby ulnar nerve causes tingling sensations to shoot down the arm into the fingers.",
     symptoms:["A popping sensation during the injury","Severe pain and swelling on the inner elbow","Difficulty or inability to throw or grip objects","Elbow instability or a feeling of giving way","Reduced range of motion when straightening the arm","Bruising along the inside of the arm","Numbness or tingling in the pinky and ring fingers"],
     treatment:["Rest and activity modification","Ice and anti-inflammatory medications","A hinged elbow brace","Targeted physical therapy","Platelet-rich plasma (PRP) injections","Tommy John surgery","Ligament repair with internal bracing","A structured throwing program"],
+    timeline: [
+      {time:"Wk 1-2", label:"Protection Phase", desc:"Rest, brace, ice, pain management, activity modification"},
+      {time:"Wk 3-8", label:"Rehabilitation", desc:"Range of motion, isometric strengthening, physical therapy"},
+      {time:"Month 3-6", label:"Strengthening Phase", desc:"Progressive resistance, eccentric training, throwing progression"},
+      {time:"Month 6-9+", label:"Return to Sport", desc:"Structured throwing program, competitive return, full clearance"}
+    ],
     recovery:"Recovery from a UCL tear can take 6 to 12 weeks with rest and physical therapy for partial tears. If surgery is needed, recovery may take 9 to 14 months before returning to competitive throwing and high-impact sports. Most patients gradually regain strength, stability, and range of motion through a structured rehabilitation program.",
     insight:"The ulnar collateral ligament is the primary stabilizer of the elbow against the extreme stress of overhead throwing. Over time, repetitive motion can cause micro-tears that weaken the tissue until a single high-effort move causes a complete structural failure. While surgical reconstruction is highly successful, the long recovery demands intense physical and mental commitment from the patient. Ultimate success relies heavily on correcting throwing mechanics and managing future workloads to avoid re-injury."
   },
@@ -846,6 +947,12 @@ const cases = {
     inside:"The spine relies on rubbery spinal discs to act as cushions between the vertebrae and allow for flexible movement. When a sudden twisting motion or heavy lifting force occurs, the tough outer layer of the disc can tear, allowing the soft inner gel to push outward. This protruding material directly presses against nearby spinal nerves, causing severe inflammation, shooting pain, and neurological symptoms down the leg.",
     symptoms:["A popping or tearing sensation in the back during the injury","Severe lower back pain that worsens when sitting or bending","Shooting pain radiating down the buttock and leg","Numbness or tingling in the foot or toes","Reduced range of motion when trying to bend or twist","Muscle weakness in the affected leg or foot"],
     treatment:["Rest and activity modification","Ice and heat therapy","Anti-inflammatory medications or muscle relaxers","Targeted physical therapy","Epidural steroid injections","Microdiscectomy surgery","Core stabilization program"],
+    timeline: [
+      {time:"Wk 1-2", label:"Acute Phase", desc:"Rest, activity modification, ice/heat, pain management"},
+      {time:"Wk 3-6", label:"Rehabilitation", desc:"Core strengthening, postural correction, nerve gliding"},
+      {time:"Wk 6-12", label:"Progressive Loading", desc:"Spinal stabilization, return to daily activities"},
+      {time:"Month 3-4", label:"Full Recovery (Surgical)", desc:"Advanced strengthening, heavy lifting clearance"}
+    ],
     recovery:"Recovery from a spinal disc herniation can take 4 to 8 weeks with rest and physical therapy for conservative cases. If surgery is needed, recovery may take 3 to 4 months before returning to heavy lifting and high-impact sports. Most patients gradually regain strength, flexibility, and pain-free movement through a structured rehabilitation program.",
     insight:"Spinal disc herniations are most commonly caused by gradual, age-related wear and tear combined with poor lifting mechanics. Over time, the outer ring of the disc weakens, making it highly vulnerable to sudden rupture under heavy or awkward loads. Fortunately, the vast majority of cases resolve without surgery as the body naturally absorbs the displaced disc material over time. Long-term prevention relies heavily on maintaining a strong core and utilizing proper posture to protect the spine from uneven pressure."
   },
@@ -855,6 +962,12 @@ const cases = {
     inside:"The knee relies on the patellar tendon to connect the kneecap to the shinbone, allowing the thigh muscles to straighten the leg. When a sudden, powerful force is applied while the knee is bent, the tendon can tear completely away from the bone, disrupting the knee\'s extension mechanism. This causes the kneecap to shift upward into the thigh because the quadriceps muscle pulls it without opposition. The injury triggers immediate internal bleeding, massive swelling, and an absolute loss of leg control.",
     symptoms:["A violent popping or tearing sensation at the moment of injury","Severe pain and rapid swelling directly below the kneecap","Inability to straighten the leg or perform a straight leg raise","An indentation or gap in the tendon just underneath the kneecap","A displaced kneecap that rides visibly higher up the thigh","Inability to bear weight or walk on the affected leg"],
     treatment:["Surgical tendon repair","A long-leg hinged brace","Early range of motion exercises","Targeted physical therapy","Quadriceps activation training","Progressive weight-bearing protocol"],
+    timeline: [
+      {time:"Wk 1-6", label:"Protection Phase", desc:"Brace locked in extension, non-weight-bearing, surgical site care"},
+      {time:"Wk 6-12", label:"Early Motion", desc:"Gradual range of motion, partial weight-bearing, quad activation"},
+      {time:"Month 4-6", label:"Strengthening", desc:"Progressive resistance, full weight-bearing, gait retraining"},
+      {time:"Month 6-9", label:"Return to Activity", desc:"Sport-specific training, plyometrics, full clearance"}
+    ],
     recovery:"Recovery from a patellar tendon rupture typically requires surgery, as complete tears rarely heal on their own. Initial recovery and brace protection take about 6 to 12 weeks to allow the reattached tendon to secure itself to the bone. Full recovery and a safe return to high-impact sports or heavy lifting usually take 6 to 9 months.",
     insight:"A patellar tendon rupture is a severe, relatively rare injury that usually requires rapid surgical intervention to restore the knee\'s extension function. It most frequently occurs in athletes under the age of 40 during activities involving explosive jumping, landing, or sudden changes of direction. Often, the tendon has been weakened over time by chronic inflammation, known as patellar tendinitis or \"jumper\'s knee,\" before the ultimate failure occurs. Regaining full quadriceps mass and explosive power is the most challenging phase of recovery, demanding strict adherence to a long rehabilitation program."
   },
@@ -864,6 +977,12 @@ const cases = {
     inside:"The joints rely on a steady blood supply to keep the bone beneath the protective surface cartilage healthy and strong. When a localized loss of blood flow occurs, a small segment of bone begins to die and weaken, causing the overlying cartilage to crack and separate from the joint surface. If left untreated or subjected to repetitive impact, this damaged piece can completely break away and float freely inside the joint space. The loose fragment triggers immediate inflammation, severe pain, and mechanical catching or locking as it blocks normal joint movement.",
     symptoms:["A dull, persistent ache deep inside the joint that worsens with activity","Intermittent swelling and stiffness after prolonged periods of walking or running","A catching, clicking, or locking sensation during joint movement","Joint instability or a feeling that the knee or ankle is giving way","Reduced range of motion when trying to fully bend or straighten the limb","Tenderness to the touch along the joint line"],
     treatment:["Rest and strict activity modification","Protected weight-bearing with crutches","Immobilization in a brace or cast","Targeted physical therapy","Arthroscopic drilling to stimulate blood flow","Surgical fixation to pin loose fragments back in place","Cartilage grafting or restoration procedures"],
+    timeline: [
+      {time:"Wk 1-4", label:"Rest & Protection", desc:"Immobilization, non-weight-bearing, activity modification"},
+      {time:"Month 2-3", label:"Rehabilitation", desc:"Range of motion, muscle activation, protected weight-bearing"},
+      {time:"Month 4-6", label:"Strengthening", desc:"Progressive resistance, neuromuscular control, gait retraining"},
+      {time:"Month 6-9", label:"Return to Activity (Surgical)", desc:"Sport-specific training, imaging confirmation, full clearance"}
+    ],
     recovery:"Recovery from osteochondritis dissecans can take 3 to 6 months with non-surgical rest and bracing for stable fragments in growing adolescents. If surgery is needed to fix or remove a loose piece, recovery may take 4 to 9 months before safely returning to competitive sports and high-impact activities. Most patients gradually regain joint mobility, lower limb alignment, and muscle strength through a highly customized rehabilitation program",
     insight:"Osteochondritis dissecans is a joint condition most frequently diagnosed in active children, adolescents, and young adults. It typically affects the knee, though it can also occur in the elbow or ankle due to micro-trauma, repetitive stress, or genetic blood supply variances. A patient\'s age plays a massive role in the prognosis, as skeletally immature children with open growth plates have a much higher rate of spontaneous healing without surgery. Successful long-term outcomes depend entirely on early detection, protecting the joint surface from premature arthritis, and avoiding high-impact loads until imaging confirms the bone has completely healed"
   },
@@ -873,6 +992,12 @@ const cases = {
     inside:"A knee dislocation is a limb-threatening emergency where the shinbone completely separates from the thighbone, ripping apart multiple major ligaments in the process. When this massive structural failure occurs, the major blood vessels and nerves running directly behind the knee joint are stretched, compressed, or torn. This disruption of the popliteal artery can completely cut off blood flow to the lower leg and foot, risking tissue death if not treated instantly. The injury causes extreme internal destruction, profound swelling, and complete loss of joint integrity.",
     symptoms:["A visible deformity where the knee appears severely twisted or out of place","Excruciating pain and rapid, massive swelling surrounding the entire joint","Complete inability to move the leg or bear any weight","Absence of or weak pulses in the foot, indicating a vascular emergency","Numbness, tingling, or foot drop from damage to the peroneal nerve","Extreme joint laxity where the lower leg moves freely in multiple abnormal directions"],
     treatment:["Immediate emergency reduction to pop the joint back into alignment","Urgent vascular checking using angiography or Doppler ultrasound","Temporary external fixation with metal pins to keep the leg completely rigid","Staged surgical reconstruction to rebuild all torn ligaments","Strict non-weight-bearing with a locked long-leg brace","Extensive physical therapy to safely restore basic mobility"],
+    timeline: [
+      {time:"Month 1-3", label:"Protection Phase", desc:"External fixation/bracing, non-weight-bearing, vascular monitoring"},
+      {time:"Month 3-6", label:"Early Rehabilitation", desc:"Gentle range of motion, muscle activation, scar management"},
+      {time:"Month 6-12", label:"Strengthening", desc:"Progressive resistance, gait retraining, neuromuscular control"},
+      {time:"Month 12-18", label:"Return to Activity", desc:"Sport-specific training, functional testing, full clearance"}
+    ],
     recovery:"Recovery from a traumatic knee dislocation is a prolonged process that can take 9 to 18 months, or even longer, depending on nerve and blood vessel damage. Because multiple major surgeries are required, the first 3 to 6 months are focused purely on protective healing, gentle range of motion, and preventing scar tissue lockup. Returning to high-impact sports or demanding physical labor is highly variable, with many patients requiring over a year of intensive rehabilitation to regain functional leg strength and stability.",
     insight:"Traumatic knee dislocations are rare, high-energy injuries that represent a true medical emergency requiring immediate orthopedic intervention. Unlike a common patellar dislocation where just the kneecap slips, a true tibiofemoral dislocation fundamentally destroys the structural foundation of the leg. The absolute highest priority in the first hours of care is assessing and restoring blood flow to the foot, as a missed vascular injury can lead to amputation. Long-term recovery is exceptionally challenging, and the primary clinical goal often shifts from returning to elite athletics to restoring a stable, pain-free walking gait while preventing early-onset osteoarthritis."
   },
@@ -882,6 +1007,11 @@ const cases = {
     inside:"A stress fracture begins as tiny cracks in the bone caused by repetitive impact forces that outpace the body\'s ability to repair itself. In advanced cases, these microcracks multiply and deepen, weakening the bone\'s structure and causing persistent pain that no longer resolves with rest alone. The surrounding periosteum becomes inflamed, and the bone enters a cycle of damage that exceeds its natural remodeling capacity.",
     symptoms:["Persistent deep ache in the shin that worsens with activity","Pain that continues even during rest or daily walking","Tenderness when pressing along the tibia","Mild swelling over the affected area","Pain that disrupts sleep at night","Difficulty walking or bearing weight without discomfort"],
     treatment:["Complete rest from all high-impact activities for at least 6 to 8 weeks","Non-weight-bearing using crutches to offload the tibia","A walking boot or pneumatic brace to immobilize and protect the bone","Ice and anti-inflammatory medication to manage pain","Gradual reintroduction of low-impact activity under medical supervision","Physical therapy to correct gait mechanics and prevent recurrence"],
+    timeline: [
+      {time:"Wk 1-4", label:"Complete Rest", desc:"Non-weight-bearing or boot, crutches, activity cessation"},
+      {time:"Wk 5-8", label:"Rehabilitation", desc:"Gradual weight-bearing, low-impact cross-training, gait correction"},
+      {time:"Month 3-6", label:"Return to Activity", desc:"Progressive running program, sport-specific training, full clearance"}
+    ],
     recovery:"Advanced stress fractures require 8 to 12 weeks of healing before a gradual return to running. Full recovery can take 3 to 6 months, with athletes needing to rebuild bone strength through progressive loading before returning to competition.",
     insight:"Bone is living tissue that constantly remodels itself in response to stress. When training loads increase too quickly, the bone\'s repair machinery cannot keep up with the accumulating micro-damage. Advanced MRI imaging reveals these microcracks as dark signal lines, indicating areas where the bone has lost structural integrity and requires extended unloading to heal properly."
   },
@@ -891,6 +1021,11 @@ const cases = {
     inside:"The iliotibial band is a thick band of fascia that runs from the hip down the outside of the thigh to attach just below the knee. During repetitive bending and straightening of the knee while running, the IT band rubs against the femoral condyle, causing inflammation in the surrounding bursa and irritation of the soft tissues. Over time, this friction leads to pain, swelling, and restricted knee movement.",
     symptoms:["Sharp or burning pain on the outer side of the knee","Pain that intensifies during running and improves with rest","Swelling or tenderness over the outer knee","A clicking or snapping sensation when bending the knee","Pain that worsens when running downhill or on banked surfaces"],
     treatment:["Rest and reduction of running mileage or intensity","Ice and anti-inflammatory medications to reduce irritation","Foam rolling and stretching of the IT band, glutes, and hips","Strengthening exercises for the hip abductors and gluteal muscles","Gait analysis and correction of running form","Corticosteroid injection for severe or persistent inflammation"],
+    timeline: [
+      {time:"Wk 1-2", label:"Acute Management", desc:"Rest, ice, activity reduction, foam rolling"},
+      {time:"Wk 3-6", label:"Rehabilitation", desc:"Hip/glute strengthening, IT band release, gait retraining"},
+      {time:"Wk 6-8", label:"Return to Activity", desc:"Gradual return to running, mileage progression, full clearance"}
+    ],
     recovery:"IT band syndrome typically improves within 4 to 8 weeks with consistent rest, stretching, and strengthening. Most runners can gradually return to their previous mileage once pain-free movement has been restored and muscle imbalances have been addressed.",
     insight:"The IT band is not a muscle but a dense sheet of connective tissue that does not stretch significantly. True IT band syndrome is often caused by weakness in the hip abductors, allowing the thigh to internally rotate and increase friction at the knee. Strengthening the gluteus medius is therefore more effective than stretching the IT band itself."
   },
@@ -900,6 +1035,11 @@ const cases = {
     inside:"Tendinopathy refers to a chronic degenerative condition in which the tendon\'s collagen structure becomes disorganized due to accumulated micro-trauma without adequate recovery. Unlike acute tendinitis, which involves active inflammation, chronic tendinopathy is characterized by collagen breakdown, increased blood vessel ingrowth, and the absence of inflammatory cells. The tendon becomes thickened, painful, and mechanically weaker over time.",
     symptoms:["Persistent localized pain in the tendon that worsens with activity","Morning stiffness in the affected tendon that eases after movement","A palpable nodule or thickening along the tendon","Creaking or grating sensation during movement","Pain that returns after activity subsides","Progressive weakness in the affected limb"],
     treatment:["Eccentric strengthening exercises to stimulate collagen remodeling","Activity modification to reduce tendon load during healing","Shockwave therapy to promote tissue regeneration","Platelet-rich plasma (PRP) injections to support healing","Gradual return to full activity over several months","Surgery may be considered if conservative treatment fails after 6 to 12 months"],
+    timeline: [
+      {time:"Month 1-2", label:"Load Management", desc:"Activity modification, eccentric exercises, pain monitoring"},
+      {time:"Month 2-4", label:"Strengthening", desc:"Progressive resistance, collagen remodeling, return to daily activity"},
+      {time:"Month 4-6", label:"Return to Activity", desc:"Sport-specific loading, maintenance program, full clearance"}
+    ],
     recovery:"Chronic tendinopathy requires a long-term approach, with recovery often taking 3 to 6 months of consistent rehabilitation. Patience is critical, as returning to activity too soon can trigger a recurrence of symptoms and prolong the healing process.",
     insight:"Tendinopathy represents a failure of the tendon to adapt to repetitive mechanical load. The condition exists on a continuum from reactive tendinopathy to degenerative tendinopathy, and treatment must be tailored to the stage. Contrary to popular belief, anti-inflammatory medications have limited benefit because the underlying problem is degenerative rather than inflammatory."
   },
@@ -909,6 +1049,11 @@ const cases = {
     inside:"Intervertebral discs are fibrocartilage cushions between the vertebrae that act as shock absorbers. With age and repetitive stress, the discs lose water content, become thinner, and develop small tears in their outer ring. This degeneration reduces the disc\'s ability to distribute spinal loads evenly, leading to localized pain, reduced flexibility, and increased risk of disc herniation or bone spur formation.",
     symptoms:["Chronic dull ache in the lower back that worsens with prolonged sitting","Stiffness in the morning that improves with gentle movement","Intermittent sharp pain when twisting or lifting","Radiating pain or numbness into the buttock or leg if nerves are irritated","Reduced flexibility when bending forward or backward","Weakness in the leg muscles if nerve compression is present"],
     treatment:["Physical therapy focusing on core strengthening and postural correction","Activity modification to avoid prolonged sitting and heavy lifting","Anti-inflammatory medications and muscle relaxants during flare-ups","Heat and ice therapy to manage symptoms","Epidural steroid injections for radiating nerve pain","Surgical intervention such as microdiscectomy or fusion for severe or progressive cases"],
+    timeline: [
+      {time:"Wk 1-2", label:"Acute Phase", desc:"Rest, ice/heat, anti-inflammatory meds, avoid aggravating movements"},
+      {time:"Wk 3-6", label:"Rehabilitation", desc:"Core strengthening, postural correction, manual therapy"},
+      {time:"Month 3+", label:"Long-Term Maintenance", desc:"Ongoing exercise, ergonomic adjustments, activity modification"}
+    ],
     recovery:"Most patients with lumbar disc degeneration manage their symptoms effectively with conservative care. Recovery from acute flare-ups typically takes 4 to 8 weeks, while long-term management requires ongoing exercise, postural awareness, and activity modifications to slow further degeneration.",
     insight:"Lumbar disc degeneration is a natural part of the aging process and is present in most people over the age of 50, often without any symptoms. The presence of degeneration on MRI does not automatically explain a patient\'s pain, which is why clinical correlation is essential. Maintaining a strong core and healthy body weight are among the most effective strategies for preventing symptom progression."
   },
@@ -918,6 +1063,11 @@ const cases = {
     inside:"Patellofemoral pain syndrome occurs when the kneecap does not track properly within the femoral groove during knee movement. This faulty tracking causes increased pressure and friction between the kneecap and the thighbone, irritating the cartilage surface and surrounding soft tissues. Contributing factors include weak quadriceps, tight hamstrings, improper foot mechanics, and muscle imbalances in the hip and core.",
     symptoms:["Dull, aching pain behind or around the kneecap","Pain that worsens during running, squatting, or climbing stairs","Pain after sitting with bent knees for extended periods","A grinding or clicking sensation when bending the knee","Tenderness when pressing on the kneecap","Relief of pain when the knee is fully straightened"],
     treatment:["Relative rest and reduction of high-impact activities","Ice and anti-inflammatory medication to reduce pain","Quadriceps strengthening exercises to improve kneecap tracking","Hip and core strengthening to correct underlying muscle imbalances","Foot orthotics if overpronation is a contributing factor","Gradual return to running with proper form and appropriate footwear"],
+    timeline: [
+      {time:"Wk 1-2", label:"Acute Phase", desc:"Rest, ice, activity modification, pain management"},
+      {time:"Wk 3-6", label:"Rehabilitation", desc:"Quadriceps strengthening, hip/core stability, patellar tracking"},
+      {time:"Wk 6-12", label:"Return to Activity", desc:"Sport-specific training, gait correction, maintenance program"}
+    ],
     recovery:"Recovery from patellofemoral pain syndrome typically takes 6 to 12 weeks with consistent rehabilitation. The condition has a high recurrence rate, so maintaining strength and proper mechanics is essential for long-term prevention.",
     insight:"Runner\'s knee is one of the most common overuse injuries in athletes and is rarely caused by a single structural abnormality. Instead, it results from a combination of biomechanical, muscular, and training factors that collectively alter the way the kneecap moves. Addressing muscle imbalances in the hip and core is often more effective than focusing solely on the knee itself."
   },
@@ -927,6 +1077,11 @@ const cases = {
     inside:"The sciatic nerve is the largest nerve in the body, formed by nerve roots that exit the lower spine and travel through the buttock and down the leg. When a herniated disc, bone spur, or muscle spasm compresses one of these nerve roots, it disrupts normal nerve signaling, causing pain, tingling, numbness, and weakness along the nerve\'s pathway. The compression also triggers inflammation around the nerve root, amplifying pain signals.",
     symptoms:["Sharp, shooting pain that travels from the lower back through the buttock and down the leg","Tingling, burning, or numbness in the leg, foot, or toes","Weakness in the affected leg, making it difficult to lift the foot","Pain that worsens with prolonged sitting, coughing, or sneezing","A constant ache on one side of the lower back","Difficulty standing up from a seated position"],
     treatment:["Conservative care with physical therapy focusing on core and back stabilization","Anti-inflammatory medications and muscle relaxants to manage symptoms","Heat and ice therapy to reduce muscle spasm and inflammation","Epidural steroid injections to reduce nerve root inflammation","Activity modification to avoid positions that worsen symptoms","Surgery such as microdiscectomy if conservative treatment fails or weakness progresses"],
+    timeline: [
+      {time:"Wk 1-2", label:"Acute Phase", desc:"Rest, activity modification, ice/heat, pain management"},
+      {time:"Wk 3-6", label:"Rehabilitation", desc:"Core strengthening, nerve gliding, postural correction"},
+      {time:"Wk 6-12", label:"Return to Activity", desc:"Progressive loading, spinal stabilization, full clearance"}
+    ],
     recovery:"Most sciatica cases improve within 4 to 8 weeks with conservative treatment. Severe or persistent cases may require longer recovery, especially if muscle weakness is present. Surgery can provide rapid relief for nerve compression but requires several months of recovery.",
     insight:"Sciatica is a symptom, not a diagnosis, and refers to pain traveling along the path of the sciatic nerve. The most common cause is a lumbar disc herniation, but piriformis syndrome, spinal stenosis, and even prolonged sitting can produce similar symptoms. Accurate diagnosis of the underlying cause is essential for effective treatment."
   },
@@ -936,6 +1091,11 @@ const cases = {
     inside:"Cervical nerve root compression occurs when a herniated disc, bone spur, or thickened ligament in the neck presses on a nerve root as it exits the spinal column. This compression disrupts the nerve\'s ability to transmit signals, resulting in radiating pain, numbness, tingling, and weakness in the specific area of the arm and hand supplied by that nerve root. The C6 and C7 nerve roots are most commonly affected.",
     symptoms:["Neck pain that radiates down the arm into the hand","Numbness or tingling in the fingers, especially the thumb or middle finger","Weakness in the arm or hand, making gripping or lifting difficult","Sharp pain when turning the head or looking upward","Reduced range of motion in the neck","Muscle spasms in the neck and upper shoulder"],
     treatment:["Relative rest and activity modification to avoid aggravating movements","Physical therapy focusing on neck strengthening and postural correction","Anti-inflammatory medications and muscle relaxants","Cervical traction or a soft collar for temporary support","Epidural steroid injections to reduce nerve inflammation","Anterior cervical discectomy and fusion for severe or persistent cases"],
+    timeline: [
+      {time:"Wk 1-2", label:"Acute Phase", desc:"Rest, cervical collar, ice/heat, pain management"},
+      {time:"Wk 3-6", label:"Rehabilitation", desc:"Neck strengthening, postural correction, nerve gliding"},
+      {time:"Wk 6-12", label:"Return to Activity", desc:"Progressive strengthening, full range of motion, activity clearance"}
+    ],
     recovery:"Recovery from cervical nerve root compression typically takes 6 to 12 weeks with conservative treatment. Surgical cases require 3 to 6 months of recovery, and most patients regain full arm and hand function once the nerve compression is relieved.",
     insight:"Cervical radiculopathy follows specific dermatomal patterns that allow clinicians to identify which nerve root is compressed based solely on the patient\'s symptoms. For example, C6 compression affects the thumb, while C7 affects the middle finger. This predictable anatomy makes physical examination a powerful diagnostic tool before imaging is performed."
   },
@@ -945,6 +1105,11 @@ const cases = {
     inside:"Muscle atrophy is the wasting away of muscle tissue caused by prolonged inactivity or immobilization. When a muscle is not contracting regularly, the body decreases protein synthesis and increases protein breakdown, leading to a rapid loss of muscle mass and strength. This process begins within days of immobilization and accelerates over time, with the most dramatic losses occurring in the first 2 to 4 weeks.",
     symptoms:["Visible decrease in muscle size compared to the uninjured side","Significant weakness in the affected limb","Rapid fatigue during simple tasks","Difficulty performing movements that were previously easy","Loss of muscle definition and firmness","Reduced range of motion due to muscle tightness"],
     treatment:["Gradual reintroduction of movement through gentle range-of-motion exercises","Progressive resistance training to rebuild muscle mass and strength","Physical therapy with targeted exercises for the affected muscle groups","Adequate protein intake and nutrition to support muscle repair","Consistency in rehabilitation, as muscle regrowth is a slow process"],
+    timeline: [
+      {time:"Wk 1-4", label:"Reactivation", desc:"Gentle range of motion, isometric contractions, neuromuscular re-education"},
+      {time:"Wk 5-8", label:"Strengthening", desc:"Progressive resistance training, functional exercises, muscle growth"},
+      {time:"Month 3-6", label:"Full Recovery", desc:"Advanced strengthening, sport-specific training, full clearance"}
+    ],
     recovery:"Recovery from muscle atrophy depends on the duration of immobilization and the muscle groups affected. Significant strength gains are typically seen within 4 to 8 weeks of consistent rehabilitation, but full recovery of muscle mass and function can take 3 to 6 months or longer.",
     insight:"Muscle tissue is metabolically active and responds rapidly to changes in demand. During immobilization, the body shifts to a catabolic state, breaking down muscle protein for energy. This process is mediated by the ubiquitin-proteasome pathway and is reversible with progressive loading. The concept of muscle plasticity explains why even elite athletes experience significant losses after short periods of inactivity."
   },
@@ -954,6 +1119,11 @@ const cases = {
     inside:"Peripheral nerve entrapment occurs when a nerve is compressed as it passes through a narrow anatomical passageway surrounded by bone, ligament, or tendon. In carpal tunnel syndrome, the median nerve is compressed within the carpal tunnel at the wrist, a confined space that also contains nine flexor tendons. When the tunnel becomes narrowed or the contents swell, pressure on the nerve disrupts its blood supply and function, causing sensory and motor symptoms in the hand.",
     symptoms:["Numbness and tingling in the thumb, index, middle, and ring fingers","Pain or burning sensation in the hand and wrist","Symptoms that worsen at night or upon waking","Weakness in the thumb and difficulty gripping objects","Shaking the hand to relieve symptoms","Pain that can radiate up the forearm"],
     treatment:["Wearing a wrist splint at night to keep the wrist in a neutral position","Activity modification to reduce repetitive wrist movements","Anti-inflammatory medications to reduce swelling within the tunnel","Nerve gliding exercises to improve mobility of the median nerve","Corticosteroid injections to decrease inflammation","Carpal tunnel release surgery for severe or persistent cases"],
+    timeline: [
+      {time:"Wk 1-4", label:"Splinting & Rest", desc:"Night splinting, activity modification, anti-inflammatory meds"},
+      {time:"Wk 5-8", label:"Rehabilitation", desc:"Nerve gliding exercises, ergonomic adjustments, strengthening"},
+      {time:"Month 3-6", label:"Full Recovery", desc:"Nerve function restoration, grip strength, return to activities"}
+    ],
     recovery:"Mild to moderate cases of carpal tunnel syndrome improve within 4 to 8 weeks with conservative treatment. Severe cases or those requiring surgery may take 3 to 6 months for full recovery of nerve function and strength.",
     insight:"Peripheral nerve entrapments are among the most common nerve disorders and occur at predictable anatomical sites where nerves pass through tight spaces. The carpal tunnel is the most famous example, but similar entrapments occur at the elbow, wrist, knee, and ankle. Early diagnosis is important because prolonged compression can lead to irreversible nerve damage and permanent muscle weakness."
   },
@@ -963,6 +1133,11 @@ const cases = {
     inside:"Neuromuscular inhibition is a protective mechanism in which the nervous system reduces the activation signal to a muscle following injury, presumably to prevent further damage. After a hamstring strain, the brain downregulates the neural drive to the injured muscle, causing it to contract less forcefully even after tissue healing is complete. This persistent inhibition leads to weakness, altered movement patterns, and a high risk of re-injury.",
     symptoms:["Recurrent hamstring strains despite completing rehabilitation","A feeling that the hamstring does not fire or activate properly","Weakness in the hamstring during sprinting or jumping","Reduced hamstring flexibility and range of motion","Compensation patterns such as overusing the lower back or quadriceps","Difficulty achieving full speed or power during athletic activities"],
     treatment:["Neuromuscular re-education exercises to retrain muscle activation","Eccentric hamstring strengthening, including Nordic curls","Core and hip strengthening to address contributing muscle imbalances","Sport-specific movement retraining to correct faulty mechanics","Gradual exposure to high-speed running under controlled conditions"],
+    timeline: [
+      {time:"Wk 1-2", label:"Neuromuscular Activation", desc:"Hamstring activation drills, motor control retraining"},
+      {time:"Wk 3-6", label:"Strengthening", desc:"Eccentric loading, Nordic curls, core/hip stability"},
+      {time:"Wk 6-12", label:"Return to Activity", desc:"High-speed running, sport-specific training, full clearance"}
+    ],
     recovery:"Recovery from hamstring neuromuscular inhibition is a gradual process that typically takes 8 to 12 weeks of targeted rehabilitation. Athletes need to demonstrate normal activation patterns and strength before returning to sport to reduce the risk of re-injury.",
     insight:"Neuromuscular inhibition explains why many athletes experience recurrent hamstring strains despite appearing to have healed. MRI and strength testing may show normal results, but the nervous system continues to inhibit full activation of the muscle. This phenomenon, called the repeat strain injury cycle, can be overcome through specific exercises that challenge the hamstring at high speeds and under load."
   },
@@ -972,6 +1147,12 @@ const cases = {
     inside:"An open compound fracture is a medical emergency in which a broken bone penetrates the skin, creating a direct pathway for bacteria to enter the wound and reach the bone. The severity is graded from Type I, a small clean wound, to Type III, a large wound with extensive soft tissue damage and bone contamination. Immediate surgical cleaning is essential to prevent osteomyelitis, a deep bone infection that can be life-threatening.",
     symptoms:["Visible bone protruding through the skin","Severe pain and deformity of the affected limb","Bleeding and an open wound at the fracture site","Swelling, bruising, and tissue damage around the injury","Inability to move or bear weight on the limb","Signs of shock including pale skin, rapid heartbeat, and low blood pressure"],
     treatment:["Emergency irrigation and debridement of the wound to remove contamination","Intravenous antibiotics to prevent infection","External fixation or internal fixation with rods, plates, or screws to stabilize the bone","Tetanus vaccination if needed","Soft tissue coverage surgery to close the wound","Extended course of antibiotics to prevent osteomyelitis"],
+    timeline: [
+      {time:"Month 1-2", label:"Acute Healing", desc:"Surgical stabilization, wound care, IV antibiotics, non-weight-bearing"},
+      {time:"Month 3-4", label:"Rehabilitation", desc:"Progressive weight-bearing, range of motion, muscle activation"},
+      {time:"Month 4-6", label:"Strengthening", desc:"Full weight-bearing, resistance training, gait retraining"},
+      {time:"Month 6-12", label:"Return to Activity", desc:"Sport-specific training, functional clearance, long-term monitoring"}
+    ],
     recovery:"Recovery from an open compound fracture takes 4 to 6 months for the bone to heal, with many patients requiring 6 to 12 months before returning to normal activities. The risk of infection, delayed healing, and the need for multiple surgeries make these injuries among the most challenging orthopedic cases to treat.",
     insight:"Open fractures are orthopedic emergencies because the risk of infection increases dramatically with time. The goal of surgery within the first 6 hours is to convert a contaminated open wound into a clean closed one. Bone healing follows the same principles as closed fractures, but the recovery is more complex due to associated soft tissue damage and the potential for deep infection."
   },
@@ -981,6 +1162,11 @@ const cases = {
     inside:"Spinal cord compression occurs when bone fragments, a herniated disc, or a hematoma presses against the spinal cord, disrupting the transmission of nerve signals between the brain and the body. The severity depends on the location and degree of compression, with cervical injuries causing the most profound deficits. The initial mechanical injury is followed by a secondary injury cascade involving inflammation, swelling, and cell death that can worsen the damage over the first 24 to 72 hours.",
     symptoms:["Loss of movement and sensation below the level of injury","Severe neck or back pain at the site of injury","Difficulty breathing if the injury is in the cervical spine","Loss of bowel and bladder control","Abnormal reflexes or muscle spasms","Changes in blood pressure, heart rate, and temperature regulation"],
     treatment:["Emergency immobilization of the spine to prevent further injury","High-dose corticosteroids to reduce inflammation in the acute phase","Surgical decompression to remove bone fragments or hematoma pressing on the cord","Spinal fusion to stabilize the injured vertebrae","Long-term rehabilitation including physical and occupational therapy","Assistive devices and adaptive technology for functional independence"],
+    timeline: [
+      {time:"Wk 1-4", label:"Acute Phase", desc:"Spinal stabilization, corticosteroids, surgical decompression if needed"},
+      {time:"Month 2-6", label:"Intensive Rehabilitation", desc:"Physical/occupational therapy, functional training, adaptive equipment"},
+      {time:"Month 6-12", label:"Lifelong Adaptation", desc:"Maximizing function, community reintegration, maintenance therapy"}
+    ],
     recovery:"Recovery from spinal cord injury varies widely depending on the severity and location of the damage. Some patients regain significant function within 6 to 12 months, while others may have permanent deficits. Rehabilitation is a lifelong process focused on maximizing remaining function and adapting to new limitations.",
     insight:"Spinal cord injury triggers a complex secondary injury cascade that includes free radical damage, excitotoxicity, and inflammation. This cascade can cause more damage than the initial mechanical insult, which is why early intervention with corticosteroids and decompression surgery can significantly improve outcomes. The spinal cord has a very limited capacity for regeneration, making prevention and immediate proper management critical."
   },
@@ -990,6 +1176,12 @@ const cases = {
     inside:"A multi-ligament knee disruption involves damage to at least two of the knee\'s major stabilizing ligaments, often with associated injuries to surrounding tendons, cartilage, and neurovascular structures. When three or more ligaments are torn, the knee loses its structural integrity and can subluxate or dislocate. These injuries require careful assessment of the popliteal artery and peroneal nerve, as damage to these structures can threaten the viability of the leg.",
     symptoms:["Severe pain and rapid, extensive swelling of the knee","Audible pops or tearing sensations at the time of injury","The knee feeling unstable or giving way in multiple directions","Inability to bear weight or walk","Bruising extending down the leg","Numbness, tingling, or coldness in the foot if blood vessels are damaged"],
     treatment:["Emergency evaluation of vascular status with angiography if needed","Temporary external fixation or bracing to stabilize the knee","Staged surgical reconstruction to repair torn ligaments in the correct order","Protection of repaired ligaments through bracing and restricted motion","Extended rehabilitation lasting 9 to 18 months"],
+    timeline: [
+      {time:"Month 1-3", label:"Protection Phase", desc:"External fixation/bracing, non-weight-bearing, vascular monitoring"},
+      {time:"Month 3-6", label:"Early Rehabilitation", desc:"Range of motion, muscle activation, protected weight-bearing"},
+      {time:"Month 6-12", label:"Strengthening", desc:"Progressive resistance, gait retraining, neuromuscular control"},
+      {time:"Month 12-18", label:"Return to Activity", desc:"Sport-specific training, functional testing, full clearance"}
+    ],
     recovery:"Multi-ligament knee disruptions require 9 to 18 months of recovery, and many athletes never return to their previous level of sport. The complexity of the injury and the need for staged surgeries make the recovery process one of the longest in orthopedic medicine.",
     insight:"The most critical step in managing a multi-ligament knee injury is ruling out vascular damage. The popliteal artery is at high risk of injury during knee dislocation, and a missed vascular injury can lead to amputation within hours. A thorough neurovascular examination and serial assessments are essential, even if pulses are initially present."
   },
@@ -999,6 +1191,12 @@ const cases = {
     inside:"The pelvis is a ring-shaped bone structure that protects the lower abdominal organs and transfers weight from the spine to the legs. A pelvic fracture, especially a disruption of the pelvic ring, involves high-energy trauma that can cause life-threatening internal bleeding from torn blood vessels within the pelvic cavity. The severity ranges from stable fractures with minimal displacement to unstable fractures that require immediate surgical stabilization to control hemorrhage.",
     symptoms:["Severe pain in the hip, groin, or lower back that worsens with movement","Inability to stand, walk, or bear weight","Bruising and swelling around the pelvis, hips, or genitals","Numbness or tingling in the legs if nerves are damaged","Signs of internal bleeding including low blood pressure and rapid heartbeat","Pain when pressure is applied to the pelvic bones"],
     treatment:["Emergency stabilization of the pelvis with a pelvic binder or sheet to reduce bleeding","CT scan to assess the pattern of fracture and extent of internal injury","Angiography with embolization to control arterial bleeding if needed","Surgical fixation using plates and screws to stabilize the pelvic ring","Extended rehabilitation focusing on gait retraining and muscle strengthening"],
+    timeline: [
+      {time:"Month 1-2", label:"Acute Phase", desc:"Hemorrhage control, surgical stabilization, non-weight-bearing"},
+      {time:"Month 3-4", label:"Rehabilitation", desc:"Partial weight-bearing, range of motion, muscle activation"},
+      {time:"Month 4-6", label:"Strengthening", desc:"Full weight-bearing, gait retraining, progressive resistance"},
+      {time:"Month 6-12", label:"Full Recovery", desc:"Advanced strengthening, return to activity, functional clearance"}
+    ],
     recovery:"Pelvic fractures take 3 to 6 months to heal sufficiently for weight-bearing, and full recovery can take 9 to 12 months. Patients with unstable fractures who require surgery typically need extensive physical therapy to regain mobility and strength.",
     insight:"Pelvic fractures have the highest mortality rate of any orthopedic injury due to the risk of exsanguination from the rich vascular network within the pelvis. The initial management focuses on hemorrhage control rather than bone alignment, following the principle that the patient must survive before the bone can heal. Advances in interventional radiology have significantly improved survival rates."
   },
@@ -1008,6 +1206,11 @@ const cases = {
     inside:"Compartment syndrome occurs when pressure within a closed muscle compartment increases to the point that blood flow to the muscles and nerves is compromised. Each muscle group in the leg is enclosed by fascia, a tough connective tissue that does not stretch. After trauma, swelling or bleeding within the compartment raises the pressure, squeezing capillaries and preventing oxygen from reaching the tissues. Without immediate surgical release, irreversible muscle and nerve damage begins within 4 to 6 hours.",
     symptoms:["Severe, escalating pain that is out of proportion to the injury","Pain that worsens with passive stretching of the affected muscles","Tightness and firmness of the affected compartment","Numbness, tingling, or burning sensation in the limb","Pale or shiny skin over the affected area","Weakness or inability to move the affected muscles"],
     treatment:["Emergency fasciotomy to surgically open the fascia and relieve pressure","Removal of non-viable muscle tissue during surgery","Temporary wound closure with delayed primary closure or skin grafting","Intravenous fluids and close monitoring of kidney function to prevent crush syndrome","Physical therapy to restore strength and mobility after wound healing"],
+    timeline: [
+      {time:"Wk 1-4", label:"Acute & Wound Healing", desc:"Fasciotomy, wound care, infection prevention, pain management"},
+      {time:"Month 2-3", label:"Rehabilitation", desc:"Range of motion, muscle activation, scar management"},
+      {time:"Month 3-6", label:"Return to Activity", desc:"Strengthening, functional training, full clearance"}
+    ],
     recovery:"Recovery from compartment syndrome depends on how quickly treatment is provided. Patients who receive fasciotomy within 6 hours typically regain near-normal function over 3 to 6 months. Delayed treatment can result in permanent muscle damage, nerve deficits, contractures, or limb loss.",
     insight:"Compartment syndrome is a surgical emergency where time is tissue. The pressure within the compartment can be measured using a needle inserted into the muscle, with values above 30 mmHg indicating the need for immediate fasciotomy. The classic 6 Ps of compartment syndrome — pain, pallor, pulselessness, paresthesia, paralysis, and poikilothermia — are late signs, and waiting for all of them to appear can result in irreversible damage."
   }
@@ -1023,13 +1226,24 @@ function openModal(key) {
   document.querySelectorAll('.case-row').forEach(r => r.classList.remove('highlighted'));
   document.querySelectorAll(`.case-row[data-case="${key}"]`).forEach(r => r.classList.add('highlighted'));
 
+  function renderTimeline(tl) {
+    const steps = tl.map(s => `
+      <div class="timeline-step">
+        <div class="tl-time">${s.time}</div>
+        <div class="tl-dot"></div>
+        <div class="tl-label">${s.label}</div>
+        <div class="tl-desc">${s.desc}</div>
+      </div>`).join('');
+    return `<div class="timeline-wrap"><h4>Recovery Timeline</h4><div class="timeline-strip">${steps}</div></div>`;
+  }
   const diagSvg = diagrams[key] ? `<div class="modal-diagram" style="background:#1a3a7c;padding:12px;">${diagrams[key]}</div>` : '';
   document.getElementById('modalBody').innerHTML = `
     <div class="patient-case"><h4>Patient Case: ${c.patient.name}</h4><p>${c.patient.story}</p></div>
     <div class="modal-section"><h4>What's Really Happening Inside?</h4><p>${c.inside}</p></div>
     <div class="modal-section"><h4>Symptoms</h4><ul>${c.symptoms.map(s=>`<li>${s}</li>`).join('')}</ul></div>
     <div class="modal-section"><h4>How It's Treated</h4><ul>${c.treatment.map(t=>`<li>${t}</li>`).join('')}</ul></div>
-    <div class="modal-two-col"><div><h4>Recovery Timeline</h4><p>${c.recovery}</p></div><div><h4>Human Repair Log Insight</h4><p>${c.insight}</p></div></div>
+    ${c.timeline ? renderTimeline(c.timeline) : ''}
+    <div class="modal-two-col"><div><h4>Recovery Notes</h4><p>${c.recovery}</p></div><div><h4>Human Repair Log Insight</h4><p>${c.insight}</p></div></div>
     ${diagSvg}
     <div class="modal-date-stamp">${c.date}</div>`;
 
