@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,7 +74,6 @@
   .body-svg-wrap { position: relative; width: 100%; max-width: 320px; margin: 0 auto; }
   .body-svg-wrap svg { width: 100%; height: auto; }
 
-  /* hotspot dots on the body */
   .hotspot {
     position: absolute;
     width: 28px; height: 28px;
@@ -104,10 +102,17 @@
     50% { box-shadow: 0 0 0 10px rgba(200,216,240,0.04); }
   }
 
-  /* case list panel */
   .case-panel { }
   .phase-group { margin-bottom: 36px; }
-  .phase-group-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--navy); background: var(--pale); padding: 3px 9px; border-radius: 3px; display: inline-block; margin-bottom: 14px; }
+  .phase-group-label {
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--navy); background: var(--pale); padding: 3px 9px; border-radius: 3px;
+    display: inline-flex; align-items: center; gap: 8px; margin-bottom: 14px;
+    cursor: pointer; user-select: none; transition: background 0.15s;
+  }
+  .phase-group-label:hover { background: #ddeaff; }
+  .phase-arrow { display: inline-block; font-size: 0.75em; line-height: 1; }
+  .phase-group.collapsed .phase-cases { display: none; }
   .case-row {
     display: flex; align-items: center; gap: 14px;
     padding: 12px 16px; border-radius: 8px; margin-bottom: 6px;
@@ -187,13 +192,6 @@
   .body-region { transition: opacity 0.15s; }
   .body-region:hover { opacity: 0.3; }
   .body-svg-wrap svg .body-region.active-region { fill: rgba(200,216,240,0.15); }
-
-  /* removed */ .region-panel-title-old {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900; font-size: 1.6rem; text-transform: uppercase;
-    letter-spacing: 0.04em; margin-bottom: 20px;
-    padding-bottom: 14px; border-bottom: 1px solid var(--card-border);
-  }
 
   .body-part {
     fill: rgba(200,216,240,0.10);
@@ -451,6 +449,7 @@
 </nav>
 
 <div style="background:linear-gradient(135deg,#1a3a7c,#2a5a9c);color:#c8d8f0;text-align:center;padding:10px 20px;font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.1);">Edition 2 in Progress · 35 Cases Across 7 Phases</div>
+<div style="background:linear-gradient(135deg,#1e5c3f,#2a8a5c);color:#c8f0d8;text-align:center;padding:10px 20px;font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.1);">✓ Phase 5 Completed — Chronic Overuse &amp; Degenerative Injuries Now Live</div>
 
 <div class="hero">
   <p class="hero-eyebrow">A Personal Case Journal</p>
@@ -592,67 +591,81 @@
     <!-- RIGHT: full case list, grouped by phase -->
     <div class="case-panel" id="casePanel">
 
-      <div class="phase-group">
-        <span class="phase-group-label">Phase 1 · Common Sports Injuries</span>
+      <div class="phase-group collapsed" data-phase="1">
+        <div class="phase-group-label" onclick="togglePhase(this)"><span class="phase-arrow">▶</span>Phase 1 · Common Sports Injuries</div>
+        <div class="phase-cases">
         <div class="case-row filed" data-case="ankle" data-region="foot"><span class="case-row-num">01</span><span class="case-row-name">Ankle Sprain</span><span class="case-row-zone">Foot &amp; Ankle</span><span class="case-row-badge done">✓</span></div>
         <div class="case-row filed" data-case="acl" data-region="knee"><span class="case-row-num">02</span><span class="case-row-name">ACL Tear</span><span class="case-row-zone">Knee</span><span class="case-row-badge done">✓</span></div>
         <div class="case-row filed" data-case="meniscus" data-region="knee"><span class="case-row-num">03</span><span class="case-row-name">Meniscus Tear</span><span class="case-row-zone">Knee</span><span class="case-row-badge done">✓</span></div>
         <div class="case-row filed" data-case="hamstring" data-region="thigh"><span class="case-row-num">04</span><span class="case-row-name">Hamstring Strain</span><span class="case-row-zone">Thigh</span><span class="case-row-badge done">✓</span></div>
         <div class="case-row filed" data-case="concussion" data-region="head"><span class="case-row-num">05</span><span class="case-row-name">Concussion</span><span class="case-row-zone">Head</span><span class="case-row-badge done">✓</span></div>
+        </div>
       </div>
 
-      <div class="phase-group">
-        <span class="phase-group-label">Phase 2 · Moderate Injuries</span>
+      <div class="phase-group collapsed" data-phase="2">
+        <div class="phase-group-label" onclick="togglePhase(this)"><span class="phase-arrow">▶</span>Phase 2 · Moderate Injuries</div>
+        <div class="phase-cases">
         <div class="case-row filed" data-case="stress" data-region="shin"><span class="case-row-num">06</span><span class="case-row-name">Stress Fracture</span><span class="case-row-zone">Shin</span><span class="case-row-badge done">✓</span></div>
         <div class="case-row filed" data-case="wrist" data-region="wrist"><span class="case-row-num">07</span><span class="case-row-name">Wrist Fracture</span><span class="case-row-zone">Wrist</span><span class="case-row-badge done">✓</span></div>
         <div class="case-row filed" data-case="rotator" data-region="shoulder"><span class="case-row-num">08</span><span class="case-row-name">Rotator Cuff Tear</span><span class="case-row-zone">Shoulder</span><span class="case-row-badge done">✓</span></div>
         <div class="case-row filed" data-case="shoulder" data-region="shoulder"><span class="case-row-num">09</span><span class="case-row-name">Dislocated Shoulder</span><span class="case-row-zone">Shoulder</span><span class="case-row-badge done">✓</span></div>
         <div class="case-row filed" data-case="achilles" data-region="foot"><span class="case-row-num">10</span><span class="case-row-name">Achilles Tendon Rupture</span><span class="case-row-zone">Foot &amp; Ankle</span><span class="case-row-badge done">✓</span></div>
+        </div>
       </div>
 
-      <div class="phase-group">
-        <span class="phase-group-label">Phase 3 · Major Injuries</span>
+      <div class="phase-group collapsed" data-phase="3">
+        <div class="phase-group-label" onclick="togglePhase(this)"><span class="phase-arrow">▶</span>Phase 3 · Major Injuries</div>
+        <div class="phase-cases">
         <div class="case-row filed" data-case="tibia" data-region="shin"><span class="case-row-num">11</span><span class="case-row-name">Tibia/Fibula Fracture</span><span class="case-row-zone">Shin</span><span class="case-row-badge done">✓</span></div>
         <div class="case-row filed" data-case="mcl_acl" data-region="knee"><span class="case-row-num">12</span><span class="case-row-name">Torn MCL + ACL</span><span class="case-row-zone">Knee</span><span class="case-row-badge done">✓</span></div>
         <div class="case-row filed" data-case="femur" data-region="thigh"><span class="case-row-num">13</span><span class="case-row-name">Femur Fracture</span><span class="case-row-zone">Thigh</span><span class="case-row-badge done">✓</span></div>
         <div class="case-row filed" data-case="hip" data-region="hip"><span class="case-row-num">14</span><span class="case-row-name">Hip Labrum Tear</span><span class="case-row-zone">Hip</span><span class="case-row-badge done">✓</span></div>
         <div class="case-row filed" data-case="multi_ligament" data-region="knee"><span class="case-row-num">15</span><span class="case-row-name">Multiple Ligament Knee</span><span class="case-row-zone">Knee</span><span class="case-row-badge done">✓</span></div>
+        </div>
       </div>
 
-      <div class="phase-group">
-        <span class="phase-group-label">Phase 4 · Extreme Cases</span>
+      <div class="phase-group collapsed" data-phase="4">
+        <div class="phase-group-label" onclick="togglePhase(this)"><span class="phase-arrow">▶</span>Phase 4 · Extreme Cases</div>
+        <div class="phase-cases">
         <div class="case-row filed" data-case="ucl" data-region="wrist"><span class="case-row-num">16</span><span class="case-row-name">UCL Tear</span><span class="case-row-zone">Arm</span><span class="case-row-badge done">✓</span></div>
         <div class="case-row filed" data-case="spine" data-region="hip"><span class="case-row-num">17</span><span class="case-row-name">Spinal Disc Herniation</span><span class="case-row-zone">Spine</span><span class="case-row-badge done">✓</span></div>
         <div class="case-row filed" data-case="patellar" data-region="knee"><span class="case-row-num">18</span><span class="case-row-name">Patellar Tendon Rupture</span><span class="case-row-zone">Knee</span><span class="case-row-badge done">✓</span></div>
         <div class="case-row filed" data-case="ocd" data-region="knee"><span class="case-row-num">19</span><span class="case-row-name">Osteochondritis Dissecans</span><span class="case-row-zone">Knee</span><span class="case-row-badge done">✓</span></div>
         <div class="case-row filed" data-case="knee_disloc" data-region="knee"><span class="case-row-num">20</span><span class="case-row-name">Traumatic Knee Dislocation</span><span class="case-row-zone">Knee</span><span class="case-row-badge done">✓</span></div>
+        </div>
       </div>
 
-      <div class="phase-group">
-        <span class="phase-group-label">Phase 5 · Chronic Overuse &amp; Degenerative Injuries</span>
+      <div class="phase-group" data-phase="5">
+        <div class="phase-group-label" onclick="togglePhase(this)"><span class="phase-arrow">▼</span>Phase 5 · Chronic Overuse &amp; Degenerative Injuries</div>
+        <div class="phase-cases">
         <div class="case-row filed" data-case="shin_stress2" data-region="shin"><span class="case-row-num">21</span><span class="case-row-name">Shin Stress Fracture (Advanced Tibial Microcracks)</span><span class="case-row-zone">Shin</span><span class="case-row-badge done">✓</span></div>
         <div class="case-row filed" data-case="it_band" data-region="thigh"><span class="case-row-num">22</span><span class="case-row-name">Iliotibial (IT) Band Syndrome</span><span class="case-row-zone">Thigh</span><span class="case-row-badge done">✓</span></div>
         <div class="case-row filed" data-case="tendinopathy" data-region="foot"><span class="case-row-num">23</span><span class="case-row-name">Chronic Tendinopathy (Degenerated Tendon Injury)</span><span class="case-row-zone">Foot &amp; Ankle</span><span class="case-row-badge done">✓</span></div>
         <div class="case-row filed" data-case="lumbar_disc" data-region="hip"><span class="case-row-num">24</span><span class="case-row-name">Lumbar Disc Degeneration (Early Spine Wear)</span><span class="case-row-zone">Spine</span><span class="case-row-badge done">✓</span></div>
         <div class="case-row filed" data-case="runners_knee" data-region="knee"><span class="case-row-num">25</span><span class="case-row-name">Patellofemoral Pain Syndrome (Runner's Knee)</span><span class="case-row-zone">Knee</span><span class="case-row-badge done">✓</span></div>
+        </div>
       </div>
 
-      <div class="phase-group">
-        <span class="phase-group-label">Phase 6 · Neuromuscular &amp; Nerve Injuries</span>
+      <div class="phase-group collapsed" data-phase="6">
+        <div class="phase-group-label" onclick="togglePhase(this)"><span class="phase-arrow">▶</span>Phase 6 · Neuromuscular &amp; Nerve Injuries</div>
+        <div class="phase-cases">
         <div class="case-row upcoming" data-case="sciatica" data-region="hip"><span class="case-row-num">26</span><span class="case-row-name">Sciatic Nerve Compression</span><span class="case-row-zone">Spine</span><span class="case-row-badge soon">Soon</span></div>
         <div class="case-row upcoming" data-case="cervical_nerve" data-region="head"><span class="case-row-num">27</span><span class="case-row-name">Cervical Nerve Root Compression</span><span class="case-row-zone">Head</span><span class="case-row-badge soon">Soon</span></div>
         <div class="case-row upcoming" data-case="muscle_atrophy" data-region="thigh"><span class="case-row-num">28</span><span class="case-row-name">Muscle Atrophy After Immobilization</span><span class="case-row-zone">Thigh</span><span class="case-row-badge soon">Soon</span></div>
         <div class="case-row upcoming" data-case="nerve_entrapment" data-region="wrist"><span class="case-row-num">29</span><span class="case-row-name">Peripheral Nerve Entrapment</span><span class="case-row-zone">Wrist</span><span class="case-row-badge soon">Soon</span></div>
         <div class="case-row upcoming" data-case="hamstring_inhibition" data-region="thigh"><span class="case-row-num">30</span><span class="case-row-name">Hamstring Neuromuscular Inhibition Injury</span><span class="case-row-zone">Thigh</span><span class="case-row-badge soon">Soon</span></div>
+        </div>
       </div>
 
-      <div class="phase-group">
-        <span class="phase-group-label">Phase 7 · High-Impact &amp; Catastrophic Trauma Cases</span>
+      <div class="phase-group collapsed" data-phase="7">
+        <div class="phase-group-label" onclick="togglePhase(this)"><span class="phase-arrow">▶</span>Phase 7 · High-Impact &amp; Catastrophic Trauma Cases</div>
+        <div class="phase-cases">
         <div class="case-row upcoming" data-case="compound_fracture" data-region="shin"><span class="case-row-num">31</span><span class="case-row-name">Open Compound Fracture with Bone Exposure</span><span class="case-row-zone">Shin</span><span class="case-row-badge soon">Soon</span></div>
         <div class="case-row upcoming" data-case="spinal_cord" data-region="hip"><span class="case-row-num">32</span><span class="case-row-name">Spinal Cord Compression Injury</span><span class="case-row-zone">Spine</span><span class="case-row-badge soon">Soon</span></div>
         <div class="case-row upcoming" data-case="multi_lig_knee" data-region="knee"><span class="case-row-num">33</span><span class="case-row-name">Multi-Ligament Knee Disruption</span><span class="case-row-zone">Knee</span><span class="case-row-badge soon">Soon</span></div>
         <div class="case-row upcoming" data-case="pelvic_fracture" data-region="hip"><span class="case-row-num">34</span><span class="case-row-name">Pelvic Fracture</span><span class="case-row-zone">Hip</span><span class="case-row-badge soon">Soon</span></div>
         <div class="case-row upcoming" data-case="compartment" data-region="shin"><span class="case-row-num">35</span><span class="case-row-name">Compartment Syndrome</span><span class="case-row-zone">Shin</span><span class="case-row-badge soon">Soon</span></div>
+        </div>
       </div>
 
     </div>
@@ -927,10 +940,10 @@
         <h3>Feature Update</h3>
         <p class="edition-date">Released · July 2026</p>
         <ul class="edition-highlights">
-          <li>Search bar</li>
-          <li>Individual case pages</li>
           <li>Recovery timelines</li>
-          <li>Reading progress</li>
+          <li>Featured case &amp; word spotlight</li>
+          <li>Case connections</li>
+          <li>Reading paths</li>
         </ul>
       </div>
       <span class="edition-status released">Released</span>
@@ -995,7 +1008,7 @@ const diagrams = {};
 const cases = {
   ankle: {
     phase:"Phase 1 · Common Sports Injuries", title:"Case 01: Ankle Sprain", date:"6/12/2026",
-    patient:{name:"Maya, Age 14", story:"Maya was playing badminton during gym class when she jumped to reach a shot. As she landed, her foot rolled inward. She immediately felt a sharp pain in her ankle and had trouble putting weight on it. Within an hour, her ankle became swollen and bruised. At the doctor\'s office, she learned she had suffered a lateral ankle sprain."},
+    patient:{name:"Maya, Age 14", story:"Maya was playing badminton during gym class when she jumped to reach a shot. As she landed, her foot rolled inward. She immediately felt a sharp pain in her ankle and had trouble putting weight on it. Within an hour, her ankle became swollen and bruised. At the doctor's office, she learned she had suffered a lateral ankle sprain."},
     inside:"A lateral ankle sprain occurs when the foot rolls inward with enough force to overstretch or tear the ligaments on the outside of the ankle. These ligaments, especially the anterior talofibular ligament (ATFL), help stabilize the joint and prevent excessive movement. When damaged, the ankle becomes less stable and inflammation develops as the body begins repairing the injured tissue.",
     symptoms:["Pain around the ankle joint","Swelling and inflammation","Difficulty putting weight on the foot","A feeling of instability or weakness in the ankle"],
     treatment:["Resting the ankle and avoiding applying stress to it","Ice to reduce swelling","Compressing the ankle with bandages or wraps","Elevate the ankle to reduce inflammation","Gradual movement and rehabilitation exercises once pain decreases"],
@@ -1010,7 +1023,7 @@ const cases = {
   acl: {
     phase:"Phase 1 · Common Sports Injuries", title:"Case 02: ACL Tear", date:"6/13/2026",
     patient:{name:"Jordan, Age 15", story:"Jordan was playing soccer during a weekend match when he quickly changed direction to avoid a defender. As he planted his left foot and twisted, he felt a sudden pop in his knee. He immediately fell to the ground and experienced severe pain. Within a short time, his knee became swollen, and he found it difficult to stand or walk without feeling like his knee was giving way. After visiting an orthopedic specialist and getting an MRI, Jordan learned that he had torn his Anterior Cruciate Ligament (ACL)."},
-    inside:"The ACL is one of the primary stabilizing ligaments of the knee, helping control forward movement and rotation of the shin bone. During a sudden pivot, landing, or change in direction, excessive force can exceed the ligament\'s strength and cause its fibers to tear. This loss of stability can make the knee feel as though it may buckle or give way during movement.",
+    inside:"The ACL is one of the primary stabilizing ligaments of the knee, helping control forward movement and rotation of the shin bone. During a sudden pivot, landing, or change in direction, excessive force can exceed the ligament's strength and cause its fibers to tear. This loss of stability can make the knee feel as though it may buckle or give way during movement.",
     symptoms:["Pain in the knee, especially after a sudden twisting movement","Swelling that develops quickly after the injury","Difficulty walking, running, or putting weight on the leg","A feeling of instability or the knee \"giving way\" during movement","Reduced range of motion in the knee"],
     treatment:["Resting the knee and avoiding activities that place stress on it","Applying ice to reduce swelling and pain","Using a brace or crutches to support the knee during recovery","Physical therapy to restore strength, stability, and range of motion","Surgery may be recommended for complete ACL tears, especially for active individuals who plan to return to sports"],
     timeline: [
@@ -1040,7 +1053,7 @@ const cases = {
   hamstring: {
     phase:"Phase 1 · Common Sports Injuries", title:"Case 04: Hamstring Strain", date:"6/15/2026",
     patient:{name:"Ava, Age 15", story:"Ava was sprinting during a track practice when she suddenly felt a sharp pain in the back of her thigh. She immediately slowed down and had difficulty continuing to run. After being examined by a doctor, she learned that she had suffered a hamstring strain."},
-    inside:"The hamstrings are a group of muscles located along the back of the thigh that help bend the knee and extend the hip. During rapid acceleration, sprinting, or sudden stretching, the muscle fibers can become overloaded and partially tear. This damage reduces the muscle\'s ability to generate force and causes pain during movement.",
+    inside:"The hamstrings are a group of muscles located along the back of the thigh that help bend the knee and extend the hip. During rapid acceleration, sprinting, or sudden stretching, the muscle fibers can become overloaded and partially tear. This damage reduces the muscle's ability to generate force and causes pain during movement.",
     symptoms:["Sudden pain in the back of the thigh","Tenderness or soreness in the affected area","Swelling or bruising","Muscle weakness","Difficulty walking, running, or bending the knee"],
     treatment:["Resting the injured leg and avoiding strenuous activity","Applying ice to reduce pain and swelling","Compression and elevation to control inflammation","Gentle stretching and strengthening exercises during recovery","Physical therapy for more severe strains"],
     timeline: [
@@ -1077,7 +1090,7 @@ const cases = {
       {time:"Wk 6-8", label:"Return to Activity", desc:"Progressive loading, sport-specific training, full clearance"}
     ],
     recovery:"Recovery usually takes 6 to 8 weeks, although more severe stress fractures may require up to 12 weeks. Returning to sports too early can increase the risk of a complete fracture, so activity should be resumed gradually.",
-    insight:"Stress fractures demonstrate that bones are constantly rebuilding themselves through a process called remodeling. When repetitive stress exceeds the bone\'s ability to repair microscopic damage, small cracks begin to form. With proper rest and reduced impact, the body replaces the damaged bone with stronger new tissue, allowing the bone to regain its strength."
+    insight:"Stress fractures demonstrate that bones are constantly rebuilding themselves through a process called remodeling. When repetitive stress exceeds the bone's ability to repair microscopic damage, small cracks begin to form. With proper rest and reduced impact, the body replaces the damaged bone with stronger new tissue, allowing the bone to regain its strength."
   },
   wrist: {
     phase:"Phase 2 · Moderate Injuries", title:"Case 07: Wrist Fracture", date:"6/19/2026",
@@ -1091,12 +1104,12 @@ const cases = {
       {time:"Wk 6-8", label:"Rehabilitation", desc:"Strengthening, flexibility exercises, return to daily activities"}
     ],
     recovery:"Most wrist fractures heal within 6 to 8 weeks, although more severe fractures may require 3 to 6 months for full recovery. Strength and flexibility gradually return through rehabilitation before normal activities can be resumed.",
-    insight:"A wrist fracture highlights the body\'s ability to rebuild damaged bone through a process called bone remodeling. After inflammation clears away damaged tissue, new bone begins forming around the fracture, creating a callus that reconnects the broken pieces. Over time, the body reshapes and strengthens the new bone until the wrist regains much of its normal function."
+    insight:"A wrist fracture highlights the body's ability to rebuild damaged bone through a process called bone remodeling. After inflammation clears away damaged tissue, new bone begins forming around the fracture, creating a callus that reconnects the broken pieces. Over time, the body reshapes and strengthens the new bone until the wrist regains much of its normal function."
   },
   rotator: {
     phase:"Phase 2 · Moderate Injuries", title:"Case 08: Rotator Cuff Tear", date:"6/20/2026",
     patient:{name:"Daniel, Age 17", story:"Daniel was pitching during a baseball game when he felt a sudden sharp pain in his shoulder after throwing a fastball. He noticed weakness whenever he tried to lift his arm, and the pain became worse over the next few days. An MRI revealed that he had torn his rotator cuff."},
-    inside:"The rotator cuff is a group of four muscles and tendons that stabilize the shoulder and allow it to move in many directions. When Daniel threw the ball, excessive force caused one of these tendons to tear, reducing the shoulder\'s strength and stability. The injury triggered inflammation around the torn tendon, leading to pain, swelling, and difficulty moving the arm.",
+    inside:"The rotator cuff is a group of four muscles and tendons that stabilize the shoulder and allow it to move in many directions. When Daniel threw the ball, excessive force caused one of these tendons to tear, reducing the shoulder's strength and stability. The injury triggered inflammation around the torn tendon, leading to pain, swelling, and difficulty moving the arm.",
     symptoms:["Shoulder pain, especially when lifting the arm","Weakness in the shoulder","Difficulty reaching overhead","Pain during throwing or lifting","Limited range of motion","Clicking or popping sensations in the shoulder"],
     treatment:["Rest and avoiding activities that worsen the pain","Ice to reduce inflammation","Physical therapy to restore strength and mobility","Anti-inflammatory medications if recommended","Surgery for severe or complete tendon tears"],
     timeline: [
@@ -1125,13 +1138,13 @@ const cases = {
   achilles: {
     phase:"Phase 2 · Moderate Injuries", title:"Case 10: Achilles Tendon Rupture", date:"6/22/2026",
     patient:{name:"Daniel, Age 18", story:"Daniel was playing basketball when he jumped for a rebound and felt a sudden snap in the back of his ankle as he landed. He described the sensation as if someone had kicked him from behind, even though no one was near him. Unable to push off his foot or continue playing, Daniel later learned that he had suffered an Achilles tendon rupture."},
-    inside:"The Achilles tendon is the strongest and largest tendon in the human body, connecting the calf muscles to the heel bone. When Liam pushed off with explosive force, the tendon was stretched beyond its limit and completely tore apart. This sudden rupture prevents the calf muscles from effectively pulling on the heel, making it difficult or impossible to walk, run, or stand on the toes.",
+    inside:"The Achilles tendon is the strongest and largest tendon in the human body, connecting the calf muscles to the heel bone. When Daniel pushed off with explosive force, the tendon was stretched beyond its limit and completely tore apart. This sudden rupture prevents the calf muscles from effectively pulling on the heel, making it difficult or impossible to walk, run, or stand on the toes.",
     symptoms:["A sudden popping or snapping sensation","Sharp pain in the back of the ankle","Difficulty or inability to walk","Inability to stand on the toes","Swelling and bruising","Weakness when pushing off the foot"],
     treatment:["Immobilizing the ankle in a walking boot or cast","Ice and elevation to reduce swelling","Physical therapy to restore strength and flexibility","Surgery to reconnect the torn tendon in many active patients","Gradual return to weight-bearing activities"],
     timeline: [
       {time:"Wk 1-2", label:"Immobilization", desc:"Non-weight-bearing, boot or cast, ice, elevation"},
       {time:"Wk 3-12", label:"Rehabilitation", desc:"Protected weight-bearing, range of motion, calf strengthening"},
-      {time:"Month 4-6", label:"Strengthening", desc:"Eccentric loading, balance/ proprioception, plyometrics"},
+      {time:"Month 4-6", label:"Strengthening", desc:"Eccentric loading, balance/proprioception, plyometrics"},
       {time:"Month 6-9", label:"Return to Activity", desc:"Sport-specific training, running progression, full clearance"}
     ],
     recovery:"Recovery typically takes 6 to 12 months, depending on the severity of the rupture and whether surgery is performed. Physical therapy is essential for rebuilding strength, flexibility, and balance before returning to sports or high-impact activities.",
@@ -1140,7 +1153,7 @@ const cases = {
   tibia: {
     phase:"Phase 3 · Major Injuries", title:"Case 11: Tibia/Fibula Fracture", date:"6/23/2026",
     patient:{name:"Ethan, Age 16", story:"Ethan was playing soccer when another player accidentally slid into his lower leg during a tackle. He immediately felt intense pain and was unable to stand or put weight on the injured leg. At the hospital, X-rays revealed that he had suffered a tibia and fibula fracture."},
-    inside:"The tibia (shinbone) and fibula are the two bones that make up the lower leg. A tibia/fibula fracture occurs when a strong force causes one or both bones to crack or break. This injury can damage nearby muscles, blood vessels, and soft tissues while triggering the body\'s bone-healing response.",
+    inside:"The tibia (shinbone) and fibula are the two bones that make up the lower leg. A tibia/fibula fracture occurs when a strong force causes one or both bones to crack or break. This injury can damage nearby muscles, blood vessels, and soft tissues while triggering the body's bone-healing response.",
     symptoms:["Severe pain in the lower leg","Inability to stand or walk","Swelling and bruising","Tenderness around the fracture site","A visible deformity in more severe fractures"],
     treatment:["Immobilizing the leg with a splint or cast","Avoiding weight-bearing on the injured leg","Applying ice and elevating the leg to reduce swelling","Physical therapy after the bone begins to heal","Surgery may be required to realign and stabilize the bones with plates, screws, or rods"],
     timeline: [
@@ -1178,7 +1191,7 @@ const cases = {
       {time:"Month 3-4", label:"Strengthening", desc:"Progressive resistance, gait training, functional exercises"},
       {time:"Month 4-6", label:"Return to Activity", desc:"Sport-specific training, full weight-bearing, full clearance"}
     ],
-    recovery:"Recovery from a femur fracture typically takes 4 to 6 months, though more severe fractures may require longer. Many patients can begin limited movement within weeks after surgery, but full strength and function often take several months to return.",
+    recovery:"Recovery from a femur fracture typically takes 4 to 6 months, though more severe or comminuted fractures may require longer. Many patients can begin limited movement within weeks after surgery, but full strength and function often take several months to return.",
     insight:"After the fracture occurs, the body forms a blood clot around the break to stabilize the injury and begin repairs. Bone-building cells then create a soft callus that bridges the broken pieces together. Over time, this callus hardens into new bone, and the body remodels it until the femur becomes stronger and more functional again."
   },
   hip: {
@@ -1244,7 +1257,7 @@ const cases = {
   patellar: {
     phase:"Phase 4 · Extreme Cases", title:"Case 18: Patellar Tendon Rupture", date:"6/27/2026",
     patient:{name:"James, Age 28", story:"James was playing basketball when he jumped for a rebound and felt a violent, painful pop just below his kneecap as he pushed off the ground. He collapsed immediately, unable to straighten his leg or support his weight. His knee swelled rapidly, and his kneecap appeared noticeably higher up on his thigh than usual. After an MRI, doctors discovered that he had sustained a complete patellar tendon rupture."},
-    inside:"The knee relies on the patellar tendon to connect the kneecap to the shinbone, allowing the thigh muscles to straighten the leg. When a sudden, powerful force is applied while the knee is bent, the tendon can tear completely away from the bone, disrupting the knee\'s extension mechanism. This causes the kneecap to shift upward into the thigh because the quadriceps muscle pulls it without opposition. The injury triggers immediate internal bleeding, massive swelling, and an absolute loss of leg control.",
+    inside:"The knee relies on the patellar tendon to connect the kneecap to the shinbone, allowing the thigh muscles to straighten the leg. When a sudden, powerful force is applied while the knee is bent, the tendon can tear completely away from the bone, disrupting the knee's extension mechanism. This causes the kneecap to shift upward into the thigh because the quadriceps muscle pulls it without opposition. The injury triggers immediate internal bleeding, massive swelling, and an absolute loss of leg control.",
     symptoms:["A violent popping or tearing sensation at the moment of injury","Severe pain and rapid swelling directly below the kneecap","Inability to straighten the leg or perform a straight leg raise","An indentation or gap in the tendon just underneath the kneecap","A displaced kneecap that rides visibly higher up the thigh","Inability to bear weight or walk on the affected leg"],
     treatment:["Surgical tendon repair","A long-leg hinged brace","Early range of motion exercises","Targeted physical therapy","Quadriceps activation training","Progressive weight-bearing protocol"],
     timeline: [
@@ -1254,7 +1267,7 @@ const cases = {
       {time:"Month 6-9", label:"Return to Activity", desc:"Sport-specific training, plyometrics, full clearance"}
     ],
     recovery:"Recovery from a patellar tendon rupture typically requires surgery, as complete tears rarely heal on their own. Initial recovery and brace protection take about 6 to 12 weeks to allow the reattached tendon to secure itself to the bone. Full recovery and a safe return to high-impact sports or heavy lifting usually take 6 to 9 months.",
-    insight:"A patellar tendon rupture is a severe, relatively rare injury that usually requires rapid surgical intervention to restore the knee\'s extension function. It most frequently occurs in athletes under the age of 40 during activities involving explosive jumping, landing, or sudden changes of direction. Often, the tendon has been weakened over time by chronic inflammation, known as patellar tendinitis or \"jumper\'s knee,\" before the ultimate failure occurs. Regaining full quadriceps mass and explosive power is the most challenging phase of recovery, demanding strict adherence to a long rehabilitation program."
+    insight:"A patellar tendon rupture is a severe, relatively rare injury that usually requires rapid surgical intervention to restore the knee's extension function. It most frequently occurs in athletes under the age of 40 during activities involving explosive jumping, landing, or sudden changes of direction. Often, the tendon has been weakened over time by chronic inflammation, known as patellar tendinitis or \"jumper's knee,\" before the ultimate failure occurs. Regaining full quadriceps mass and explosive power is the most challenging phase of recovery, demanding strict adherence to a long rehabilitation program."
   },
   ocd: {
     phase:"Phase 4 · Extreme Cases", title:"Case 19: Osteochondritis Dissecans", date:"6/27/2026",
@@ -1269,7 +1282,7 @@ const cases = {
       {time:"Month 6-9", label:"Return to Activity (Surgical)", desc:"Sport-specific training, imaging confirmation, full clearance"}
     ],
     recovery:"Recovery from osteochondritis dissecans can take 3 to 6 months with non-surgical rest and bracing for stable fragments in growing adolescents. If surgery is needed to fix or remove a loose piece, recovery may take 4 to 9 months before safely returning to competitive sports and high-impact activities. Most patients gradually regain joint mobility, lower limb alignment, and muscle strength through a highly customized rehabilitation program",
-    insight:"Osteochondritis dissecans is a joint condition most frequently diagnosed in active children, adolescents, and young adults. It typically affects the knee, though it can also occur in the elbow or ankle due to micro-trauma, repetitive stress, or genetic blood supply variances. A patient\'s age plays a massive role in the prognosis, as skeletally immature children with open growth plates have a much higher rate of spontaneous healing without surgery. Successful long-term outcomes depend entirely on early detection, protecting the joint surface from premature arthritis, and avoiding high-impact loads until imaging confirms the bone has completely healed"
+    insight:"Osteochondritis dissecans is a joint condition most frequently diagnosed in active children, adolescents, and young adults. It typically affects the knee, though it can also occur in the elbow or ankle due to micro-trauma, repetitive stress, or genetic blood supply variances. A patient's age plays a massive role in the prognosis, as skeletally immature children with open growth plates have a much higher rate of spontaneous healing without surgery. Successful long-term outcomes depend entirely on early detection, protecting the joint surface from premature arthritis, and avoiding high-impact loads until imaging confirms the bone has completely healed"
   },
   knee_disloc: {
     phase:"Phase 4 · Extreme Cases", title:"Case 20: Traumatic Knee Dislocation", date:"6/27/2026",
@@ -1312,7 +1325,7 @@ const cases = {
       {time:"Wk 6-8", label:"Return to Activity", desc:"Gradual return to running, mileage progression, full clearance"}
     ],
     recovery:"Iliotibial band syndrome is one of the most common leading causes of lateral knee pain in runners, cyclists, and military personnel due to its repetitive overuse nature. Unlike a muscle strain, the IT band is a dense connective tissue structure that cannot easily stretch, meaning treatments focused solely on stretching the band itself are rarely effective. Instead, successful long-term resolution relies heavily on correcting underlying biomechanical deficits, such as weak hip abductors that cause the knee to collapse inward during impact. Addressing these root muscle imbalances and slowly scaling mileage prevents the outer knee from absorbing destructive friction forces during athletic activity.",
-    insight:"Iliotibial band syndrome is one of the most common leading causes of lateral knee pain in runners, cyclists, and military personnel due to its repetitive overuse nature. Unlike a muscle strain, the IT band is a dense connective tissue structure that cannot easily stretch, meaning treatments focused solely on stretching the band itself are rarely effective. Instead, successful long-term resolution relies heavily on correcting underlying biomechanical deficits, such as weak hip abductors that cause the knee to collapse inward during impact. Addressing these root muscle imbalances and slowly scaling mileage prevents the outer knee from absorbing destructive friction forces during athletic activity."
+    insight:"Because the IT band is a dense, largely inelastic sheet of connective tissue rather than a contractile muscle, it cannot be lengthened or loosened through stretching the way people often assume. The real driver of the friction is almost always upstream — weak hip abductors that let the thigh drift inward with every stride, increasing compression at the knee with each step. This is why the most durable fix targets the hip and glutes rather than the knee itself, and why athletes who only foam-roll the IT band tend to see their symptoms return."
   },
   tendinopathy: {
     phase:"Phase 5 · Chronic Overuse & Degenerative Injuries", title:"Case 23: Chronic Tendinopathy", date:"7/05/2026",
@@ -1326,12 +1339,12 @@ const cases = {
       {time:"Month 4-6", label:"Return to Activity", desc:"Sport-specific loading, maintenance program, full clearance"}
     ],
     recovery:"Recovery from chronic tendinopathy can take 3 to 6 months of dedicated, slow-resistance rehabilitation because degenerated tendon tissue remodels very slowly. If advanced treatments like shockwave therapy or surgical tenotomy are required for stubborn cases, full recovery can extend from 6 to 9 months before high-impact training can resume. Most patients gradually rebuild tissue resilience, tendon stiffness, and functional strength by consistently sticking to a progressively heavier loading program.",
-    insight:"Chronic tendinopathy represents a structural failure of tissue remodeling rather than an inflammatory disease, which is why traditional treatments like ice, rest, and cortisone injections often fail to provide lasting relief. Because the tissue has entered a degenerative loop, the tendon actually requires carefully controlled mechanical stress — rather than complete rest — to stimulate cells to build new, organized collagen fibers. Managing this condition requires a major shift in patient mindset, as rehabilitation focuses on gradually increasing the tendon\'s capacity to handle heavy loads without triggering a setback. Long-term success depends on consistency, slowly reintroducing explosive movements, and addressing underlying biomechanical flaws that caused the chronic overloading in the first place."
+    insight:"Chronic tendinopathy represents a structural failure of tissue remodeling rather than an inflammatory disease, which is why traditional treatments like ice, rest, and cortisone injections often fail to provide lasting relief. Because the tissue has entered a degenerative loop, the tendon actually requires carefully controlled mechanical stress — rather than complete rest — to stimulate cells to build new, organized collagen fibers. Managing this condition requires a major shift in patient mindset, as rehabilitation focuses on gradually increasing the tendon's capacity to handle heavy loads without triggering a setback. Long-term success depends on consistency, slowly reintroducing explosive movements, and addressing underlying biomechanical flaws that caused the chronic overloading in the first place."
   },
   lumbar_disc: {
     phase:"Phase 5 · Chronic Overuse & Degenerative Injuries", title:"Case 24: Lumbar Disc Degeneration", date:"7/06/2026",
     patient:{name:"Marcus, Age 48", story:"Marcus was lifting a cooler from his car when he felt a deep, localized ache across his lower back that had been progressively worsening for over a year. Initially, the discomfort only occurred after long drives or heavy yard work, but it eventually turned into a chronic, daily stiffness that made it difficult to sit or stand for more than twenty minutes. He also noticed a dull, aching tightness that occasionally radiated into his upper thighs. After a specialized spine MRI, doctors discovered that he had developed severe lumbar disc degeneration at the L5-S1 level."},
-    inside:"The lower spine relies on fluid-filled intervertebral discs to act as shock absorbers and maintain flexible spacing between the vertebrae. As the body ages or endures repetitive spinal stress, these discs can lose their water content, dry out, and begin to thin or flatten. This structural loss of disc height reduces the spine\'s cushioning capability, forcing the surrounding vertebrae closer together and increasing mechanical stress on the spinal joints. The injury triggers localized inflammation, bone spur development around the worn joints, and chronic lower back pain as the surrounding muscles chronically spasm to stabilize the weakened spinal column.",
+    inside:"The lower spine relies on fluid-filled intervertebral discs to act as shock absorbers and maintain flexible spacing between the vertebrae. As the body ages or endures repetitive spinal stress, these discs can lose their water content, dry out, and begin to thin or flatten. This structural loss of disc height reduces the spine's cushioning capability, forcing the surrounding vertebrae closer together and increasing mechanical stress on the spinal joints. The injury triggers localized inflammation, bone spur development around the worn joints, and chronic lower back pain as the surrounding muscles chronically spasm to stabilize the weakened spinal column.",
     symptoms:["A chronic, dull ache centered in the lower back that worsens with prolonged sitting or bending","Severe morning stiffness that gradually improves with gentle movement or heat application","Increased pain when lifting, twisting, or carrying heavy objects","A dull, radiating ache or tightness felt in the buttocks and upper thighs","A popping or grinding sensation in the lower spine during sudden movements","Reduced flexibility"],
     treatment:["Rest and strategic activity modifications","Heat therapy and core-support bracing","Anti-inflammatory medications and targeted nerve blocks","Lumbar traction and decompression physical therapy","Core and lumbar stabilization exercises","Epidural steroid or facet joint injections","Spinal fusion or artificial disc replacement surgery"],
     timeline: [
@@ -1343,7 +1356,7 @@ const cases = {
     insight:"Lumbar disc degeneration is a progressive, age-related structural evolution of the spine rather than a sudden, isolated disease. Because spinal discs have a limited direct blood supply, they possess almost no capacity to naturally regenerate or restore lost fluid once the drying process begins. Consequently, clinical management focuses on modifying how the rest of the body supports the spine rather than trying to reverse the structural thinning of the disc itself. Long-term success relies heavily on developing exceptional core endurance, maintaining a healthy weight, and practicing proper body mechanics to shield the lower spine from uneven loading forces during daily life."
   },
   runners_knee: {
-    phase:"Phase 5 · Chronic Overuse & Degenerative Injuries", title:"Case 25: Patellofemoral Pain Syndrome (Runner\'s Knee)", date:"7/06/2026",
+    phase:"Phase 5 · Chronic Overuse & Degenerative Injuries", title:"Case 25: Patellofemoral Pain Syndrome (Runner's Knee)", date:"7/06/2026",
     patient:{name:"Marcus, Age 22", story:"Marcus was an avid runner who felt a dull, aching pain behind and around his kneecap during a high-mileage training block. Initially, the discomfort only occurred toward the end of long runs, but it soon escalated into a persistent ache whenever he sat for long periods or walked down stairs. He also noticed a mild grinding sensation and tenderness when pressing along the edges of his kneecap. After a clinical evaluation, doctors discovered that he had developed Patellofemoral Pain Syndrome."},
     inside:"The knee relies on the kneecap to slide smoothly within a specialized groove at the end of the thighbone during bending and straightening movements. When a muscle imbalance or tracking flaw occurs, such as weakness in the hip or inner quadriceps, the kneecap is pulled slightly off-course and rubs unevenly against the bone underneath. This repetitive, faulty tracking causes excessive pressure and friction to wear down the protective cartilage surface behind the kneecap. The injury triggers localized inflammation, irritation of the surrounding joint lining, and a dull, aching pain during activities that heavily load the joint.",
     symptoms:["A dull, aching pain behind or around the kneecap that intensifies during activity","Increased discomfort or stiffness after sitting for long periods with the knees bent","A grinding, popping, or catching sensation under the kneecap during bending movements","Pain that worsens significantly when walking down stairs, running, or squatting","Mild swelling or a feeling of fullness around the front of the knee joint","Tenderness to the touch along the outer or inner borders of the kneecap"],
@@ -1354,12 +1367,12 @@ const cases = {
       {time:"Wk 6-12", label:"Return to Activity", desc:"Sport-specific training, gait correction, maintenance program"}
     ],
     recovery:"Recovery from Patellofemoral Pain Syndrome can take 6 to 12 weeks of targeted physical therapy to correct muscle imbalances and restore proper kneecap tracking. Because this condition rarely requires surgery, recovery focuses entirely on progressive loading and functional movement retraining. Most patients gradually eliminate their pain, rebuild lower limb mechanics, and safely return to full athletic training over a 3 to 4-month period of structured rehabilitation.",
-    insight:"Patellofemoral Pain Syndrome, often called \"runner\'s knee,\" is one of the most common causes of anterior knee pain in young athletes and active individuals. Unlike acute structural tears, this condition is primarily a functional tracking issue stemming from biomechanical weaknesses further up or down the kinetic chain, such as weak hips or overpronating feet. Because the pain is caused by altered pressure distribution across the joint, treatments that only address the knee itself without strengthening the hip and thigh stabilizers rarely offer permanent relief. Long-term success relies heavily on maintaining balanced lower-body strength, gradually scaling training workloads, and ensuring proper footwear to keep the kneecap moving smoothly within its optimal track."
+    insight:"Patellofemoral Pain Syndrome, often called \"runner's knee,\" is one of the most common causes of anterior knee pain in young athletes and active individuals. Unlike acute structural tears, this condition is primarily a functional tracking issue stemming from biomechanical weaknesses further up or down the kinetic chain, such as weak hips or overpronating feet. Because the pain is caused by altered pressure distribution across the joint, treatments that only address the knee itself without strengthening the hip and thigh stabilizers rarely offer permanent relief. Long-term success relies heavily on maintaining balanced lower-body strength, gradually scaling training workloads, and ensuring proper footwear to keep the kneecap moving smoothly within its optimal track."
   },
   sciatica: {
     phase:"Phase 6 · Neuromuscular & Nerve Injuries", title:"Case 26: Sciatic Nerve Compression", date:"6/29/2026",
     patient:{name:"Mrs. Patel, Age 48", story:"Mrs. Patel began experiencing a sharp, electric shock-like pain that started in her lower back and traveled down her right leg. The pain was accompanied by tingling and numbness in her toes, making it difficult to walk or stand for long periods. After an MRI revealed a disc bulge compressing her sciatic nerve root, she was diagnosed with sciatic nerve compression."},
-    inside:"The sciatic nerve is the largest nerve in the body, formed by nerve roots that exit the lower spine and travel through the buttock and down the leg. When a herniated disc, bone spur, or muscle spasm compresses one of these nerve roots, it disrupts normal nerve signaling, causing pain, tingling, numbness, and weakness along the nerve\'s pathway. The compression also triggers inflammation around the nerve root, amplifying pain signals.",
+    inside:"The sciatic nerve is the largest nerve in the body, formed by nerve roots that exit the lower spine and travel through the buttock and down the leg. When a herniated disc, bone spur, or muscle spasm compresses one of these nerve roots, it disrupts normal nerve signaling, causing pain, tingling, numbness, and weakness along the nerve's pathway. The compression also triggers inflammation around the nerve root, amplifying pain signals.",
     symptoms:["Sharp, shooting pain that travels from the lower back through the buttock and down the leg","Tingling, burning, or numbness in the leg, foot, or toes","Weakness in the affected leg, making it difficult to lift the foot","Pain that worsens with prolonged sitting, coughing, or sneezing","A constant ache on one side of the lower back","Difficulty standing up from a seated position"],
     treatment:["Conservative care with physical therapy focusing on core and back stabilization","Anti-inflammatory medications and muscle relaxants to manage symptoms","Heat and ice therapy to reduce muscle spasm and inflammation","Epidural steroid injections to reduce nerve root inflammation","Activity modification to avoid positions that worsen symptoms","Surgery such as microdiscectomy if conservative treatment fails or weakness progresses"],
     timeline: [
@@ -1373,7 +1386,7 @@ const cases = {
   cervical_nerve: {
     phase:"Phase 6 · Neuromuscular & Nerve Injuries", title:"Case 27: Cervical Nerve Root Compression", date:"6/29/2026",
     patient:{name:"David, Age 38", story:"David woke up one morning with a sharp pain in his neck that radiated down his right arm into his thumb and index finger. He noticed numbness in his fingertips and weakness when gripping objects. After an MRI showed a herniated disc at C6-C7 compressing the nerve root, he was diagnosed with cervical nerve root compression."},
-    inside:"Cervical nerve root compression occurs when a herniated disc, bone spur, or thickened ligament in the neck presses on a nerve root as it exits the spinal column. This compression disrupts the nerve\'s ability to transmit signals, resulting in radiating pain, numbness, tingling, and weakness in the specific area of the arm and hand supplied by that nerve root. The C6 and C7 nerve roots are most commonly affected.",
+    inside:"Cervical nerve root compression occurs when a herniated disc, bone spur, or thickened ligament in the neck presses on a nerve root as it exits the spinal column. This compression disrupts the nerve's ability to transmit signals, resulting in radiating pain, numbness, tingling, and weakness in the specific area of the arm and hand supplied by that nerve root. The C6 and C7 nerve roots are most commonly affected.",
     symptoms:["Neck pain that radiates down the arm into the hand","Numbness or tingling in the fingers, especially the thumb or middle finger","Weakness in the arm or hand, making gripping or lifting difficult","Sharp pain when turning the head or looking upward","Reduced range of motion in the neck","Muscle spasms in the neck and upper shoulder"],
     treatment:["Relative rest and activity modification to avoid aggravating movements","Physical therapy focusing on neck strengthening and postural correction","Anti-inflammatory medications and muscle relaxants","Cervical traction or a soft collar for temporary support","Epidural steroid injections to reduce nerve inflammation","Anterior cervical discectomy and fusion for severe or persistent cases"],
     timeline: [
@@ -1382,7 +1395,7 @@ const cases = {
       {time:"Wk 6-12", label:"Return to Activity", desc:"Progressive strengthening, full range of motion, activity clearance"}
     ],
     recovery:"Recovery from cervical nerve root compression typically takes 6 to 12 weeks with conservative treatment. Surgical cases require 3 to 6 months of recovery, and most patients regain full arm and hand function once the nerve compression is relieved.",
-    insight:"Cervical radiculopathy follows specific dermatomal patterns that allow clinicians to identify which nerve root is compressed based solely on the patient\'s symptoms. For example, C6 compression affects the thumb, while C7 affects the middle finger. This predictable anatomy makes physical examination a powerful diagnostic tool before imaging is performed."
+    insight:"Cervical radiculopathy follows specific dermatomal patterns that allow clinicians to identify which nerve root is compressed based solely on the patient's symptoms. For example, C6 compression affects the thumb, while C7 affects the middle finger. This predictable anatomy makes physical examination a powerful diagnostic tool before imaging is performed."
   },
   muscle_atrophy: {
     phase:"Phase 6 · Neuromuscular & Nerve Injuries", title:"Case 28: Muscle Atrophy After Immobilization", date:"6/29/2026",
@@ -1458,7 +1471,7 @@ const cases = {
   multi_lig_knee: {
     phase:"Phase 7 · High-Impact & Catastrophic Trauma Cases", title:"Case 33: Multi-Ligament Knee Disruption", date:"6/30/2026",
     patient:{name:"Ryan, Age 21", story:"Ryan was playing collegiate football when he was hit from the side while his foot was planted. He felt a series of pops and his knee collapsed inward. The pain was excruciating, and his knee immediately began to swell and feel unstable in multiple directions. An MRI revealed a multi-ligament knee disruption involving his ACL, PCL, MCL, and posterolateral corner structures."},
-    inside:"A multi-ligament knee disruption involves damage to at least two of the knee\'s major stabilizing ligaments, often with associated injuries to surrounding tendons, cartilage, and neurovascular structures. When three or more ligaments are torn, the knee loses its structural integrity and can subluxate or dislocate. These injuries require careful assessment of the popliteal artery and peroneal nerve, as damage to these structures can threaten the viability of the leg.",
+    inside:"A multi-ligament knee disruption involves damage to at least two of the knee's major stabilizing ligaments, often with associated injuries to surrounding tendons, cartilage, and neurovascular structures. When three or more ligaments are torn, the knee loses its structural integrity and can subluxate or dislocate. These injuries require careful assessment of the popliteal artery and peroneal nerve, as damage to these structures can threaten the viability of the leg.",
     symptoms:["Severe pain and rapid, extensive swelling of the knee","Audible pops or tearing sensations at the time of injury","The knee feeling unstable or giving way in multiple directions","Inability to bear weight or walk","Bruising extending down the leg","Numbness, tingling, or coldness in the foot if blood vessels are damaged"],
     treatment:["Emergency evaluation of vascular status with angiography if needed","Temporary external fixation or bracing to stabilize the knee","Staged surgical reconstruction to repair torn ligaments in the correct order","Protection of repaired ligaments through bracing and restricted motion","Extended rehabilitation lasting 9 to 18 months"],
     timeline: [
@@ -1536,6 +1549,13 @@ function openModal(key) {
   document.body.style.overflow = 'hidden';
 }
 
+function togglePhase(el) {
+  const group = el.closest('.phase-group');
+  group.classList.toggle('collapsed');
+  const arrow = el.querySelector('.phase-arrow');
+  arrow.textContent = group.classList.contains('collapsed') ? '▶' : '▼';
+}
+
 function closeModal() {
   document.getElementById('modalOverlay').classList.remove('open');
   document.body.style.overflow = '';
@@ -1572,6 +1592,14 @@ function filterRegion(region) {
     } else {
       r.classList.add('dimmed');
       r.classList.remove('highlighted');
+    }
+  });
+
+  document.querySelectorAll('.phase-group').forEach(g => {
+    if (g.querySelector('.case-row.highlighted')) {
+      g.classList.remove('collapsed');
+      const arrow = g.querySelector('.phase-arrow');
+      if (arrow) arrow.textContent = '▼';
     }
   });
 
