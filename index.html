@@ -121,15 +121,29 @@
     cursor: pointer;
   }
   .case-row.filed { border-color: var(--card-border); background: var(--card-bg); }
-  .case-row.filed:hover { background: rgba(255,255,255,0.13); border-color: rgba(255,255,255,0.28); }
+  .case-row.filed:hover { background: rgba(255,255,255,0.13); border-color: rgba(255,255,255,0.28); transform: translateX(4px); }
   .case-row.filed.highlighted { background: rgba(200,216,240,0.15); border-color: rgba(200,216,240,0.5); }
   .case-row.upcoming { opacity: 0.38; cursor: default; }
-  .case-row-num { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; color: var(--pale); min-width: 44px; }
+  .case-row-num { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; color: var(--pale); min-width: 74px; }
   .case-row-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.05rem; text-transform: uppercase; flex: 1; }
   .case-row-badge { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
   .case-row-badge.done { color: var(--green); }
   .case-row-badge.soon { color: rgba(255,255,255,0.25); }
   .case-row-zone { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
+  .case-row-top { display: flex; align-items: center; gap: 14px; width: 100%; }
+  .case-row.case-file { flex-direction: column; align-items: stretch; }
+  .case-file-meta {
+    display: flex; flex-wrap: wrap; gap: 4px 14px;
+    font-size: 0.68rem; font-weight: 500; color: rgba(255,255,255,0.42);
+    margin-top: 8px; padding-left: 2px; letter-spacing: 0.01em;
+  }
+  .case-file-meta span { white-space: nowrap; }
+  .system-icon { margin-right: 4px; }
+  .case-row.filed { animation: caseRowFadeIn 0.35s ease both; }
+  @keyframes caseRowFadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
   /* MODAL */
   .modal-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(10,25,60,0.88); backdrop-filter: blur(8px); overflow-y: auto; padding: 40px 20px; }
@@ -221,10 +235,50 @@
     transition: background 0.15s, color 0.15s, border-color 0.15s;
     display: inline-block;
   }
-  .region-chip:hover { background: rgba(255,255,255,0.12); color: var(--white); }
+  .region-chip:hover { background: rgba(255,255,255,0.12); color: var(--white); transform: translateY(-1px); }
   .region-chip.active-chip { background: rgba(200,216,240,0.2); border-color: var(--pale); color: var(--white); }
   .case-row.dimmed { opacity: 0.18; pointer-events: none; }
   .case-row.highlighted { background: rgba(200,216,240,0.12); border-color: rgba(200,216,240,0.4); }
+
+  /* SYSTEM CHIPS */
+  .system-chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .system-chip {
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em;
+    padding: 6px 12px; border-radius: 6px; cursor: pointer;
+    border: 1px solid var(--card-border); background: var(--card-bg);
+    color: rgba(255,255,255,0.55);
+    transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s;
+  }
+  .system-chip:hover { background: rgba(255,255,255,0.12); color: var(--white); transform: translateY(-1px); }
+  .system-chip.active-chip { background: rgba(200,216,240,0.2); border-color: var(--pale); color: var(--white); }
+
+  /* SURGEON'S NOTES */
+  .surgeon-notes {
+    background: linear-gradient(135deg, rgba(255,215,0,0.08), rgba(255,255,255,0.04));
+    border: 1px solid rgba(255,215,0,0.3); border-radius: 10px;
+    padding: 22px 24px; margin-bottom: 24px; position: relative;
+  }
+  .surgeon-notes h4 { font-weight: 700; font-size: 0.85rem; text-decoration: underline; text-align: center; margin-bottom: 10px; color: #ffd700; }
+  .surgeon-notes p { font-size: 0.9rem; line-height: 1.7; color: rgba(255,255,255,0.88); font-style: italic; text-align: center; }
+
+  /* PHASE STATUS LIST */
+  .phase-status-list { display: flex; flex-direction: column; gap: 10px; max-width: 600px; }
+  .phase-status-item {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px;
+    padding: 14px 20px; transition: border-color 0.2s, background 0.2s;
+  }
+  .phase-status-item:hover { border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.1); }
+  .phase-status-item.locked { opacity: 0.5; }
+  .phase-status-icon { font-size: 1.2rem; flex-shrink: 0; }
+  .phase-status-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.02em; }
+  .phase-status-sub { font-size: 0.78rem; color: rgba(255,255,255,0.45); margin-top: 1px; }
+
+  @keyframes hotspotPulseFlash {
+    0% { fill: rgba(200,216,240,0.55); }
+    100% { fill: rgba(200,216,240,0.28); }
+  }
+  .body-part.active-part, .body-part-stroke.active-part { animation: hotspotPulseFlash 0.5s ease; }
 
   /* EDITIONS */
   .editions-grid { display: flex; flex-direction: column; gap: 16px; max-width: 900px; }
@@ -586,6 +640,15 @@
         <div class="region-chip" data-region="foot">🦶 Foot &amp; Ankle</div>
         <div class="region-chip active-chip" id="showAllChip" data-region="all">↩ Show All</div>
       </div>
+
+      <p style="color:rgba(255,255,255,0.45);font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;margin-top:28px;margin-bottom:8px;font-weight:600;">Filter by Body System</p>
+      <div class="system-chip-row" id="systemChipRow">
+        <div class="system-chip active-chip" data-system="all">↩ All Systems</div>
+        <div class="system-chip" data-system="skeletal">🦴 Skeletal</div>
+        <div class="system-chip" data-system="muscular">💪 Muscular</div>
+        <div class="system-chip" data-system="nervous">🧠 Nervous</div>
+        <div class="system-chip" data-system="cardiovascular">🫀 Cardiovascular</div>
+      </div>
     </div>
 
     <!-- RIGHT: full case list, grouped by phase -->
@@ -865,7 +928,7 @@
 <div class="section" id="tracker" style="border-top: 1px solid rgba(255,255,255,0.1);">
   <p class="section-label">Current Status</p>
   <h2 class="section-title">Progress Tracker</h2>
-  <div class="tracker-card">
+  <div class="tracker-card" style="margin-bottom:28px;">
     <div class="tracker-header">
       <div class="tracker-edition">Edition 2</div>
       <div class="tracker-count" id="trackerCount">25 / 35 Cases</div>
@@ -878,6 +941,7 @@
       <span>Edition 2 Goal: 35 Cases</span>
     </div>
   </div>
+  <div class="phase-status-list" id="phaseStatusList"></div>
 </div>
 
 <!-- MILESTONES -->
@@ -1514,6 +1578,137 @@ const cases = {
   }
 };
 
+const systemIcons = { skeletal:"🦴", muscular:"💪", nervous:"🧠", cardiovascular:"🫀" };
+const systemNames = { skeletal:"Skeletal System", muscular:"Muscular System", nervous:"Nervous System", cardiovascular:"Cardiovascular System" };
+
+const caseMeta = {
+  ankle: { location:"Lateral ankle", severity:"Mild–Moderate", tissue:"Ligaments", recoveryShort:"4–12 weeks", system:"skeletal", notes:"The key decision is grading the sprain correctly — a Grade III complete tear needs a period of protected immobilization that a Grade I sprain doesn't, and treating them the same either overtreats a mild sprain or undertreats a serious one." },
+  acl: { location:"Knee (ACL)", severity:"Moderate–Severe", tissue:"Ligament", recoveryShort:"6–12 months", system:"skeletal", notes:"The central decision is surgery versus conservative management — younger, cutting-sport athletes almost always need reconstruction, while older, lower-demand patients can sometimes return to function with bracing and rehab alone." },
+  meniscus: { location:"Knee (meniscus)", severity:"Mild–Moderate", tissue:"Cartilage", recoveryShort:"4 weeks–6 months", system:"skeletal", notes:"Everything hinges on tear location — a repairable tear in the vascular outer third is treated completely differently than one in the avascular inner zone, where removal is often the only realistic option." },
+  hamstring: { location:"Posterior thigh", severity:"Mild–Moderate", tissue:"Muscle", recoveryShort:"1–8+ weeks", system:"muscular", notes:"The grading exam matters more than the imaging here — a Grade I strain that's rushed back too early is the single most common cause of the re-injury cycle seen in sprinters." },
+  concussion: { location:"Brain / Head", severity:"Mild", tissue:"Brain tissue", recoveryShort:"1–4 weeks", system:"nervous", notes:"There is no surgery to offer here — the only real decision is timing the return-to-play protocol correctly, since clearing an athlete too early risks second-impact syndrome." },
+  stress: { location:"Tibia (shin)", severity:"Moderate", tissue:"Bone", recoveryShort:"6–12 weeks", system:"skeletal", notes:"The fracture's location on the bone changes everything — a low-risk fracture on the compression side heals with rest, while a high-risk tension-side fracture can require surgical fixation to avoid a complete break." },
+  wrist: { location:"Distal radius", severity:"Moderate", tissue:"Bone", recoveryShort:"6 weeks–6 months", system:"skeletal", notes:"The decision point is displacement — an undisplaced fracture goes in a cast, but even a few millimeters of angulation in a young, active patient usually tips the scale toward surgical fixation." },
+  rotator: { location:"Shoulder", severity:"Moderate", tissue:"Tendon", recoveryShort:"6 weeks–6 months", system:"muscular", notes:"Partial tears are managed very differently from full-thickness tears — the surgeon has to weigh tear size, patient age, and activity demands before deciding whether physical therapy alone is enough." },
+  shoulder: { location:"Shoulder joint", severity:"Moderate", tissue:"Ligaments / Joint capsule", recoveryShort:"6–12 weeks", system:"skeletal", notes:"The real question after a first dislocation is recurrence risk — young athletes have such high re-dislocation rates that early stabilization surgery is often discussed even before a second episode occurs." },
+  achilles: { location:"Ankle / Heel", severity:"Severe", tissue:"Tendon", recoveryShort:"6–12 months", system:"muscular", notes:"Surgical repair versus a functional boot protocol is the defining choice — modern data shows both can work well in the right patient, so activity level and re-rupture tolerance drive the decision more than the tear itself." },
+  tibia: { location:"Lower leg", severity:"Moderate–Severe", tissue:"Bone", recoveryShort:"3–6+ months", system:"skeletal", notes:"The fracture pattern decides the approach — a clean, stable break can be casted, but any rotation or shortening usually means an intramedullary rod is needed to hold the leg's length and alignment." },
+  mcl_acl: { location:"Knee", severity:"Severe", tissue:"Ligaments (MCL + ACL)", recoveryShort:"6–12 months", system:"skeletal", notes:"The MCL is usually left to heal on its own while the ACL is reconstructed — operating on both at once can overly stiffen the knee, so sequencing the repairs correctly is the real skill here." },
+  femur: { location:"Thigh", severity:"Severe", tissue:"Bone", recoveryShort:"4–6 months", system:"skeletal", notes:"Given how much force it takes to break the femur, the immediate priority isn't the bone at all — it's ruling out a life-threatening bleed before ever touching the fracture itself." },
+  hip: { location:"Hip joint", severity:"Moderate", tissue:"Cartilage (labrum)", recoveryShort:"6 weeks–6 months", system:"skeletal", notes:"The decision is whether the tear is causing true mechanical symptoms like locking and catching — if it's just pain without those signs, conservative rehab is tried first before ever considering arthroscopy." },
+  multi_ligament: { location:"Knee", severity:"Severe", tissue:"Ligaments", recoveryShort:"9–18 months", system:"skeletal", notes:"With this many structures torn at once, the surgeon has to sequence which ligament to reconstruct first — get the order wrong and the graft you just placed can be re-injured during repair of the next one." },
+  ucl: { location:"Elbow", severity:"Severe", tissue:"Ligament (UCL)", recoveryShort:"6 weeks–14 months", system:"skeletal", notes:"For a throwing athlete, this is rarely just about the tear — the surgeon has to decide whether the underlying throwing mechanics that caused it can realistically be fixed, or whether the same injury will simply recur." },
+  spine: { location:"Lower back (L4–L5)", severity:"Severe", tissue:"Intervertebral disc / Nerve root", recoveryShort:"4 weeks–4 months", system:"nervous", notes:"The presence of progressive weakness, not just pain, is what tips the decision toward surgery — pain alone is managed conservatively far more often than people expect." },
+  patellar: { location:"Knee (below kneecap)", severity:"Severe", tissue:"Tendon", recoveryShort:"6–9 months", system:"muscular", notes:"A complete rupture doesn't leave much room for debate — without surgical repair, the quadriceps mechanism simply can't function, so this is one of the few cases where surgery isn't really optional." },
+  ocd: { location:"Knee joint", severity:"Moderate–Severe", tissue:"Bone & Cartilage", recoveryShort:"3–9 months", system:"skeletal", notes:"Skeletal maturity is the deciding factor — a lesion in a growing adolescent has a real chance of healing on its own, while the same lesion in an adult almost always needs surgical fixation or grafting." },
+  knee_disloc: { location:"Knee", severity:"Critical", tissue:"Ligaments & Vasculature", recoveryShort:"9–18+ months", system:"cardiovascular", notes:"Before a single ligament is even assessed, the artery behind the knee has to be cleared — missing a vascular injury here is the difference between a long rehab and losing the limb." },
+  shin_stress2: { location:"Tibia (shin)", severity:"Moderate", tissue:"Bone", recoveryShort:"6–16 weeks", system:"skeletal", notes:"The decision is whether to trust imaging or the timeline — a stress fracture can look deceptively mild on early X-ray, so training history and point tenderness often matter more than the first scan." },
+  it_band: { location:"Lateral knee", severity:"Moderate", tissue:"Connective tissue (fascia)", recoveryShort:"6–8 weeks", system:"muscular", notes:"The temptation is to treat the knee, but the real fix is almost always upstream at the hip — chasing the pain site instead of the hip weakness driving it is the most common treatment mistake here." },
+  tendinopathy: { location:"Achilles / heel", severity:"Moderate", tissue:"Tendon", recoveryShort:"3–9 months", system:"muscular", notes:"This is one case where rest is the wrong instinct — the decision is convincing the patient that controlled heavy loading, not stillness, is what actually rebuilds the degenerated tendon." },
+  lumbar_disc: { location:"Lower back (L5–S1)", severity:"Moderate", tissue:"Intervertebral disc", recoveryShort:"6 weeks–9 months", system:"skeletal", notes:"Since the disc itself can't really be restored, the decision isn't how to fix it structurally — it's how to build enough core support around it that the degeneration stops driving daily pain." },
+  runners_knee: { location:"Kneecap", severity:"Mild–Moderate", tissue:"Cartilage", recoveryShort:"6–12 weeks", system:"skeletal", notes:"Imaging is almost beside the point — the deciding factor is a movement assessment, since the tracking problem behind the kneecap is usually caused by weakness well above the knee itself." },
+  sciatica: { location:"Lower back / leg", severity:"Moderate–Severe", tissue:"Nerve", recoveryShort:"4–8+ weeks", system:"nervous", notes:"Sciatica is a symptom, not a diagnosis, so the real decision is identifying the actual source of compression — treating the pain without finding the cause almost guarantees it comes back." },
+  cervical_nerve: { location:"Neck (C6–C7)", severity:"Moderate–Severe", tissue:"Nerve root", recoveryShort:"6 weeks–6 months", system:"nervous", notes:"The dermatomal pattern of numbness usually tells you which level is compressed before imaging even confirms it — a skill that keeps unnecessary early MRIs to a minimum." },
+  muscle_atrophy: { location:"Forearm", severity:"Mild–Moderate", tissue:"Muscle", recoveryShort:"4 weeks–6 months", system:"muscular", notes:"The mistake to avoid is loading too aggressively too soon — atrophied muscle needs a genuinely graded reintroduction, or the very tissue you're trying to rebuild gets re-injured." },
+  nerve_entrapment: { location:"Wrist (carpal tunnel)", severity:"Mild–Moderate", tissue:"Nerve", recoveryShort:"4–24 weeks", system:"nervous", notes:"The decision point is whether there's already measurable nerve damage on conduction studies — once that appears, waiting any longer on conservative care risks permanent deficits." },
+  hamstring_inhibition: { location:"Posterior thigh", severity:"Moderate", tissue:"Muscle / Nervous system", recoveryShort:"8–12 weeks", system:"nervous", notes:"Nothing on an MRI explains this one — the real work is recognizing that a normal-looking scan doesn't mean a normal-functioning muscle, and treating the nervous system's inhibition, not the tissue." },
+  compound_fracture: { location:"Lower leg", severity:"Critical", tissue:"Bone & Skin", recoveryShort:"4–12 months", system:"skeletal", notes:"The clock matters more than the bone here — getting the wound surgically clean within the first six hours does more to determine the outcome than the fracture pattern itself." },
+  spinal_cord: { location:"Neck (C5)", severity:"Critical", tissue:"Spinal cord", recoveryShort:"6–12+ months", system:"nervous", notes:"The secondary injury cascade in the first 24 to 72 hours can do more damage than the initial impact, which is why the timing of decompression surgery is one of the most consequential decisions in orthopedics." },
+  multi_lig_knee: { location:"Knee", severity:"Critical", tissue:"Ligaments & Vasculature", recoveryShort:"9–18 months", system:"cardiovascular", notes:"Just like a full dislocation, the vascular exam comes before the ligament exam — a normal pulse at first check doesn't rule out a developing vascular injury, so serial monitoring is non-negotiable." },
+  pelvic_fracture: { location:"Pelvis", severity:"Critical", tissue:"Bone & Vasculature", recoveryShort:"3–12 months", system:"cardiovascular", notes:"The instinct is to fix the bone first, but the actual priority is controlling hemorrhage — this is the rare orthopedic case where the fracture itself is not the most dangerous part of the injury." },
+  compartment: { location:"Lower leg", severity:"Critical", tissue:"Muscle & Vasculature", recoveryShort:"3–6+ months", system:"cardiovascular", notes:"Waiting for all of the classic warning signs to appear is waiting too long — by the time pallor and pulselessness show up, the window for saving the muscle without permanent damage has often already closed." }
+};
+
+function renderCaseFiles() {
+  document.querySelectorAll('.case-row[data-case]').forEach(row => {
+    const key = row.dataset.case;
+    const meta = caseMeta[key];
+    if (!meta) return;
+    row.classList.add('case-file');
+    row.dataset.system = meta.system;
+
+    const numSpan = row.querySelector('.case-row-num');
+    if (numSpan && !numSpan.dataset.formatted) {
+      numSpan.textContent = 'CASE #' + numSpan.textContent.trim().padStart(3, '0');
+      numSpan.dataset.formatted = '1';
+    }
+    const nameSpan = row.querySelector('.case-row-name');
+    if (nameSpan && row.classList.contains('filed') && !nameSpan.dataset.iconed) {
+      nameSpan.innerHTML = '<span class="system-icon">' + (systemIcons[meta.system] || '') + '</span>' + nameSpan.textContent;
+      nameSpan.dataset.iconed = '1';
+    }
+
+    if (!row.querySelector('.case-row-top')) {
+      const top = document.createElement('div');
+      top.className = 'case-row-top';
+      while (row.firstChild) top.appendChild(row.firstChild);
+      row.appendChild(top);
+    }
+    if (row.classList.contains('filed') && !row.querySelector('.case-file-meta')) {
+      const metaLine = document.createElement('div');
+      metaLine.className = 'case-file-meta';
+      metaLine.innerHTML = `<span>📍 Location: ${meta.location}</span><span>⚠️ Severity: ${meta.severity}</span><span>🧬 Tissue: ${meta.tissue}</span><span>⏳ Recovery: ${meta.recoveryShort}</span>`;
+      row.appendChild(metaLine);
+    }
+  });
+}
+
+function filterSystem(system) {
+  const allRows = document.querySelectorAll('.case-row');
+  const allChips = document.querySelectorAll('.system-chip');
+  allChips.forEach(c => c.classList.remove('active-chip'));
+  document.querySelectorAll(`.system-chip[data-system="${system}"]`).forEach(c => c.classList.add('active-chip'));
+
+  if (system === 'all') {
+    allRows.forEach(r => { r.classList.remove('dimmed'); r.classList.remove('highlighted'); });
+    return;
+  }
+  allRows.forEach(r => {
+    const meta = caseMeta[r.dataset.case];
+    if (meta && meta.system === system) {
+      r.classList.remove('dimmed');
+      r.classList.add('highlighted');
+    } else {
+      r.classList.add('dimmed');
+      r.classList.remove('highlighted');
+    }
+  });
+  document.querySelectorAll('.phase-group').forEach(g => {
+    if (g.querySelector('.case-row.highlighted')) {
+      g.classList.remove('collapsed');
+      const arrow = g.querySelector('.phase-arrow');
+      if (arrow) arrow.textContent = '▼';
+    }
+  });
+}
+
+document.querySelectorAll('.system-chip').forEach(c => {
+  c.addEventListener('click', () => filterSystem(c.dataset.system));
+});
+
+function renderPhaseStatusList() {
+  const phases = [
+    { num:1, name:"Sports Injuries", status:"done" },
+    { num:2, name:"Moderate Injuries", status:"done" },
+    { num:3, name:"Major Injuries", status:"done" },
+    { num:4, name:"Extreme Cases", status:"done" },
+    { num:5, name:"Chronic Overuse & Degenerative Injuries", status:"done" },
+    { num:6, name:"Neuromuscular & Nerve Injuries", status:"locked" },
+    { num:7, name:"High-Impact & Catastrophic Trauma", status:"locked" }
+  ];
+  const icons = { done:"✅", progress:"🔄", locked:"🔒" };
+  const list = document.getElementById('phaseStatusList');
+  if (!list) return;
+  phases.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'phase-status-item' + (p.status === 'locked' ? ' locked' : '');
+    div.innerHTML = `<span class="phase-status-icon">${icons[p.status]}</span><div><div class="phase-status-name">Phase ${p.num}</div><div class="phase-status-sub">${p.name}</div></div>`;
+    list.appendChild(div);
+  });
+}
+renderPhaseStatusList();
+renderCaseFiles();
+
 function openModal(key) {
   const c = cases[key];
   if (!c) return;
@@ -1535,12 +1730,22 @@ function openModal(key) {
     return `<div class="timeline-wrap"><h4>Recovery Timeline</h4><div class="timeline-strip">${steps}</div></div>`;
   }
   const diagSvg = diagrams[key] ? `<div class="modal-diagram" style="background:#1a3a7c;padding:12px;">${diagrams[key]}</div>` : '';
+  const meta = caseMeta[key];
+  const notesHtml = meta ? `<div class="surgeon-notes"><h4>🩺 Surgeon's Notes</h4><p>"${meta.notes}"</p></div>` : '';
+  const fileStripHtml = meta ? `<div class="case-file-meta" style="justify-content:center;margin-bottom:24px;font-size:0.75rem;">
+      <span>${systemIcons[meta.system] || ''} ${systemNames[meta.system] || ''}</span>
+      <span>📍 ${meta.location}</span>
+      <span>⚠️ ${meta.severity}</span>
+      <span>🧬 ${meta.tissue}</span>
+    </div>` : '';
   document.getElementById('modalBody').innerHTML = `
+    ${fileStripHtml}
     <div class="patient-case"><h4>Patient Case: ${c.patient.name}</h4><p>${c.patient.story}</p></div>
     <div class="modal-section"><h4>What's Really Happening Inside?</h4><p>${c.inside}</p></div>
     <div class="modal-section"><h4>Symptoms</h4><ul>${c.symptoms.map(s=>`<li>${s}</li>`).join('')}</ul></div>
     <div class="modal-section"><h4>How It's Treated</h4><ul>${c.treatment.map(t=>`<li>${t}</li>`).join('')}</ul></div>
     ${c.timeline ? renderTimeline(c.timeline) : ''}
+    ${notesHtml}
     <div class="modal-two-col"><div><h4>Recovery Notes</h4><p>${c.recovery}</p></div><div><h4>Human Repair Log Insight</h4><p>${c.insight}</p></div></div>
     ${diagSvg}
     <div class="modal-date-stamp">${c.date}</div>`;
