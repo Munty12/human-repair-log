@@ -437,6 +437,29 @@
   .milestone-item.pending { color: rgba(255,255,255,0.35); }
   .milestone-icon { font-size: 1.1rem; flex-shrink: 0; }
 
+  /* VISUAL TIMELINE */
+  .vtimeline { position: relative; display: flex; justify-content: space-between; max-width: 1000px; padding: 24px 0 0; flex-wrap: wrap; gap: 24px 0; }
+  .vtimeline::before { content: ''; position: absolute; top: 19px; left: 0; right: 0; height: 2px; background: rgba(255,255,255,0.15); }
+  .vtl-node { position: relative; flex: 1; min-width: 140px; text-align: center; padding: 0 10px; }
+  .vtl-dot { width: 16px; height: 16px; border-radius: 50%; margin: 0 auto 14px; position: relative; z-index: 2; border: 3px solid var(--navy); transition: transform 0.2s; }
+  .vtl-node:hover .vtl-dot { transform: scale(1.2); }
+  .vtl-dot.done { background: var(--green); }
+  .vtl-dot.current { background: #ffd700; box-shadow: 0 0 0 6px rgba(255,215,0,0.15); animation: vtlPulse 2s infinite; }
+  .vtl-dot.upcoming { background: rgba(255,255,255,0.2); }
+  @keyframes vtlPulse {
+    0%,100% { box-shadow: 0 0 0 6px rgba(255,215,0,0.15); }
+    50% { box-shadow: 0 0 0 10px rgba(255,215,0,0.05); }
+  }
+  .vtl-date { font-size: 0.68rem; color: rgba(255,255,255,0.4); font-weight: 600; letter-spacing: 0.04em; margin-bottom: 4px; }
+  .vtl-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 0.95rem; text-transform: uppercase; margin-bottom: 4px; }
+  .vtl-sub { font-size: 0.72rem; color: rgba(255,255,255,0.5); line-height: 1.4; }
+  @media (max-width: 768px) {
+    .vtimeline { flex-direction: column; gap: 20px; }
+    .vtimeline::before { left: 8px; top: 0; bottom: 0; width: 2px; height: auto; right: auto; }
+    .vtl-node { text-align: left; padding-left: 30px; min-width: 0; }
+    .vtl-dot { margin: 0; position: absolute; left: 1px; top: 2px; }
+  }
+
   /* DOWNLOAD CENTER */
   .download-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 600px; }
   .download-btn {
@@ -503,16 +526,16 @@
 </nav>
 
 <div style="background:linear-gradient(135deg,#1a3a7c,#2a5a9c);color:#c8d8f0;text-align:center;padding:10px 20px;font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.1);">Edition 2 in Progress · 35 Cases Across 7 Phases</div>
-<div style="background:linear-gradient(135deg,#1e5c3f,#2a8a5c);color:#c8f0d8;text-align:center;padding:10px 20px;font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.1);">✓ Phase 5 Completed — Chronic Overuse &amp; Degenerative Injuries Now Live</div>
+<div style="background:linear-gradient(135deg,#1e5c3f,#2a8a5c);color:#c8f0d8;text-align:center;padding:10px 20px;font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.1);">✓ Phase 6 Completed — Neuromuscular &amp; Nerve Injuries Now Live</div>
 
 <div class="hero">
   <p class="hero-eyebrow">A Personal Case Journal</p>
   <h1>The Human<br><span>Repair</span> Log</h1>
   <p class="hero-sub">Documenting how the human body breaks, adapts, and heals — from common sports trauma to complex orthopedic cases.</p>
   <div class="hero-meta">
-    <div class="hero-stat"><div class="num">25</div><div class="label">Cases Filed</div></div>
+    <div class="hero-stat"><div class="num">30</div><div class="label">Cases Filed</div></div>
     <div class="hero-divider"></div>
-    <div class="hero-stat"><div class="num">5</div><div class="label">Phases Complete</div></div>
+    <div class="hero-stat"><div class="num">6</div><div class="label">Phases Complete</div></div>
     <div class="hero-divider"></div>
     <div class="hero-stat"><div class="num">35</div><div class="label">Total Cases (Ed. 2)</div></div>
   </div>
@@ -698,8 +721,8 @@
         </div>
       </div>
 
-      <div class="phase-group" data-phase="5">
-        <div class="phase-group-label" onclick="togglePhase(this)"><span class="phase-arrow">▼</span>Phase 5 · Chronic Overuse &amp; Degenerative Injuries</div>
+      <div class="phase-group collapsed" data-phase="5">
+        <div class="phase-group-label" onclick="togglePhase(this)"><span class="phase-arrow">▶</span>Phase 5 · Chronic Overuse &amp; Degenerative Injuries</div>
         <div class="phase-cases">
         <div class="case-row filed" data-case="shin_stress2" data-region="shin"><span class="case-row-num">21</span><span class="case-row-name">Shin Stress Fracture (Advanced Tibial Microcracks)</span><span class="case-row-zone">Shin</span><span class="case-row-badge done">✓</span></div>
         <div class="case-row filed" data-case="it_band" data-region="thigh"><span class="case-row-num">22</span><span class="case-row-name">Iliotibial (IT) Band Syndrome</span><span class="case-row-zone">Thigh</span><span class="case-row-badge done">✓</span></div>
@@ -709,14 +732,14 @@
         </div>
       </div>
 
-      <div class="phase-group collapsed" data-phase="6">
-        <div class="phase-group-label" onclick="togglePhase(this)"><span class="phase-arrow">▶</span>Phase 6 · Neuromuscular &amp; Nerve Injuries</div>
+      <div class="phase-group" data-phase="6">
+        <div class="phase-group-label" onclick="togglePhase(this)"><span class="phase-arrow">▼</span>Phase 6 · Neuromuscular &amp; Nerve Injuries</div>
         <div class="phase-cases">
-        <div class="case-row upcoming" data-case="sciatica" data-region="hip"><span class="case-row-num">26</span><span class="case-row-name">Sciatic Nerve Compression</span><span class="case-row-zone">Spine</span><span class="case-row-badge soon">Soon</span></div>
-        <div class="case-row upcoming" data-case="cervical_nerve" data-region="head"><span class="case-row-num">27</span><span class="case-row-name">Cervical Nerve Root Compression</span><span class="case-row-zone">Head</span><span class="case-row-badge soon">Soon</span></div>
-        <div class="case-row upcoming" data-case="muscle_atrophy" data-region="thigh"><span class="case-row-num">28</span><span class="case-row-name">Muscle Atrophy After Immobilization</span><span class="case-row-zone">Thigh</span><span class="case-row-badge soon">Soon</span></div>
-        <div class="case-row upcoming" data-case="nerve_entrapment" data-region="wrist"><span class="case-row-num">29</span><span class="case-row-name">Peripheral Nerve Entrapment</span><span class="case-row-zone">Wrist</span><span class="case-row-badge soon">Soon</span></div>
-        <div class="case-row upcoming" data-case="hamstring_inhibition" data-region="thigh"><span class="case-row-num">30</span><span class="case-row-name">Hamstring Neuromuscular Inhibition Injury</span><span class="case-row-zone">Thigh</span><span class="case-row-badge soon">Soon</span></div>
+        <div class="case-row filed" data-case="sciatica" data-region="hip"><span class="case-row-num">26</span><span class="case-row-name">Sciatic Nerve Compression</span><span class="case-row-zone">Spine</span><span class="case-row-badge done">✓</span></div>
+        <div class="case-row filed" data-case="cervical_nerve" data-region="head"><span class="case-row-num">27</span><span class="case-row-name">Cervical Nerve Root Compression</span><span class="case-row-zone">Head</span><span class="case-row-badge done">✓</span></div>
+        <div class="case-row filed" data-case="muscle_atrophy" data-region="thigh"><span class="case-row-num">28</span><span class="case-row-name">Muscle Atrophy After Immobilization</span><span class="case-row-zone">Thigh</span><span class="case-row-badge done">✓</span></div>
+        <div class="case-row filed" data-case="nerve_entrapment" data-region="wrist"><span class="case-row-num">29</span><span class="case-row-name">Peripheral Nerve Entrapment</span><span class="case-row-zone">Wrist</span><span class="case-row-badge done">✓</span></div>
+        <div class="case-row filed" data-case="hamstring_inhibition" data-region="thigh"><span class="case-row-num">30</span><span class="case-row-name">Hamstring Neuromuscular Inhibition Injury</span><span class="case-row-zone">Thigh</span><span class="case-row-badge done">✓</span></div>
         </div>
       </div>
 
@@ -786,6 +809,12 @@
       <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#1a3a7c;background:#c8d8f0;padding:3px 9px;border-radius:3px;display:inline-block;margin-bottom:16px;">Phase 5 Reflection</div>
       <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.4rem;text-transform:uppercase;margin-bottom:16px;line-height:1.1;">Analysis of Chronic Overuse and Degenerative Trauma</div>
       <p style="font-size:0.92rem;line-height:1.78;color:rgba(255,255,255,0.82);font-style:italic;">The injuries in Phase 5 showed me how complex joint stability and movement really are. Ligaments, cartilage, and other soft tissues work together to keep joints functioning properly, and damage to these structures can significantly affect mobility and athletic performance. I was fascinated by how the body responds to these injuries through inflammation, tissue repair, and rehabilitation, even though some structures have a limited ability to heal on their own. The injury that surprised me the most was chronic tendinopathy. I did not realize that chronic tendon pain is often caused by a non-inflammatory breakdown of collagen fibers rather than simple inflammation, meaning that complete rest actually weakens the tissue further instead of helping it heal. Studying these injuries deepened my understanding of orthopedic medicine and showed me that successful recovery often depends on both the body's natural healing process and carefully guided rehabilitation.</p>
+    </div>
+
+    <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:32px;grid-column:1/-1;">
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#1a3a7c;background:#c8d8f0;padding:3px 9px;border-radius:3px;display:inline-block;margin-bottom:16px;">Phase 6 Reflection</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.4rem;text-transform:uppercase;margin-bottom:16px;line-height:1.1;">Analysis of Neuromuscular and Nerve Injuries</div>
+      <p style="font-size:0.92rem;line-height:1.78;color:rgba(255,255,255,0.82);font-style:italic;">The injuries in Phase 6 showed me how complex joint stability and movement really are. Ligaments, cartilage, and other soft tissues work together to keep joints functioning properly, and damage to these structures can significantly affect mobility and athletic performance. I was fascinated by how the body responds to these injuries through inflammation, tissue repair, and rehabilitation, even though some structures have a limited ability to heal on their own. The injury that surprised me the most was hamstring neuromuscular inhibition. I did not realize that a muscle could be completely healed under an ultrasound but still fail to function simply because the brain keeps its protective circuit breaker flipped, highlighting that retraining the nervous system is just as vital as healing physical tissue. Studying these injuries deepened my understanding of orthopedic medicine and showed me that successful recovery often depends on both the body's natural healing process and carefully guided rehabilitation.</p>
     </div>
   </div>
 </div>
@@ -931,17 +960,24 @@
   <div class="tracker-card" style="margin-bottom:28px;">
     <div class="tracker-header">
       <div class="tracker-edition">Edition 2</div>
-      <div class="tracker-count" id="trackerCount">25 / 35 Cases</div>
+      <div class="tracker-count" id="trackerCount">30 / 35 Cases</div>
     </div>
     <div class="tracker-bar">
-      <div class="tracker-fill" id="trackerFill" style="width:71%"></div>
+      <div class="tracker-fill" id="trackerFill" style="width:86%"></div>
     </div>
     <div class="tracker-labels">
-      <span>Phase 1-5 Complete</span>
+      <span>Phase 1-6 Complete</span>
       <span>Edition 2 Goal: 35 Cases</span>
     </div>
   </div>
   <div class="phase-status-list" id="phaseStatusList"></div>
+</div>
+
+<!-- VISUAL TIMELINE -->
+<div class="section" id="visual-timeline" style="border-top: 1px solid rgba(255,255,255,0.1);">
+  <p class="section-label">Project History</p>
+  <h2 class="section-title">Visual Timeline</h2>
+  <div class="vtimeline" id="vTimeline"></div>
 </div>
 
 <!-- MILESTONES -->
@@ -1434,74 +1470,74 @@ const cases = {
     insight:"Patellofemoral Pain Syndrome, often called \"runner's knee,\" is one of the most common causes of anterior knee pain in young athletes and active individuals. Unlike acute structural tears, this condition is primarily a functional tracking issue stemming from biomechanical weaknesses further up or down the kinetic chain, such as weak hips or overpronating feet. Because the pain is caused by altered pressure distribution across the joint, treatments that only address the knee itself without strengthening the hip and thigh stabilizers rarely offer permanent relief. Long-term success relies heavily on maintaining balanced lower-body strength, gradually scaling training workloads, and ensuring proper footwear to keep the kneecap moving smoothly within its optimal track."
   },
   sciatica: {
-    phase:"Phase 6 · Neuromuscular & Nerve Injuries", title:"Case 26: Sciatic Nerve Compression", date:"6/29/2026",
-    patient:{name:"Mrs. Patel, Age 48", story:"Mrs. Patel began experiencing a sharp, electric shock-like pain that started in her lower back and traveled down her right leg. The pain was accompanied by tingling and numbness in her toes, making it difficult to walk or stand for long periods. After an MRI revealed a disc bulge compressing her sciatic nerve root, she was diagnosed with sciatic nerve compression."},
-    inside:"The sciatic nerve is the largest nerve in the body, formed by nerve roots that exit the lower spine and travel through the buttock and down the leg. When a herniated disc, bone spur, or muscle spasm compresses one of these nerve roots, it disrupts normal nerve signaling, causing pain, tingling, numbness, and weakness along the nerve's pathway. The compression also triggers inflammation around the nerve root, amplifying pain signals.",
-    symptoms:["Sharp, shooting pain that travels from the lower back through the buttock and down the leg","Tingling, burning, or numbness in the leg, foot, or toes","Weakness in the affected leg, making it difficult to lift the foot","Pain that worsens with prolonged sitting, coughing, or sneezing","A constant ache on one side of the lower back","Difficulty standing up from a seated position"],
-    treatment:["Conservative care with physical therapy focusing on core and back stabilization","Anti-inflammatory medications and muscle relaxants to manage symptoms","Heat and ice therapy to reduce muscle spasm and inflammation","Epidural steroid injections to reduce nerve root inflammation","Activity modification to avoid positions that worsen symptoms","Surgery such as microdiscectomy if conservative treatment fails or weakness progresses"],
+    phase:"Phase 6 · Neuromuscular & Nerve Injuries", title:"Case 26: Sciatic Nerve Compression", date:"7/16/2026",
+    patient:{name:"Marcus, Age 39", story:"Marcus was sitting at his office desk when he stood up quickly and felt a sharp, electric shock sensation shoot down the back of his right leg. Over the next few days, the pain became a constant, burning ache that traveled from his lower back, through his glutes, and all the way down to his calf. He also noticed a persistent numbness on the outer edge of his foot and struggled to lift his toes while walking. After a clinical examination and spinal imaging, doctors discovered that he had sustained severe sciatic nerve compression."},
+    inside:"The lower body relies on the sciatic nerve to supply sensation and motor signals to the legs. When surrounding muscles spasm, spinal discs bulge, or bone spurs form, the narrow pathways where the nerve exits the spinal column become severely restricted. This physical compression cuts off the nerve's internal blood supply, triggering intense neural inflammation and disrupting the electrical signals sent between the brain and the leg muscles. The injury causes severe, shooting pain along the nerve's pathway, alters skin sensitivity, and can temporarily paralyze muscle control in the foot.",
+    symptoms:["A sharp, electric shock sensation that shoots down the back of the leg","A constant, burning ache in the buttock or thigh that worsens when sitting","Persistent numbness or tingling in the calf, foot, or toes","Muscle weakness that makes lifting the foot or pushing off the ground difficult","Pain that intensifies significantly when coughing, sneezing, or bending forward","Reduced flexibility and extreme discomfort during a straight-leg raise test"],
+    treatment:["Activity modification and avoiding prolonged sitting","Nerve glide exercises to restore mobility","Anti-inflammatory medications and oral steroids","Targeted deep-tissue physical therapy","Lumbar traction and spinal decompression","Epidural steroid injections to reduce nerve root swelling","Microdiscectomy surgery to remove the compressing structure"],
     timeline: [
-      {time:"Wk 1-2", label:"Acute Phase", desc:"Rest, activity modification, ice/heat, pain management"},
-      {time:"Wk 3-6", label:"Rehabilitation", desc:"Core strengthening, nerve gliding, postural correction"},
-      {time:"Wk 6-12", label:"Return to Activity", desc:"Progressive loading, spinal stabilization, full clearance"}
+      {time:"Wk 1-2", label:"Acute Phase", desc:"Activity modification, nerve gliding, anti-inflammatories"},
+      {time:"Wk 3-8", label:"Rehabilitation", desc:"Core stabilization, deep-tissue therapy, traction"},
+      {time:"Month 3-4", label:"Return to Activity (Surgical)", desc:"Post-microdiscectomy rehab, full clearance"}
     ],
-    recovery:"Most sciatica cases improve within 4 to 8 weeks with conservative treatment. Severe or persistent cases may require longer recovery, especially if muscle weakness is present. Surgery can provide rapid relief for nerve compression but requires several months of recovery.",
-    insight:"Sciatica is a symptom, not a diagnosis, and refers to pain traveling along the path of the sciatic nerve. The most common cause is a lumbar disc herniation, but piriformis syndrome, spinal stenosis, and even prolonged sitting can produce similar symptoms. Accurate diagnosis of the underlying cause is essential for effective treatment."
+    recovery:"Recovery from sciatic nerve compression can take 4 to 8 weeks with targeted nerve-gliding exercises, core stabilization, and physical therapy for standard cases. If chronic compression requires an epidural steroid injection or microdiscectomy surgery, full recovery may take 3 to 4 months before returning to heavy physical training. Most patients gradually eliminate nerve irritation, restore full leg strength, and regain normal reflexes through a progressive spinal decompression rehabilitation program.",
+    insight:"Sciatic nerve compression is a complex neurological condition where the root cause of the leg pain is actually located up in the lower back or pelvis. Because nerves are highly sensitive tissues with a delicate blood supply, prolonged compression can lead to long-term nerve damage and permanent muscle weakness if left unmanaged. Unlike muscular injuries, standard aggressive stretching can often aggravate the irritated nerve fibers, meaning treatment must focus on gentle nerve mobilization and creating space around the nerve pathway. Long-term success relies heavily on improving sitting posture, building deep core endurance, and avoiding repetitive lumbar flexing to keep the nerve path free of obstruction."
   },
   cervical_nerve: {
-    phase:"Phase 6 · Neuromuscular & Nerve Injuries", title:"Case 27: Cervical Nerve Root Compression", date:"6/29/2026",
-    patient:{name:"David, Age 38", story:"David woke up one morning with a sharp pain in his neck that radiated down his right arm into his thumb and index finger. He noticed numbness in his fingertips and weakness when gripping objects. After an MRI showed a herniated disc at C6-C7 compressing the nerve root, he was diagnosed with cervical nerve root compression."},
-    inside:"Cervical nerve root compression occurs when a herniated disc, bone spur, or thickened ligament in the neck presses on a nerve root as it exits the spinal column. This compression disrupts the nerve's ability to transmit signals, resulting in radiating pain, numbness, tingling, and weakness in the specific area of the arm and hand supplied by that nerve root. The C6 and C7 nerve roots are most commonly affected.",
-    symptoms:["Neck pain that radiates down the arm into the hand","Numbness or tingling in the fingers, especially the thumb or middle finger","Weakness in the arm or hand, making gripping or lifting difficult","Sharp pain when turning the head or looking upward","Reduced range of motion in the neck","Muscle spasms in the neck and upper shoulder"],
-    treatment:["Relative rest and activity modification to avoid aggravating movements","Physical therapy focusing on neck strengthening and postural correction","Anti-inflammatory medications and muscle relaxants","Cervical traction or a soft collar for temporary support","Epidural steroid injections to reduce nerve inflammation","Anterior cervical discectomy and fusion for severe or persistent cases"],
+    phase:"Phase 6 · Neuromuscular & Nerve Injuries", title:"Case 27: Cervical Nerve Root Compression", date:"7/16/2026",
+    patient:{name:"Sarah, Age 43", story:"Sarah was driving her car when she turned her head to look over her shoulder and felt a sharp, severe pain stab through the base of her neck. Over the following days, the pain radiated intensely down her shoulder and into her left arm, making it difficult to lift her hand or grip her steering wheel. She also noticed a persistent, waking numbness traveling directly into her thumb and index finger. After a cervical MRI, doctors discovered that she had sustained a cervical nerve root compression at the C5-C6 level."},
+    inside:"The upper extremities rely on cervical nerve roots exiting the neck spine to transmit sensory signals and control arm movements. When a cervical disc herniates or a bony overgrowth narrows the exit tunnel, the local nerve root becomes severely pinched and compressed. This immediate pressure blocks normal neurological flow and triggers a massive inflammatory response directly along the nerve's sheath. The injury causes severe, burning pain to shoot down the specific arm pathway, deadens skin sensation, and causes muscle weakness in the shoulder, bicep, or hand.",
+    symptoms:["A sharp, radiating pain shooting from the neck down the shoulder and arm","Numbness or a pins-and-needles sensation in the hand, thumb, or fingers","Muscle weakness when bending the elbow or lifting the arm upward","A deep, constant ache around the shoulder blade area on the affected side","Pain that worsens significantly when tilting or rotating the head backward","Diminished deep tendon reflexes in the bicep or forearm when tested"],
+    treatment:["Short-term rest and avoiding repetitive neck extension","Cervical traction to expand the nerve root pathways","Anti-inflammatory medications and targeted oral steroids","Gentle cervical range of motion and postural therapy","Periscapular and deep neck flexor strengthening","Cervical epidural steroid injections for acute nerve pain","Anterior cervical discectomy and fusion surgery for resistant cases"],
     timeline: [
-      {time:"Wk 1-2", label:"Acute Phase", desc:"Rest, cervical collar, ice/heat, pain management"},
-      {time:"Wk 3-6", label:"Rehabilitation", desc:"Neck strengthening, postural correction, nerve gliding"},
-      {time:"Wk 6-12", label:"Return to Activity", desc:"Progressive strengthening, full range of motion, activity clearance"}
+      {time:"Wk 1-2", label:"Acute Phase", desc:"Rest, cervical traction, anti-inflammatories"},
+      {time:"Wk 3-12", label:"Rehabilitation", desc:"Postural therapy, deep neck flexor strengthening"},
+      {time:"Month 4-6", label:"Return to Activity (Surgical)", desc:"Post-fusion rehab, full clearance"}
     ],
-    recovery:"Recovery from cervical nerve root compression typically takes 6 to 12 weeks with conservative treatment. Surgical cases require 3 to 6 months of recovery, and most patients regain full arm and hand function once the nerve compression is relieved.",
-    insight:"Cervical radiculopathy follows specific dermatomal patterns that allow clinicians to identify which nerve root is compressed based solely on the patient's symptoms. For example, C6 compression affects the thumb, while C7 affects the middle finger. This predictable anatomy makes physical examination a powerful diagnostic tool before imaging is performed."
+    recovery:"Recovery from cervical nerve root compression can take 6 to 12 weeks with conservative physical therapy, ergonomic adjustments, and traction. If the compression is severe enough to require an epidural injection or cervical spine surgery, recovery can take 4 to 6 months before full activity is cleared. Most patients gradually eliminate radiating arm symptoms, restore upper body strength, and recover full neck mobility through a highly guarded cervical stabilization program.",
+    insight:"Cervical nerve root compression, often called cervical radiculopathy, highlights how problems in the neck spine can directly mimic structural hand or arm injuries. Because the nerve roots supply specific mapping zones in the arm, a doctor can often pinpoint exactly which neck level is compressed just by tracking where a patient feels numbness. Standard treatment focuses heavily on posture, as forward-head posture from looking at phones or computers greatly increases the compressive load on these delicate neck structures. Long-term management requires strict ergonomic discipline, core neck strengthening, and avoidance of heavy overhead lifting to protect the nerve pathways from flattening again."
   },
   muscle_atrophy: {
-    phase:"Phase 6 · Neuromuscular & Nerve Injuries", title:"Case 28: Muscle Atrophy After Immobilization", date:"6/29/2026",
-    patient:{name:"Sofia, Age 15", story:"Sofia had spent 6 weeks in a cast after fracturing her wrist. When the cast was removed, she was shocked to see how thin and weak her forearm had become. She could barely grip objects and quickly fatigued during simple tasks. Her doctor explained that she had experienced significant muscle atrophy from disuse during immobilization."},
-    inside:"Muscle atrophy is the wasting away of muscle tissue caused by prolonged inactivity or immobilization. When a muscle is not contracting regularly, the body decreases protein synthesis and increases protein breakdown, leading to a rapid loss of muscle mass and strength. This process begins within days of immobilization and accelerates over time, with the most dramatic losses occurring in the first 2 to 4 weeks.",
-    symptoms:["Visible decrease in muscle size compared to the uninjured side","Significant weakness in the affected limb","Rapid fatigue during simple tasks","Difficulty performing movements that were previously easy","Loss of muscle definition and firmness","Reduced range of motion due to muscle tightness"],
-    treatment:["Gradual reintroduction of movement through gentle range-of-motion exercises","Progressive resistance training to rebuild muscle mass and strength","Physical therapy with targeted exercises for the affected muscle groups","Adequate protein intake and nutrition to support muscle repair","Consistency in rehabilitation, as muscle regrowth is a slow process"],
+    phase:"Phase 6 · Neuromuscular & Nerve Injuries", title:"Case 28: Muscle Atrophy After Immobilization", date:"7/16/2026",
+    patient:{name:"Thomas, Age 21", story:"Thomas was recovering from a broken shinbone and had his entire leg locked in a rigid orthopedic cast for six straight weeks. On the day his cast was finally removed, he was shocked to see that his injured calf and thigh were visibly shrunken, soft, and less than half the size of his healthy leg. He was completely unable to perform a straight leg raise and lacked the strength to support his own body weight without crutches. After a clinical assessment, doctors diagnosed him with severe muscle atrophy after prolonged immobilization."},
+    inside:"The skeletal muscles rely on constant neural stimulation and mechanical loading to maintain their size, protein structure, and cellular mass. When a limb is locked in a cast or splint, the muscle fibers are completely unloaded and kept entirely inactive for weeks at a time. This total lack of contraction signals the body to rapidly break down muscle proteins faster than it can synthesize new ones, causing the individual muscle fibers to shrink. The injury triggers a massive loss of muscle volume, cellular thinning, and a profound drop in the neural pathways required to make the muscle fire.",
+    symptoms:["A visible shrinking and wasting away of the muscle mass in the affected limb","Profound muscle weakness making basic movements or weight-bearing impossible","An exceptionally soft, flaccid texture when palpating the affected muscle group","Extreme joint stiffness in the joints directly above and below the immobilized area","Rapid muscle fatigue after only a few seconds of attempted light contraction","A measurable decrease in limb circumference compared to the uninjured side"],
+    treatment:["Neuromuscular electrical stimulation (NMES) to force muscle firing","Progressive, low-impact isometric muscle contractions","Aquatic physical therapy to unload body weight during movement","High-protein nutritional support to encourage tissue rebuilding","Gradual weight-bearing progression under physical therapy guidance","Concentric and eccentric resistance training as tolerance improves","Functional gait and balance retraining to restore natural movement"],
     timeline: [
-      {time:"Wk 1-4", label:"Reactivation", desc:"Gentle range of motion, isometric contractions, neuromuscular re-education"},
-      {time:"Wk 5-8", label:"Strengthening", desc:"Progressive resistance training, functional exercises, muscle growth"},
-      {time:"Month 3-6", label:"Full Recovery", desc:"Advanced strengthening, sport-specific training, full clearance"}
+      {time:"Wk 1-4", label:"Reactivation", desc:"NMES, isometric contractions, aquatic therapy"},
+      {time:"Wk 5-10", label:"Strengthening", desc:"Progressive resistance training, gait retraining"},
+      {time:"Wk 10-16", label:"Full Recovery", desc:"Explosive power, functional endurance, full clearance"}
     ],
-    recovery:"Recovery from muscle atrophy depends on the duration of immobilization and the muscle groups affected. Significant strength gains are typically seen within 4 to 8 weeks of consistent rehabilitation, but full recovery of muscle mass and function can take 3 to 6 months or longer.",
-    insight:"Muscle tissue is metabolically active and responds rapidly to changes in demand. During immobilization, the body shifts to a catabolic state, breaking down muscle protein for energy. This process is mediated by the ubiquitin-proteasome pathway and is reversible with progressive loading. The concept of muscle plasticity explains why even elite athletes experience significant losses after short periods of inactivity."
+    recovery:"Recovery from muscle atrophy can take 8 to 16 weeks of intensive, progressive resistance training to rebuild the lost muscle volume and structural protein. Because muscle mass breaks down significantly faster than it builds up, reversing six weeks of cast immobilization requires months of consistent exercise. Most patients gradually restore their original limb circumference, explosive power, and full functional endurance through a highly structured, progressively heavier loading rehabilitation program.",
+    insight:"Muscle atrophy after immobilization is an inevitable secondary consequence of protecting a healing bone or ligament, showing that resting a tissue can sometimes harm another. The human body is highly efficient; when a muscle group is not being used, the brain cuts off resources to that area and breaks down the tissue to conserve energy. This means that the rehabilitation process after a major injury is often twofold: healing the primary injury site, and then completely rebuilding the shrunken muscles from scratch. Long-term success relies on early, safe muscle activation — such as flexing the muscle inside the cast if permitted — and prioritizing high-protein nutrition to give the body the building blocks it needs to regrow lost tissue."
   },
   nerve_entrapment: {
-    phase:"Phase 6 · Neuromuscular & Nerve Injuries", title:"Case 29: Peripheral Nerve Entrapment", date:"6/29/2026",
-    patient:{name:"Elena, Age 32", story:"Elena worked as a graphic designer and spent hours each day at her computer. Over several months, she developed progressive numbness and tingling in her thumb, index, and middle fingers. The symptoms were worse at night and often woke her up. After nerve conduction studies confirmed median nerve compression at the wrist, she was diagnosed with carpal tunnel syndrome, the most common form of peripheral nerve entrapment."},
-    inside:"Peripheral nerve entrapment occurs when a nerve is compressed as it passes through a narrow anatomical passageway surrounded by bone, ligament, or tendon. In carpal tunnel syndrome, the median nerve is compressed within the carpal tunnel at the wrist, a confined space that also contains nine flexor tendons. When the tunnel becomes narrowed or the contents swell, pressure on the nerve disrupts its blood supply and function, causing sensory and motor symptoms in the hand.",
-    symptoms:["Numbness and tingling in the thumb, index, middle, and ring fingers","Pain or burning sensation in the hand and wrist","Symptoms that worsen at night or upon waking","Weakness in the thumb and difficulty gripping objects","Shaking the hand to relieve symptoms","Pain that can radiate up the forearm"],
-    treatment:["Wearing a wrist splint at night to keep the wrist in a neutral position","Activity modification to reduce repetitive wrist movements","Anti-inflammatory medications to reduce swelling within the tunnel","Nerve gliding exercises to improve mobility of the median nerve","Corticosteroid injections to decrease inflammation","Carpal tunnel release surgery for severe or persistent cases"],
+    phase:"Phase 6 · Neuromuscular & Nerve Injuries", title:"Case 29: Peripheral Nerve Entrapment", date:"7/16/2026",
+    patient:{name:"Jessica, Age 31", story:"Jessica was a data entry specialist who felt a dull, aching pain in her wrist that gradually turned into a sharp, burning sensation spreading into her hand. Over several months, she began waking up in the middle of the night with a completely numb hand and started dropping light objects like coffee mugs due to weakness. She also noticed an electrical tingling whenever she tapped on the inside of her wrist. After an electromyogram (EMG) nerve test, doctors discovered that she had sustained severe peripheral nerve entrapment of the median nerve, commonly known as Carpal Tunnel Syndrome."},
+    inside:"The extremities rely on peripheral nerves to slide smoothly through narrow anatomical tunnels to deliver sensory and motor messages to the hands and feet. When repetitive movements, fluid retention, or localized swelling occur, the pressure inside these tight tunnels rises dramatically, squeezing the nerve against surrounding bones or ligaments. This mechanical entrapment cuts off the micro-circulation supplying the nerve fibers, leading to localized ischemia and internal tissue scarring. The injury triggers chronic neural inflammation, blocks electrical impulses, and over time can cause the muscle base at the thumb to physically waste away.",
+    symptoms:["A burning pain or ache localized around the entrapment site and spreading outward","Numbness and tingling strictly confined to the specific nerve's sensory map","Dropping objects or a noticeable loss of fine motor skills and grip strength","A sharp, electric shock sensation when tapping directly over the trapped nerve area","Symptoms that worsen significantly at night or during repetitive manual tasks","Visible flattening or wasting of the muscles controlled by the entrapped nerve"],
+    treatment:["Splinting or bracing the joint in a neutral position to reduce tunnel pressure","Activity modification and ergonomic workspace re-design","Nerve-gliding exercises to pull the nerve freely through the tunnel","Anti-inflammatory medications to decrease local tissue swelling","Corticosteroid injections directly into the tunnel to relieve pressure","Surgical decompression surgery to cut the ligament binding the nerve","Post-surgical scar tissue mobilization and hand rehabilitation"],
     timeline: [
-      {time:"Wk 1-4", label:"Splinting & Rest", desc:"Night splinting, activity modification, anti-inflammatory meds"},
-      {time:"Wk 5-8", label:"Rehabilitation", desc:"Nerve gliding exercises, ergonomic adjustments, strengthening"},
-      {time:"Month 3-6", label:"Full Recovery", desc:"Nerve function restoration, grip strength, return to activities"}
+      {time:"Wk 1-4", label:"Splinting & Rest", desc:"Night splinting, ergonomic changes, nerve gliding"},
+      {time:"Wk 5-12", label:"Rehabilitation", desc:"Physical therapy, grip strengthening"},
+      {time:"Month 3-4", label:"Full Recovery (Surgical)", desc:"Post-decompression rehab, scar mobilization"}
     ],
-    recovery:"Mild to moderate cases of carpal tunnel syndrome improve within 4 to 8 weeks with conservative treatment. Severe cases or those requiring surgery may take 3 to 6 months for full recovery of nerve function and strength.",
-    insight:"Peripheral nerve entrapments are among the most common nerve disorders and occur at predictable anatomical sites where nerves pass through tight spaces. The carpal tunnel is the most famous example, but similar entrapments occur at the elbow, wrist, knee, and ankle. Early diagnosis is important because prolonged compression can lead to irreversible nerve damage and permanent muscle weakness."
+    recovery:"Recovery from peripheral nerve entrapment can take 4 to 12 weeks with conservative night-splinting, ergonomic changes, and targeted nerve-glide physical therapy. If the nerve is severely compressed and requires surgical decompression release, recovery typically takes 2 to 4 months for the deep tissues to fully heal. Most patients gradually eliminate their hand numbness, restore total grip coordination, and regain pain-free manipulation through progressive hand rehabilitation.",
+    insight:"Peripheral nerve entrapment demonstrates that nerves require absolute freedom of movement and sliding capabilities to function without sending pain signals. When a nerve becomes physically snagged or squeezed by a tight ligament or muscle, it acts like a kinked garden hose, disrupting everything further down the line. Because nerves have an exceptionally slow recovery rate, ignoring severe entrapment symptoms for too long can result in irreversible sensory loss and permanent hand or foot weakness. Successful long-term management relies on early structural decompression, identifying repetitive mechanical strains, and utilizing ergonomic tools to keep the body's natural tunnels wide open."
   },
   hamstring_inhibition: {
-    phase:"Phase 6 · Neuromuscular & Nerve Injuries", title:"Case 30: Hamstring Neuromuscular Inhibition Injury", date:"6/29/2026",
-    patient:{name:"Marcus, Age 17", story:"Marcus had suffered three hamstring strains in the past year, each one occurring during the early phase of sprinting. Despite completing rehabilitation after each injury, his hamstring never felt fully recovered. A sports medicine specialist identified that his hamstring was experiencing neuromuscular inhibition, a condition in which the nervous system fails to fully activate the muscle due to lingering inhibition from prior injury."},
-    inside:"Neuromuscular inhibition is a protective mechanism in which the nervous system reduces the activation signal to a muscle following injury, presumably to prevent further damage. After a hamstring strain, the brain downregulates the neural drive to the injured muscle, causing it to contract less forcefully even after tissue healing is complete. This persistent inhibition leads to weakness, altered movement patterns, and a high risk of re-injury.",
-    symptoms:["Recurrent hamstring strains despite completing rehabilitation","A feeling that the hamstring does not fire or activate properly","Weakness in the hamstring during sprinting or jumping","Reduced hamstring flexibility and range of motion","Compensation patterns such as overusing the lower back or quadriceps","Difficulty achieving full speed or power during athletic activities"],
-    treatment:["Neuromuscular re-education exercises to retrain muscle activation","Eccentric hamstring strengthening, including Nordic curls","Core and hip strengthening to address contributing muscle imbalances","Sport-specific movement retraining to correct faulty mechanics","Gradual exposure to high-speed running under controlled conditions"],
+    phase:"Phase 6 · Neuromuscular & Nerve Injuries", title:"Case 30: Hamstring Neuromuscular Inhibition Injury", date:"7/16/2026",
+    patient:{name:"David, Age 23", story:"David was sprinting during a track meet when he felt a sudden, mild tweak in the back of his thigh that forced him to slow down. While the initial muscle strain healed within a few weeks and his ultrasound looked clear, he noticed that his hamstring felt completely dead and lacked explosive power when he tried to sprint again. Every time he attempted to accelerate, his brain seemed unable to \"turn on\" the muscle, and his hip would awkwardly compensate. After a specialized biomechanical assessment, doctors discovered that he had sustained a hamstring neuromuscular inhibition injury."},
+    inside:"The musculoskeletal system relies on a continuous loop of electrical feedback between the brain and muscles to coordinate smooth, powerful movements. Following an acute injury, pain episode, or joint swelling, the nervous system activates a protective reflex loop that intentionally limits the electrical signals traveling to that specific muscle. This neurological shutdown serves as a safety mechanism to prevent the healing tissue from contracting too forcefully and tearing again. However, if this inhibition persists after the tissue has physically healed, the muscle remains structurally weak, uncoordinated, and functionally offline because the brain is actively blocking its power supply.",
+    symptoms:["A persistent lack of explosive power despite the muscle tissue appearing fully healed","A strange sensation that the muscle will not \"fire\" or activate during fast movements","Altered running mechanics and visible movement compensations in the hip or lower back","Asymmetrical muscle activation when comparing strength tests to the opposite leg","A dull, vague sense of tightness or insecurity in the muscle without true localized pain","Rapid cramping or fatigue when attempting to isolate the affected muscle group"],
+    treatment:["Biofeedback training to visually track muscle activation","High-frequency electrical stimulation while performing active exercises","Targeted isometric loading to safely override the brain's inhibition reflex","Eccentric Nordic hamstring exercises to restore motor unit recruitment","Lumbopelvic stability training to correct secondary movement flaws","Progressive acceleration and sprinting drills to retrain the nervous system","Dry needling or manual therapy to reset overactive localized neural loops"],
     timeline: [
-      {time:"Wk 1-2", label:"Neuromuscular Activation", desc:"Hamstring activation drills, motor control retraining"},
-      {time:"Wk 3-6", label:"Strengthening", desc:"Eccentric loading, Nordic curls, core/hip stability"},
-      {time:"Wk 6-12", label:"Return to Activity", desc:"High-speed running, sport-specific training, full clearance"}
+      {time:"Wk 1-2", label:"Neural Reset", desc:"Biofeedback training, isometric loading, e-stim"},
+      {time:"Wk 3-6", label:"Motor Retraining", desc:"Nordic curls, lumbopelvic stability training"},
+      {time:"Wk 6-12", label:"Return to Activity", desc:"Progressive sprinting drills, full neural loading"}
     ],
-    recovery:"Recovery from hamstring neuromuscular inhibition is a gradual process that typically takes 8 to 12 weeks of targeted rehabilitation. Athletes need to demonstrate normal activation patterns and strength before returning to sport to reduce the risk of re-injury.",
-    insight:"Neuromuscular inhibition explains why many athletes experience recurrent hamstring strains despite appearing to have healed. MRI and strength testing may show normal results, but the nervous system continues to inhibit full activation of the muscle. This phenomenon, called the repeat strain injury cycle, can be overcome through specific exercises that challenge the hamstring at high speeds and under load."
+    recovery:"Recovery from a neuromuscular inhibition injury can take 4 to 8 weeks of specialized neuro-plastic physical therapy focused on resetting the brain-to-muscle connection. Because the underlying muscle tissue is already healed, recovery timelines depend entirely on how fast the nervous system can be trained to drop its protective guarding. Most patients gradually unlock their full explosive power, restore natural running strides, and eliminate movement compensations over 2 to 3 months of progressive neural loading.",
+    insight:"Hamstring neuromuscular inhibition reveals that true athletic recovery requires treating the nervous system just as much as the physical muscle tissue. An athlete can have a perfectly healed muscle on an MRI, but if the brain's internal circuit breaker remains tripped, the limb will continue to function as if it is still broken. This condition explains why many athletes experience chronic, recurring muscle strains; they return to sports with a muscle that is physically healed but structurally turned off, forcing other areas to dangerously overload. Long-term resolution requires moving past basic stretching and entering a phase of high-focus neural retraining that forces the brain to trust the tissue under high-speed loading once again."
   },
   compound_fracture: {
     phase:"Phase 7 · High-Impact & Catastrophic Trauma Cases", title:"Case 31: Open Compound Fracture with Bone Exposure", date:"6/30/2026",
@@ -1693,7 +1729,7 @@ function renderPhaseStatusList() {
     { num:3, name:"Major Injuries", status:"done" },
     { num:4, name:"Extreme Cases", status:"done" },
     { num:5, name:"Chronic Overuse & Degenerative Injuries", status:"done" },
-    { num:6, name:"Neuromuscular & Nerve Injuries", status:"locked" },
+    { num:6, name:"Neuromuscular & Nerve Injuries", status:"done" },
     { num:7, name:"High-Impact & Catastrophic Trauma", status:"locked" }
   ];
   const icons = { done:"✅", progress:"🔄", locked:"🔒" };
@@ -1708,6 +1744,25 @@ function renderPhaseStatusList() {
 }
 renderPhaseStatusList();
 renderCaseFiles();
+
+function renderVisualTimeline() {
+  const milestones = [
+    { date:"Jun 12, 2026", label:"Edition 1.0", sub:"20 cases · Phases 1\u20134 launch", status:"done" },
+    { date:"Jul 2, 2026", label:"Phase 5", sub:"Chronic Overuse &amp; Degenerative", status:"done" },
+    { date:"Jul 16, 2026", label:"Phase 6", sub:"Neuromuscular &amp; Nerve Injuries", status:"current" },
+    { date:"Coming Soon", label:"Phase 7", sub:"High-Impact &amp; Catastrophic Trauma", status:"upcoming" },
+    { date:"Planned", label:"Edition 3.0", sub:"Major overhaul", status:"upcoming" }
+  ];
+  const wrap = document.getElementById('vTimeline');
+  if (!wrap) return;
+  milestones.forEach(m => {
+    const node = document.createElement('div');
+    node.className = 'vtl-node';
+    node.innerHTML = `<div class="vtl-dot ${m.status}"></div><div class="vtl-date">${m.date}</div><div class="vtl-label">${m.label}</div><div class="vtl-sub">${m.sub}</div>`;
+    wrap.appendChild(node);
+  });
+}
+renderVisualTimeline();
 
 function openModal(key) {
   const c = cases[key];
