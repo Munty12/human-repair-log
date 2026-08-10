@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,17 +8,37 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #1a3a7c;
+    --navy: #0f2a63;
     --royal: #1e4db7;
     --pale: #c8d8f0;
     --white: #ffffff;
-    --card-bg: rgba(255,255,255,0.08);
-    --card-border: rgba(255,255,255,0.15);
+    --card-bg: rgba(255,255,255,0.07);
+    --card-border: rgba(255,255,255,0.14);
     --red: #e53935;
     --green: #7ec8a0;
+    --gold: #ffd700;
+    --shadow-sm: 0 2px 12px rgba(7,18,45,0.35);
+    --shadow-md: 0 10px 32px rgba(7,18,45,0.45);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Barlow', sans-serif; background: var(--navy); color: var(--white); min-height: 100vh; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Barlow', sans-serif;
+    background:
+      radial-gradient(1100px 560px at 82% -12%, rgba(30,77,183,0.38), transparent 62%),
+      radial-gradient(900px 520px at -8% 22%, rgba(200,216,240,0.06), transparent 55%),
+      linear-gradient(160deg, #0b2150 0%, #12306e 46%, #0c254f 100%);
+    color: var(--white);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection { background: rgba(200,216,240,0.30); color: var(--white); }
+  ::-webkit-scrollbar { width: 12px; }
+  ::-webkit-scrollbar-track { background: #0a1d47; }
+  ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #1e4db7, #2a5a9c); border-radius: 6px; border: 3px solid #0a1d47; }
+  ::-webkit-scrollbar-thumb:hover { background: #2a5a9c; }
+  a:focus-visible, button:focus-visible, .region-chip:focus-visible, .system-chip:focus-visible, .case-row:focus-visible, .skeleton-case:focus-visible { outline: 2px solid var(--pale); outline-offset: 2px; }
 
   .circle-bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
   .circle-bg span { position: absolute; border-radius: 50%; border: 5px solid rgba(255,255,255,0.09); }
@@ -29,23 +50,32 @@
 
   nav {
     position: sticky; top: 0; z-index: 100;
-    background: rgba(26,58,124,0.95); backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--card-border);
+    background: rgba(9,22,54,0.82); backdrop-filter: blur(16px) saturate(1.35);
+    -webkit-backdrop-filter: blur(16px) saturate(1.35);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 8px 24px rgba(7,18,45,0.35);
     padding: 0 40px; display: flex; align-items: center; gap: 32px; height: 60px;
   }
   .nav-logo { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.1rem; letter-spacing: 0.05em; color: var(--white); text-decoration: none; text-transform: uppercase; white-space: nowrap; }
   .nav-logo span { color: var(--pale); }
-  nav a.nav-link { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.2s; white-space: nowrap; }
+  nav a.nav-link { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.68); text-decoration: none; transition: color 0.2s; white-space: nowrap; position: relative; }
+  nav a.nav-link::after { content: ''; position: absolute; left: 0; right: 100%; bottom: -8px; height: 2px; background: linear-gradient(90deg, var(--pale), transparent); transition: right 0.25s ease; }
   nav a.nav-link:hover { color: var(--white); }
+  nav a.nav-link:hover::after { right: 0; }
   .nav-spacer { flex: 1; }
   .nav-tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy); background: var(--pale); padding: 4px 10px; border-radius: 4px; }
 
   /* HERO */
   .hero { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 80px 60px 60px; max-width: 1100px; margin: 0 auto; }
-  .hero-eyebrow { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pale); margin-bottom: 20px; }
-  .hero h1 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(4rem,9vw,8rem); line-height: 0.92; text-transform: uppercase; margin-bottom: 28px; }
+  .hero::before { content: ''; position: absolute; top: 6%; left: 50%; transform: translateX(-50%); width: 940px; height: 600px; background: radial-gradient(ellipse, rgba(30,77,183,0.35), transparent 68%); pointer-events: none; z-index: -1; }
+  .hero-eyebrow { display: flex; align-items: center; gap: 10px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pale); margin-bottom: 20px; }
+  .hero-eyebrow::before { content: ''; width: 28px; height: 2px; background: linear-gradient(90deg, var(--pale), transparent); }
+  .hero h1 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(4rem,9vw,8rem); line-height: 0.92; text-transform: uppercase; margin-bottom: 28px; letter-spacing: 0.01em; }
   .hero h1 span { color: var(--pale); }
-  .hero-sub { font-size: 1.1rem; line-height: 1.6; color: rgba(255,255,255,0.75); max-width: 560px; margin-bottom: 40px; }
+  @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    .hero h1 span { background: linear-gradient(115deg, #ffffff 10%, #9cc0f5 90%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+  }
+  .hero-sub { font-size: 1.1rem; line-height: 1.6; color: rgba(255,255,255,0.78); max-width: 560px; margin-bottom: 40px; }
   .hero-meta { display: flex; gap: 40px; align-items: center; flex-wrap: wrap; }
   .hero-stat .num { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 2.5rem; line-height: 1; }
   .hero-stat .label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--pale); margin-top: 2px; }
@@ -55,8 +85,10 @@
 
   /* SECTION */
   .section { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 80px 60px; }
-  .section-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pale); margin-bottom: 12px; }
-  .section-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(2rem,4vw,3.2rem); text-transform: uppercase; line-height: 1; margin-bottom: 48px; }
+  .section, .body-map-section, .featured-wrap, .didyou-wrap { scroll-margin-top: 72px; }
+  .section-label { display: flex; align-items: center; gap: 10px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pale); margin-bottom: 12px; }
+  .section-label::before { content: ''; width: 26px; height: 2px; background: linear-gradient(90deg, var(--pale), transparent); flex-shrink: 0; }
+  .section-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(2rem,4vw,3.2rem); text-transform: uppercase; line-height: 1; margin-bottom: 48px; letter-spacing: 0.015em; }
 
   /* ABOUT */
   .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
@@ -67,12 +99,11 @@
   .about-card .creator { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--card-border); font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.4rem; text-transform: uppercase; }
 
   /* BODY MAP */
-  .body-map-section { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 80px 60px; }
-  .body-map-layout { display: grid; grid-template-columns: 1fr 420px; gap: 60px; align-items: start; }
-  .body-map-left { }
+  .body-map-section { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; padding: 80px 60px; }
+  .body-map-layout { display: grid; grid-template-columns: 280px 1fr 380px; grid-template-areas: "skeleton info cases"; gap: 48px; align-items: start; }
+  .body-map-left { grid-area: skeleton; min-width: 0; }
+  .body-map-mid { grid-area: info; min-width: 0; }
   .body-map-hint { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-bottom: 32px; letter-spacing: 0.02em; }
-  .body-svg-wrap { position: relative; width: 100%; max-width: 320px; margin: 0 auto; }
-  .body-svg-wrap svg { width: 100%; height: auto; }
 
   .hotspot {
     position: absolute;
@@ -102,15 +133,16 @@
     50% { box-shadow: 0 0 0 10px rgba(200,216,240,0.04); }
   }
 
-  .case-panel { }
+  .case-panel { grid-area: cases; min-width: 0; }
   .phase-group { margin-bottom: 36px; }
   .phase-group-label {
     font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--navy); background: var(--pale); padding: 3px 9px; border-radius: 3px;
+    color: var(--navy); background: linear-gradient(135deg, #dce9ff, #c4d8f5); padding: 3px 9px; border-radius: 3px;
     display: inline-flex; align-items: center; gap: 8px; margin-bottom: 14px;
-    cursor: pointer; user-select: none; transition: background 0.15s;
+    cursor: pointer; user-select: none; transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 2px 8px rgba(7,18,45,0.25);
   }
-  .phase-group-label:hover { background: #ddeaff; }
+  .phase-group-label:hover { background: linear-gradient(135deg, #e6eeff, #d2e2fa); transform: translateY(-1px); }
   .phase-arrow { display: inline-block; font-size: 0.75em; line-height: 1; }
   .phase-group.collapsed .phase-cases { display: none; }
   .case-row {
@@ -122,7 +154,7 @@
   }
   .case-row.filed { border-color: var(--card-border); background: var(--card-bg); }
   .case-row.filed:hover { background: rgba(255,255,255,0.13); border-color: rgba(255,255,255,0.28); transform: translateX(4px); }
-  .case-row.filed.highlighted { background: rgba(200,216,240,0.15); border-color: rgba(200,216,240,0.5); }
+  .case-row.filed.highlighted { background: rgba(200,216,240,0.15); border-color: rgba(200,216,240,0.5); box-shadow: 0 0 0 3px rgba(200,216,240,0.08); }
   .case-row.upcoming { opacity: 0.38; cursor: default; }
   .case-row-num { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; color: var(--pale); min-width: 74px; }
   .case-row-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.05rem; text-transform: uppercase; flex: 1; }
@@ -148,7 +180,7 @@
   /* MODAL */
   .modal-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(10,25,60,0.88); backdrop-filter: blur(8px); overflow-y: auto; padding: 40px 20px; }
   .modal-overlay.open { display: flex; justify-content: center; align-items: flex-start; }
-  .modal { background: var(--royal); border: 1px solid var(--card-border); border-radius: 16px; width: 100%; max-width: 700px; position: relative; overflow: hidden; }
+  .modal { background: linear-gradient(180deg, #1e4db7 0%, #163a8f 100%); border: 1px solid rgba(255,255,255,0.18); border-radius: 16px; width: 100%; max-width: 700px; position: relative; overflow: hidden; box-shadow: 0 24px 80px rgba(5,15,40,0.6); }
   .modal-circles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
   .modal-circles span { position: absolute; border-radius: 50%; border: 5px solid rgba(255,255,255,0.08); }
   .modal-circles span:nth-child(1) { width: 320px; height: 320px; top: -90px; right: -90px; }
@@ -172,7 +204,7 @@
   .modal-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; background: rgba(255,255,255,0.07); border: 1px solid var(--card-border); border-radius: 10px; padding: 24px; }
   .modal-two-col h4 { font-weight: 700; font-size: 0.85rem; text-decoration: underline; margin-bottom: 10px; }
   .modal-two-col p { font-size: 0.88rem; line-height: 1.65; color: rgba(255,255,255,0.82); }
-  .modal-diagram { border-radius: 10px; overflow: hidden; margin-bottom: 24px; border: 1px solid var(--card-border); background: #1a3a7c; }
+  .modal-diagram { border-radius: 10px; overflow: hidden; margin-bottom: 24px; border: 1px solid var(--card-border); background: #12306e; }
   .modal-diagram svg { width: 100%; display: block; }
   .modal-date-stamp { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 2rem; text-align: center; color: var(--pale); letter-spacing: 0.05em; padding-top: 20px; border-top: 1px solid var(--card-border); }
 
@@ -193,39 +225,6 @@
   .footer-right { font-size: 0.75rem; color: rgba(255,255,255,0.3); text-align: right; line-height: 1.5; }
 
 
-  .region-label {
-    position: absolute;
-    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em;
-    color: rgba(200,216,240,0.6);
-    pointer-events: none;
-    white-space: nowrap;
-    transition: color 0.2s;
-  }
-  .body-region:hover ~ .region-label,
-  .region-label.active { color: var(--pale); }
-  .body-region { transition: opacity 0.15s; }
-  .body-region:hover { opacity: 0.3; }
-  .body-svg-wrap svg .body-region.active-region { fill: rgba(200,216,240,0.15); }
-
-  .body-part {
-    fill: rgba(200,216,240,0.10);
-    stroke: rgba(200,216,240,0.30);
-    stroke-width: 1.5;
-    cursor: pointer;
-    transition: fill 0.2s, stroke 0.2s;
-  }
-  .body-part:hover, .body-part.active-part {
-    fill: rgba(200,216,240,0.28);
-    stroke: rgba(200,216,240,0.8);
-  }
-  .body-part-stroke {
-    stroke: rgba(200,216,240,0.30);
-    cursor: pointer;
-    transition: stroke 0.2s;
-  }
-  .body-part-stroke:hover, .body-part-stroke.active-part {
-    stroke: rgba(200,216,240,0.8);
-  }
   .region-chip {
     font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em;
     padding: 6px 12px; border-radius: 6px; cursor: pointer;
@@ -235,10 +234,57 @@
     transition: background 0.15s, color 0.15s, border-color 0.15s;
     display: inline-block;
   }
-  .region-chip:hover { background: rgba(255,255,255,0.12); color: var(--white); transform: translateY(-1px); }
-  .region-chip.active-chip { background: rgba(200,216,240,0.2); border-color: var(--pale); color: var(--white); }
+  .region-chip:hover { background: rgba(255,255,255,0.12); color: var(--white); transform: translateY(-2px); box-shadow: 0 4px 14px rgba(7,18,45,0.35); }
+  .region-chip.active-chip { background: rgba(200,216,240,0.22); border-color: var(--pale); color: var(--white); box-shadow: 0 0 0 1px rgba(200,216,240,0.20), 0 2px 10px rgba(200,216,240,0.10); }
   .case-row.dimmed { opacity: 0.18; pointer-events: none; }
   .case-row.highlighted { background: rgba(200,216,240,0.12); border-color: rgba(200,216,240,0.4); }
+
+  /* ANATOMY EXPLORER — INTERACTIVE SKELETON */
+  .skeleton-wrap { width: 100%; max-width: 280px; margin: 0 auto; }
+  .skeleton-wrap svg { width: 100%; height: auto; }
+  .bone-part {
+    fill: rgba(236,226,206,0.12);
+    stroke: rgba(236,226,206,0.35);
+    stroke-width: 1.5;
+    cursor: pointer;
+    transition: fill 0.2s, stroke 0.2s;
+  }
+  .bone-part:hover, .bone-part.active-part {
+    fill: rgba(236,226,206,0.30);
+    stroke: rgba(236,226,206,0.85);
+  }
+  .bone-stroke {
+    stroke: rgba(236,226,206,0.35);
+    cursor: pointer;
+    transition: stroke 0.2s;
+  }
+  .bone-stroke:hover, .bone-stroke.active-part { stroke: rgba(236,226,206,0.85); }
+  .bone-part.active-part, .bone-stroke.active-part { animation: hotspotPulseFlash 0.5s ease; }
+  .skeleton-chips { display: flex; flex-direction: column; gap: 6px; margin-top: 24px; }
+  .skeleton-panel {
+    background: linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.04));
+    border: 1px solid var(--card-border); border-radius: 14px;
+    padding: 32px; min-height: 460px; position: relative;
+    box-shadow: var(--shadow-sm);
+  }
+  .skeleton-panel h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 2.1rem; text-transform: uppercase; line-height: 1; margin-bottom: 10px; }
+  .skeleton-panel .region-desc { font-size: 0.95rem; line-height: 1.7; color: rgba(255,255,255,0.72); margin-bottom: 24px; }
+  .skeleton-panel .panel-case-count { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pale); margin-bottom: 14px; }
+  .skeleton-case-list { display: flex; flex-direction: column; gap: 8px; }
+  .skeleton-case {
+    display: flex; align-items: center; gap: 14px;
+    padding: 12px 16px; border-radius: 9px;
+    background: rgba(255,255,255,0.06); border: 1px solid var(--card-border);
+    cursor: pointer;
+    transition: background 0.15s, transform 0.15s, border-color 0.15s;
+  }
+  .skeleton-case:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.28); transform: translateX(4px); }
+  .skeleton-case .sc-num { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; color: var(--pale); min-width: 44px; }
+  .skeleton-case .sc-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.02rem; text-transform: uppercase; flex: 1; }
+  .skeleton-case .sc-zone { font-size: 0.72rem; color: rgba(255,255,255,0.4); }
+  .skeleton-welcome { text-align: center; padding: 60px 20px; }
+  .skeleton-welcome .sw-icon { font-size: 3rem; margin-bottom: 16px; }
+  .skeleton-welcome p { font-size: 0.95rem; color: rgba(255,255,255,0.6); line-height: 1.6; max-width: 360px; margin: 0 auto; }
 
   /* SYSTEM CHIPS */
   .system-chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
@@ -249,8 +295,8 @@
     color: rgba(255,255,255,0.55);
     transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s;
   }
-  .system-chip:hover { background: rgba(255,255,255,0.12); color: var(--white); transform: translateY(-1px); }
-  .system-chip.active-chip { background: rgba(200,216,240,0.2); border-color: var(--pale); color: var(--white); }
+  .system-chip:hover { background: rgba(255,255,255,0.12); color: var(--white); transform: translateY(-2px); box-shadow: 0 4px 14px rgba(7,18,45,0.35); }
+  .system-chip.active-chip { background: rgba(200,216,240,0.22); border-color: var(--pale); color: var(--white); box-shadow: 0 0 0 1px rgba(200,216,240,0.20), 0 2px 10px rgba(200,216,240,0.10); }
 
   /* SURGEON'S NOTES */
   .surgeon-notes {
@@ -274,11 +320,14 @@
   .phase-status-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.02em; }
   .phase-status-sub { font-size: 0.78rem; color: rgba(255,255,255,0.45); margin-top: 1px; }
 
+  /* SHARED CARD TREATMENT */
+  .about-card, .conn-card, .path-node, .didyou-card, .edition-card, .tracker-card, .download-btn, .milestone-item, .phase-status-item { transition: border-color 0.2s, background 0.2s, transform 0.2s, box-shadow 0.2s; }
+  .about-card:hover, .conn-card:hover, .path-node:hover, .didyou-card:hover, .edition-card:hover, .tracker-card:hover, .download-btn:hover, .milestone-item:hover, .phase-status-item:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
   @keyframes hotspotPulseFlash {
     0% { fill: rgba(200,216,240,0.55); }
     100% { fill: rgba(200,216,240,0.28); }
   }
-  .body-part.active-part, .body-part-stroke.active-part { animation: hotspotPulseFlash 0.5s ease; }
 
   /* EDITIONS */
   .editions-grid { display: flex; flex-direction: column; gap: 16px; max-width: 900px; }
@@ -288,7 +337,7 @@
     transition: border-color 0.2s, background 0.2s;
   }
   .edition-card:hover { border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.1); }
-  .edition-card.current { border-color: rgba(200,216,240,0.45); background: rgba(200,216,240,0.08); }
+  .edition-card.current { border-color: rgba(200,216,240,0.5); background: linear-gradient(135deg, rgba(200,216,240,0.13), rgba(255,255,255,0.05)); }
   .edition-num {
     font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 2.4rem;
     line-height: 1; color: var(--pale); min-width: 56px;
@@ -316,10 +365,11 @@
   /* FEATURED CASE */
   .featured-wrap { max-width: 1100px; margin: 0 auto; padding: 40px 60px; position: relative; z-index: 1; }
   .featured-card {
-    background: linear-gradient(135deg, rgba(200,216,240,0.12), rgba(255,255,255,0.05));
-    border: 1.5px solid rgba(200,216,240,0.35);
+    background: linear-gradient(135deg, rgba(200,216,240,0.14), rgba(255,255,255,0.05));
+    border: 1.5px solid rgba(200,216,240,0.38);
     border-radius: 16px; padding: 40px; position: relative; overflow: hidden;
     display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center;
+    box-shadow: var(--shadow-md);
   }
   .featured-card::before {
     content: ''; position: absolute; inset: 0;
@@ -340,8 +390,9 @@
     font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
     color: var(--navy); background: var(--pale); padding: 10px 24px; border-radius: 6px;
     border: none; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 2px 10px rgba(7,18,45,0.25);
   }
-  .featured-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(200,216,240,0.25); }
+  .featured-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(200,216,240,0.3); }
   .featured-stars { font-size: 0.8rem; letter-spacing: 0.15em; color: #ffd700; white-space: nowrap; }
 
   /* DID YOU KNOW */
@@ -396,8 +447,8 @@
 
   /* MEDICAL WORD SPOTLIGHT */
   .word-spotlight {
-    background: linear-gradient(135deg, rgba(200,216,240,0.1), rgba(255,255,255,0.04));
-    border: 1px solid rgba(200,216,240,0.25); border-radius: 16px;
+    background: linear-gradient(135deg, rgba(200,216,240,0.12), rgba(255,255,255,0.05));
+    border: 1px solid rgba(200,216,240,0.28); border-radius: 16px; box-shadow: var(--shadow-sm);
     padding: 36px 40px; display: grid; grid-template-columns: auto 1fr auto; gap: 32px; align-items: center;
     max-width: 900px;
   }
@@ -473,9 +524,14 @@
   .download-label { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
   .download-meta { font-size: 0.7rem; color: rgba(255,255,255,0.35); }
 
+  @media (max-width: 1150px) {
+    .body-map-layout { grid-template-columns: 300px 1fr; grid-template-areas: "skeleton cases" "info cases"; gap: 40px; }
+    .skeleton-wrap { max-width: 240px; }
+  }
   @media (max-width: 900px) {
-    .body-map-layout { grid-template-columns: 1fr; }
-    .body-svg-wrap { max-width: 240px; }
+    .body-map-layout { grid-template-columns: 1fr; grid-template-areas: "skeleton" "info" "cases"; }
+    .skeleton-wrap { max-width: 220px; }
+    .skeleton-panel { min-height: 0; }
   }
   @media (max-width: 768px) {
     nav { padding: 0 20px; gap: 16px; }
@@ -525,8 +581,8 @@
   <span class="nav-tag">Case Collection 2026</span>
 </nav>
 
-<div style="background:linear-gradient(135deg,#1a3a7c,#2a5a9c);color:#c8d8f0;text-align:center;padding:10px 20px;font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.1);">Edition 2 in Progress · 35 Cases Across 7 Phases</div>
-<div style="background:linear-gradient(135deg,#7a5c00,#ffd700,#7a5c00);background-size:200% 100%;animation:editionBannerShine 4s linear infinite;color:#1a1400;text-align:center;padding:22px 20px;font-size:1.15rem;font-weight:900;letter-spacing:0.08em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;border-bottom:2px solid rgba(255,255,255,0.25);box-shadow:0 4px 20px rgba(255,215,0,0.25);">🏆 Edition 2 Completed — All 35 Cases Across 7 Phases Are Now Live 🏆</div>
+<div style="background:linear-gradient(135deg,#12306e,#1e4db7 60%,#2a5a9c);color:#dbe7fb;text-align:center;padding:9px 20px;font-size:0.78rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.1);">Edition 3 Complete · 40 Cases · 8 Phases · Interactive Skeleton</div>
+<div style="background:linear-gradient(90deg,#6b4e00,#ffd700 30%,#ffe27a 50%,#ffd700 70%,#6b4e00);background-size:200% 100%;animation:editionBannerShine 4s linear infinite;color:#241a00;text-align:center;padding:16px 20px;font-size:1.02rem;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;border-bottom:1px solid rgba(255,255,255,0.35);box-shadow:0 6px 28px rgba(255,215,0,0.22);">🏆 Edition 3 Completed — All 40 Cases Across 8 Phases Are Now Live 🏆</div>
 <style>@keyframes editionBannerShine { 0% { background-position: 0% 0; } 100% { background-position: 200% 0; } }</style>
 
 <div class="hero">
@@ -534,11 +590,11 @@
   <h1>The Human<br><span>Repair</span> Log</h1>
   <p class="hero-sub">Documenting how the human body breaks, adapts, and heals — from common sports trauma to complex orthopedic cases.</p>
   <div class="hero-meta">
-    <div class="hero-stat"><div class="num">35</div><div class="label">Cases Filed</div></div>
+    <div class="hero-stat"><div class="num">40</div><div class="label">Cases Filed</div></div>
     <div class="hero-divider"></div>
-    <div class="hero-stat"><div class="num">7</div><div class="label">Phases Complete</div></div>
+    <div class="hero-stat"><div class="num">8</div><div class="label">Phases Complete</div></div>
     <div class="hero-divider"></div>
-    <div class="hero-stat"><div class="num">35</div><div class="label">Total Cases (Ed. 2)</div></div>
+    <div class="hero-stat"><div class="num">40</div><div class="label">Total Cases (Ed. 3)</div></div>
   </div>
   <div class="scroll-cue">Scroll to explore</div>
 </div>
@@ -608,61 +664,77 @@
 
   <div class="body-map-layout">
 
-    <!-- LEFT: body with clickable regions -->
+    <!-- LEFT: interactive skeleton with clickable regions -->
     <div class="body-map-left">
-      <p style="color:rgba(255,255,255,0.45);font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:20px;font-weight:600;">Click a region</p>
-      <div class="body-svg-wrap" id="bodySvgWrap">
-        <svg viewBox="0 0 220 520" xmlns="http://www.w3.org/2000/svg" id="bodySvg">
-          <!-- Head -->
-          <ellipse cx="110" cy="38" rx="28" ry="34" class="body-part" data-region="head"/>
-          <!-- Neck -->
-          <rect x="101" y="68" width="18" height="20" rx="4" class="body-part" data-region="head"/>
-          <!-- Torso -->
-          <path d="M72 88 Q65 92 62 110 Q58 135 60 165 Q62 190 68 205 L152 205 Q158 190 160 165 Q162 135 158 110 Q155 92 148 88 Z" class="body-part" data-region="hip"/>
-          <!-- Left upper arm -->
-          <path d="M70 92 Q54 100 48 120 Q44 138 50 158 Q55 168 64 170" fill="none" class="body-part-stroke" data-region="shoulder" stroke-width="14" stroke-linecap="round"/>
-          <!-- Left forearm -->
-          <path d="M50 158 Q44 172 42 192 Q40 210 44 228 L56 226 Q54 208 56 192 Q58 175 64 170 Z" class="body-part" data-region="wrist"/>
-          <!-- Left hand -->
-          <ellipse cx="50" cy="236" rx="10" ry="14" class="body-part" data-region="wrist"/>
-          <!-- Right upper arm -->
-          <path d="M150 92 Q166 100 172 120 Q176 138 170 158 Q165 168 156 170" fill="none" class="body-part-stroke" data-region="shoulder" stroke-width="14" stroke-linecap="round"/>
-          <!-- Right forearm -->
-          <path d="M170 158 Q176 172 178 192 Q180 210 176 228 L164 226 Q166 208 164 192 Q162 175 156 170 Z" class="body-part" data-region="wrist"/>
-          <!-- Right hand -->
-          <ellipse cx="170" cy="236" rx="10" ry="14" class="body-part" data-region="wrist"/>
-          <!-- Hips -->
-          <path d="M68 205 Q58 215 58 235 Q58 250 68 258 L152 258 Q162 250 162 235 Q162 215 152 205 Z" class="body-part" data-region="hip"/>
-          <!-- Left thigh -->
-          <path d="M68 258 Q60 272 58 300 Q56 325 60 348 L80 348 Q78 325 80 300 Q82 272 80 258 Z" class="body-part" data-region="thigh"/>
-          <!-- Left knee -->
-          <ellipse cx="70" cy="354" rx="20" ry="14" class="body-part" data-region="knee"/>
-          <!-- Left shin -->
-          <path d="M58 364 Q56 392 57 418 Q58 435 62 448 L80 448 Q82 435 82 418 Q82 392 82 364 Z" class="body-part" data-region="shin"/>
-          <!-- Left foot -->
-          <path d="M58 450 Q55 462 56 470 Q57 478 68 480 Q85 482 92 474 Q96 466 92 458 L80 450 Z" class="body-part" data-region="foot"/>
-          <!-- Right thigh -->
-          <path d="M140 258 Q138 272 140 300 Q142 325 140 348 L160 348 Q164 325 162 300 Q160 272 152 258 Z" class="body-part" data-region="thigh"/>
-          <!-- Right knee -->
-          <ellipse cx="150" cy="354" rx="20" ry="14" class="body-part" data-region="knee"/>
-          <!-- Right shin -->
-          <path d="M138 364 Q138 392 138 418 Q138 435 140 448 L158 448 Q162 435 162 418 Q162 392 162 364 Z" class="body-part" data-region="shin"/>
-          <!-- Right foot -->
-          <path d="M138 450 Q124 458 128 470 Q132 480 148 480 Q162 478 162 468 Q164 458 160 450 Z" class="body-part" data-region="foot"/>
+      <p class="body-map-hint">Click a bone to see the cases connected to that region</p>
+      <div class="skeleton-wrap" id="skeletonWrap">
+        <svg viewBox="0 0 220 520" xmlns="http://www.w3.org/2000/svg" id="skeletonSvg">
+          <!-- Skull & jaw -->
+          <ellipse cx="110" cy="35" rx="27" ry="30" class="bone-part" data-region="head"/>
+          <path d="M85 58 Q 97 74 110 74 Q 123 74 135 58 Q 122 66 110 66 Q 98 66 85 58 Z" class="bone-part" data-region="head"/>
+          <!-- Cervical spine -->
+          <rect x="103" y="66" width="14" height="24" rx="4" class="bone-part" data-region="head"/>
+          <!-- Clavicles -->
+          <path d="M110 90 Q 86 94 64 100" fill="none" class="bone-stroke" data-region="shoulder" stroke-width="5" stroke-linecap="round"/>
+          <path d="M110 90 Q 134 94 156 100" fill="none" class="bone-stroke" data-region="shoulder" stroke-width="5" stroke-linecap="round"/>
+          <!-- Humeri -->
+          <path d="M62 100 Q 50 122 52 158 Q 54 172 64 178" fill="none" class="bone-stroke" data-region="shoulder" stroke-width="10" stroke-linecap="round"/>
+          <path d="M158 100 Q 170 122 168 158 Q 166 172 156 178" fill="none" class="bone-stroke" data-region="shoulder" stroke-width="10" stroke-linecap="round"/>
+          <!-- Radius & ulna -->
+          <path d="M58 178 Q 48 202 48 226" fill="none" class="bone-stroke" data-region="wrist" stroke-width="6" stroke-linecap="round"/>
+          <path d="M68 178 Q 62 202 60 226" fill="none" class="bone-stroke" data-region="wrist" stroke-width="6" stroke-linecap="round"/>
+          <path d="M162 178 Q 172 202 172 226" fill="none" class="bone-stroke" data-region="wrist" stroke-width="6" stroke-linecap="round"/>
+          <path d="M152 178 Q 158 202 160 226" fill="none" class="bone-stroke" data-region="wrist" stroke-width="6" stroke-linecap="round"/>
+          <!-- Hands -->
+          <path d="M44 230 Q 37 246 42 262 Q 49 270 61 268 Q 71 262 71 252 Q 71 240 62 232 Z" class="bone-part" data-region="wrist"/>
+          <path d="M176 230 Q 183 246 178 262 Q 171 270 159 268 Q 149 262 149 252 Q 149 240 158 232 Z" class="bone-part" data-region="wrist"/>
+          <!-- Vertebral column -->
+          <rect x="104" y="90" width="12" height="112" rx="5" class="bone-part" data-region="hip"/>
+          <!-- Sternum & ribs -->
+          <path d="M110 96 L110 186" fill="none" class="bone-stroke" data-region="hip" stroke-width="5" stroke-linecap="round"/>
+          <path d="M108 106 Q 76 104 66 122 M108 120 Q 74 118 64 138 M108 134 Q 74 132 64 152 M108 148 Q 78 146 70 164 M108 162 Q 84 160 82 176 M108 174 Q 94 172 94 186" fill="none" class="bone-stroke" data-region="hip" stroke-width="4" stroke-linecap="round"/>
+          <path d="M112 106 Q 144 104 154 122 M112 120 Q 146 118 156 138 M112 134 Q 146 132 156 152 M112 148 Q 142 146 150 164 M112 162 Q 136 160 138 176 M112 174 Q 126 172 126 186" fill="none" class="bone-stroke" data-region="hip" stroke-width="4" stroke-linecap="round"/>
+          <!-- Pelvis -->
+          <path d="M68 208 Q 58 218 58 234 Q 58 248 72 254 L106 254 Q 112 248 112 240 Q 112 216 106 206 Z" class="bone-part" data-region="hip"/>
+          <path d="M152 208 Q 162 218 162 234 Q 162 248 148 254 L114 254 Q 108 248 108 240 Q 108 216 114 206 Z" class="bone-part" data-region="hip"/>
+          <!-- Femurs -->
+          <path d="M70 254 Q 58 284 58 316 Q 58 334 66 346 L90 346 Q 98 334 98 316 Q 98 284 88 254 Z" class="bone-part" data-region="thigh"/>
+          <path d="M150 254 Q 162 284 162 316 Q 162 334 154 346 L130 346 Q 122 334 122 316 Q 122 284 132 254 Z" class="bone-part" data-region="thigh"/>
+          <!-- Patellae -->
+          <circle cx="78" cy="354" r="11" class="bone-part" data-region="knee"/>
+          <circle cx="142" cy="354" r="11" class="bone-part" data-region="knee"/>
+          <!-- Tibia & fibula -->
+          <path d="M64 362 Q 60 402 60 438 L80 438 Q 82 402 82 362 Z" class="bone-part" data-region="shin"/>
+          <path d="M66 364 Q 57 396 57 428 Q 57 444 64 450" fill="none" class="bone-stroke" data-region="shin" stroke-width="5" stroke-linecap="round"/>
+          <path d="M156 362 Q 160 402 160 438 L140 438 Q 138 402 138 362 Z" class="bone-part" data-region="shin"/>
+          <path d="M154 364 Q 163 396 163 428 Q 163 444 156 450" fill="none" class="bone-stroke" data-region="shin" stroke-width="5" stroke-linecap="round"/>
+          <!-- Feet -->
+          <path d="M60 440 Q 52 454 54 466 Q 56 476 72 480 Q 88 482 96 472 Q 102 462 98 454 Q 94 446 84 442 Z" class="bone-part" data-region="foot"/>
+          <path d="M160 440 Q 168 454 166 466 Q 164 476 148 480 Q 132 482 124 472 Q 118 462 122 454 Q 126 446 136 442 Z" class="bone-part" data-region="foot"/>
         </svg>
       </div>
 
-      <!-- Region legend below body -->
-      <div style="margin-top:24px;display:flex;flex-direction:column;gap:6px;">
+      <div class="skeleton-chips">
         <div class="region-chip" data-region="head">🧠 Head</div>
         <div class="region-chip" data-region="shoulder">💪 Shoulder</div>
-        <div class="region-chip" data-region="wrist">🤚 Wrist</div>
-        <div class="region-chip" data-region="hip">🦴 Hip</div>
+        <div class="region-chip" data-region="wrist">🤚 Arm &amp; Wrist</div>
+        <div class="region-chip" data-region="hip">🦴 Spine &amp; Hips</div>
         <div class="region-chip" data-region="thigh">🦵 Thigh</div>
         <div class="region-chip" data-region="knee">🦵 Knee</div>
         <div class="region-chip" data-region="shin">🦴 Shin</div>
         <div class="region-chip" data-region="foot">🦶 Foot &amp; Ankle</div>
-        <div class="region-chip active-chip" id="showAllChip" data-region="all">↩ Show All</div>
+        <div class="region-chip" data-region="all">↩ Show All</div>
+      </div>
+    </div>
+
+    <!-- MIDDLE: region details + system filters -->
+    <div class="body-map-mid">
+      <div class="skeleton-panel" id="skeletonPanel">
+        <div class="skeleton-welcome">
+          <div class="sw-icon">🦴</div>
+          <h3>Anatomy Explorer</h3>
+          <p>Click a bone on the skeleton to see the cases connected to that region of the body — or click a region chip next to the skeleton.</p>
+        </div>
       </div>
 
       <p style="color:rgba(255,255,255,0.45);font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;margin-top:28px;margin-bottom:8px;font-weight:600;">Filter by Body System</p>
@@ -755,6 +827,17 @@
         </div>
       </div>
 
+      <div class="phase-group collapsed" data-phase="8">
+        <div class="phase-group-label" onclick="togglePhase(this)"><span class="phase-arrow">▶</span>Phase 8 · Pediatric Injuries</div>
+        <div class="phase-cases">
+        <div class="case-row filed" data-case="salter" data-region="wrist"><span class="case-row-num">36</span><span class="case-row-name">Salter-Harris Growth Plate Fracture</span><span class="case-row-zone">Wrist</span><span class="case-row-badge done">✓</span></div>
+        <div class="case-row filed" data-case="greenstick" data-region="shin"><span class="case-row-num">37</span><span class="case-row-name">Greenstick Fracture</span><span class="case-row-zone">Shin</span><span class="case-row-badge done">✓</span></div>
+        <div class="case-row filed" data-case="scfe" data-region="hip"><span class="case-row-num">38</span><span class="case-row-name">Slipped Capital Femoral Epiphysis</span><span class="case-row-zone">Hip</span><span class="case-row-badge done">✓</span></div>
+        <div class="case-row filed" data-case="osgood" data-region="knee"><span class="case-row-num">39</span><span class="case-row-name">Osgood-Schlatter Disease</span><span class="case-row-zone">Knee</span><span class="case-row-badge done">✓</span></div>
+        <div class="case-row filed" data-case="severs" data-region="foot"><span class="case-row-num">40</span><span class="case-row-name">Sever's Disease (Calcaneal Apophysitis)</span><span class="case-row-zone">Foot &amp; Ankle</span><span class="case-row-badge done">✓</span></div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -782,38 +865,38 @@
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;max-width:900px;">
 
     <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:32px;">
-      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#1a3a7c;background:#c8d8f0;padding:3px 9px;border-radius:3px;display:inline-block;margin-bottom:16px;">Phase 1 Reflection</div>
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#0f2a63;background:#c8d8f0;padding:3px 9px;border-radius:3px;display:inline-block;margin-bottom:16px;">Phase 1 Reflection</div>
       <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.4rem;text-transform:uppercase;margin-bottom:16px;line-height:1.1;">What I Learned About Healing</div>
       <p style="font-size:0.92rem;line-height:1.78;color:rgba(255,255,255,0.82);font-style:italic;">After studying five common sports injuries, I noticed that healing depends heavily on the type of tissue involved. Muscles, ligaments, cartilage, and the brain all respond differently to damage, which explains why recovery timelines can vary so much. I was especially surprised to learn that some injuries, such as ACL tears and concussions, can have long-term effects even after the initial pain disappears. These cases taught me that recovery is not just about reducing symptoms. Instead, it's about restoring function and stability to the body.</p>
     </div>
 
     <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:32px;">
-      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#1a3a7c;background:#c8d8f0;padding:3px 9px;border-radius:3px;display:inline-block;margin-bottom:16px;">Phase 2 Reflection</div>
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#0f2a63;background:#c8d8f0;padding:3px 9px;border-radius:3px;display:inline-block;margin-bottom:16px;">Phase 2 Reflection</div>
       <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.4rem;text-transform:uppercase;margin-bottom:16px;line-height:1.1;">What I Learned About Severe Injuries</div>
       <p style="font-size:0.92rem;line-height:1.78;color:rgba(255,255,255,0.82);font-style:italic;">The injuries in Phase 2 showed me how important structural support is to the human body. Bones, tendons, and major joints are responsible for movement, stability, and force transmission, so damage to these structures often requires longer recovery periods. I was fascinated by how the body repairs broken bones through remodeling and how tendons can slowly rebuild themselves despite having limited blood supply. The injury that surprised me the most was the Achilles tendon rupture. I expected the strongest tendon in the body to be nearly impossible to tear, but I learned that even it can fail under sudden stress. That challenged my assumption that strength alone protects a structure from injury. Studying these injuries deepened my interest in orthopedic medicine and helped me appreciate the complexity of the healing process.</p>
     </div>
 
 
     <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:32px;grid-column:1/-1;">
-      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#1a3a7c;background:#c8d8f0;padding:3px 9px;border-radius:3px;display:inline-block;margin-bottom:16px;">Phase 3 Reflection</div>
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#0f2a63;background:#c8d8f0;padding:3px 9px;border-radius:3px;display:inline-block;margin-bottom:16px;">Phase 3 Reflection</div>
       <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.4rem;text-transform:uppercase;margin-bottom:16px;line-height:1.1;">What I Learned About Severe Injuries</div>
       <p style="font-size:0.92rem;line-height:1.78;color:rgba(255,255,255,0.82);font-style:italic;">The injuries in Phase 3 showed me how complex joint stability and movement really are. Ligaments, cartilage, and other soft tissues work together to keep joints functioning properly, and damage to these structures can significantly affect mobility and athletic performance. I was fascinated by how the body responds to these injuries through inflammation, tissue repair, and rehabilitation, even though some structures have a limited ability to heal on their own. The injury that surprised me the most was the hip labrum tear. I did not realize that a small ring of cartilage could play such an important role in stabilizing the hip joint and that a tear could cause long-term pain and movement problems. Studying these injuries deepened my understanding of orthopedic medicine and showed me that successful recovery often depends on both the body's natural healing process and carefully guided rehabilitation.</p>
     </div>
 
     <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:32px;">
-      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#1a3a7c;background:#c8d8f0;padding:3px 9px;border-radius:3px;display:inline-block;margin-bottom:16px;">Phase 4 Reflection</div>
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#0f2a63;background:#c8d8f0;padding:3px 9px;border-radius:3px;display:inline-block;margin-bottom:16px;">Phase 4 Reflection</div>
       <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.4rem;text-transform:uppercase;margin-bottom:16px;line-height:1.1;">Analysis of Structural Joint Trauma</div>
       <p style="font-size:0.92rem;line-height:1.78;color:rgba(255,255,255,0.82);font-style:italic;">The injuries in Phase 4 showed me how complex joint stability and movement really are. Ligaments, cartilage, and other soft tissues work together to keep joints functioning properly, and damage to these structures can significantly affect mobility and athletic performance. I was fascinated by how the body responds to these injuries through inflammation, tissue repair, and rehabilitation, even though some structures have a limited ability to heal on their own. The injury that surprised me the most was the traumatic knee dislocation. I did not realize that a single joint injury could completely rip apart multiple major ligaments, shift the leg entirely out of place, and pose such an immediate threat to the blood vessels and nerves supplying the foot. Studying these injuries deepened my understanding of orthopedic medicine and showed me that successful recovery often depends on both the body's natural healing process and carefully guided rehabilitation.</p>
     </div>
 
     <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:32px;">
-      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#1a3a7c;background:#c8d8f0;padding:3px 9px;border-radius:3px;display:inline-block;margin-bottom:16px;">Phase 5 Reflection</div>
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#0f2a63;background:#c8d8f0;padding:3px 9px;border-radius:3px;display:inline-block;margin-bottom:16px;">Phase 5 Reflection</div>
       <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.4rem;text-transform:uppercase;margin-bottom:16px;line-height:1.1;">Analysis of Chronic Overuse and Degenerative Trauma</div>
       <p style="font-size:0.92rem;line-height:1.78;color:rgba(255,255,255,0.82);font-style:italic;">The injuries in Phase 5 showed me how complex joint stability and movement really are. Ligaments, cartilage, and other soft tissues work together to keep joints functioning properly, and damage to these structures can significantly affect mobility and athletic performance. I was fascinated by how the body responds to these injuries through inflammation, tissue repair, and rehabilitation, even though some structures have a limited ability to heal on their own. The injury that surprised me the most was chronic tendinopathy. I did not realize that chronic tendon pain is often caused by a non-inflammatory breakdown of collagen fibers rather than simple inflammation, meaning that complete rest actually weakens the tissue further instead of helping it heal. Studying these injuries deepened my understanding of orthopedic medicine and showed me that successful recovery often depends on both the body's natural healing process and carefully guided rehabilitation.</p>
     </div>
 
     <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:32px;grid-column:1/-1;">
-      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#1a3a7c;background:#c8d8f0;padding:3px 9px;border-radius:3px;display:inline-block;margin-bottom:16px;">Phase 6 Reflection</div>
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#0f2a63;background:#c8d8f0;padding:3px 9px;border-radius:3px;display:inline-block;margin-bottom:16px;">Phase 6 Reflection</div>
       <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.4rem;text-transform:uppercase;margin-bottom:16px;line-height:1.1;">Analysis of Neuromuscular and Nerve Injuries</div>
       <p style="font-size:0.92rem;line-height:1.78;color:rgba(255,255,255,0.82);font-style:italic;">The injuries in Phase 6 showed me how complex joint stability and movement really are. Ligaments, cartilage, and other soft tissues work together to keep joints functioning properly, and damage to these structures can significantly affect mobility and athletic performance. I was fascinated by how the body responds to these injuries through inflammation, tissue repair, and rehabilitation, even though some structures have a limited ability to heal on their own. The injury that surprised me the most was hamstring neuromuscular inhibition. I did not realize that a muscle could be completely healed under an ultrasound but still fail to function simply because the brain keeps its protective circuit breaker flipped, highlighting that retraining the nervous system is just as vital as healing physical tissue. Studying these injuries deepened my understanding of orthopedic medicine and showed me that successful recovery often depends on both the body's natural healing process and carefully guided rehabilitation.</p>
     </div>
@@ -822,6 +905,12 @@
       <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#1a1400;background:#ffd700;padding:3px 9px;border-radius:3px;display:inline-block;margin-bottom:16px;">Phase 7 Reflection · Final Phase of Edition 2</div>
       <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.4rem;text-transform:uppercase;margin-bottom:16px;line-height:1.1;">Analysis of High-Impact and Catastrophic Trauma</div>
       <p style="font-size:0.92rem;line-height:1.78;color:rgba(255,255,255,0.82);font-style:italic;">The injuries in Phase 7 showed me how complex joint stability and movement really are. Ligaments, cartilage, and other soft tissues work together to keep joints functioning properly, and damage to these structures can significantly affect mobility and athletic performance. I was fascinated by how the body responds to these injuries through inflammation, tissue repair, and rehabilitation, even though some structures have a limited ability to heal on their own. The injury that surprised me the most was acute compartment syndrome. I did not realize that the body's own unyielding connective tissue could become a life-threatening trap, where trapped swelling from an injury can skyrocket internal pressures, cut off its own blood supply, and completely destroy muscle and nerve tissue within a matter of hours if not surgically cut open. Studying these injuries deepened my understanding of orthopedic medicine and showed me that successful recovery often depends on both the body's natural healing process and carefully guided rehabilitation.</p>
+    </div>
+
+    <div style="background:rgba(200,216,240,0.06);border:1px solid rgba(200,216,240,0.3);border-radius:12px;padding:32px;grid-column:1/-1;">
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#0f2a63;background:#c8d8f0;padding:3px 9px;border-radius:3px;display:inline-block;margin-bottom:16px;">Phase 8 Reflection · Edition 3</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.4rem;text-transform:uppercase;margin-bottom:16px;line-height:1.1;">What I Learned About Pediatric Injuries</div>
+      <p style="font-size:0.92rem;line-height:1.78;color:rgba(255,255,255,0.82);font-style:italic;">The pediatric cases in Phase 8 taught me that a child's skeleton is not simply a smaller version of an adult skeleton — it is a living, actively changing structure whose growth plates behave differently than mature bone. I was fascinated by how these growth zones are simultaneously a child's greatest healing asset and their greatest vulnerability: they knit fractures together far faster than adult bone, yet a single injury can disturb them for years. The case that surprised me the most was slipped capital femoral epiphysis, because a condition that begins with a vague limp and \"growing pains\" can quickly become a surgical emergency that threatens the blood supply of the hip itself. Studying these injuries showed me that treating a child means treating a skeleton that is still building itself — which is why pediatric recovery often continues long after the cast comes off.</p>
     </div>
   </div>
 </div>
@@ -848,41 +937,58 @@
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Adhesion:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">Bands of scar-like tissue that form between internal tissues or organs, often limiting movement after injury.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Ankle:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A joint connecting the foot and lower leg, responsible for movement such as walking, running, and balance.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Anatomy:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The study of the structure of the human body and how its parts are organized.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Apophysis:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A growth plate that forms where a tendon attaches to bone — a common site of overuse injury in growing children, as in Osgood-Schlatter and Sever's disease.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Atrophy:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The decrease in size or wasting of a tissue, typically muscle, from disuse, immobilization, or nerve damage.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Avascular necrosis:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">Death of bone tissue caused by a loss of blood supply, a major risk in injuries like a slipped capital femoral epiphysis.</span></p>
     </div>
 
     <div style="break-inside:avoid;margin-bottom:18px;">
       <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">B</div>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Biomechanics:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The study of how forces interact with the human body and how the body responds to movement and stress.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Bruise:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">An injury where small blood vessels break under the skin, causing discoloration and tenderness.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Bone remodeling:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The continuous process by which old bone is broken down and replaced with new bone tissue.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Bursa:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A small fluid-filled sac that reduces friction between bones, tendons, and muscles around a joint.</span></p>
     </div>
 
     <div style="break-inside:avoid;margin-bottom:18px;">
       <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">C</div>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Cartilage:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A smooth, flexible connective tissue that cushions joints and reduces friction between bones.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Contraction (muscle):</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The process where muscle fibers shorten to produce movement or maintain tension.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Callus:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The new bone tissue that forms around a fracture site to bridge the broken pieces during healing.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Collagen:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The main structural protein in connective tissue, giving tendons, ligaments, and bones their strength.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Comminuted fracture:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A fracture in which the bone is broken into three or more pieces.</span></p>
     </div>
 
     <div style="break-inside:avoid;margin-bottom:18px;">
       <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">D</div>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Dislocation:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">An injury where a bone is forced out of its normal position within a joint.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Diagnosis:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The identification of an injury or condition based on symptoms, examination, and evaluation.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Debridement:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The surgical removal of damaged, dead, or infected tissue from a wound, essential after open fractures.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Displacement:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The shifting of broken bone ends out of their normal alignment.</span></p>
     </div>
 
     <div style="break-inside:avoid;margin-bottom:18px;">
       <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">E</div>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Edema:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">Swelling caused by excess fluid trapped in body tissues, often following injury.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Extension (joint movement):</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A movement that increases the angle between two body parts, such as straightening the knee.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Eccentric contraction:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A muscle contraction in which the muscle lengthens while under tension, a key part of tendon rehabilitation.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Epiphysis:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The rounded end of a long bone, separated from the shaft by the growth plate during childhood.</span></p>
     </div>
 
     <div style="break-inside:avoid;margin-bottom:18px;">
       <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">F</div>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Fascia:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A layer of connective tissue that surrounds muscles, organs, and structures in the body.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Fracture:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A partial or complete break in a bone caused by trauma or excessive force.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Fasciotomy:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A surgical procedure that cuts open the fascia to relieve dangerous internal pressure, as in compartment syndrome.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Fibrocartilage:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A tough type of cartilage containing collagen fibers, found in structures like the meniscus and spinal discs.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Fibula:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The thinner of the two bones in the lower leg, running alongside the tibia.</span></p>
     </div>
 
     <div style="break-inside:avoid;margin-bottom:18px;">
       <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">G</div>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Gait:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The pattern of walking or movement of the legs and feet.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Growth plate (physis):</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A layer of cartilage near the ends of growing bones where new bone is produced — the weakest part of a child's skeleton.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Greenstick fracture:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A pediatric fracture where the bone bends and cracks on one side like a green twig, while the other side bows without breaking.</span></p>
     </div>
 
     <div style="break-inside:avoid;margin-bottom:18px;">
@@ -895,6 +1001,7 @@
       <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">I</div>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Inflammation:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The body's response to injury, characterized by swelling, redness, heat, and pain.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Immobilization:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">Restricting movement of an injured area to promote healing and prevent further damage.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Ischemia:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">An inadequate supply of blood to a tissue, which can cause cell death if prolonged.</span></p>
     </div>
 
     <div style="break-inside:avoid;margin-bottom:18px;">
@@ -903,9 +1010,15 @@
     </div>
 
     <div style="break-inside:avoid;margin-bottom:18px;">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">K</div>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Kinetic chain:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The series of joints, muscles, and bones that work together to produce coordinated movement.</span></p>
+    </div>
+
+    <div style="break-inside:avoid;margin-bottom:18px;">
       <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">L</div>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Ligament:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A strong band of tissue that connects bone to bone and stabilizes joints.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Load-bearing:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The ability of bones, muscles, or joints to support body weight and external force.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Lumbar spine:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The lower section of the spine, made up of five vertebrae that carry most of the body's weight.</span></p>
     </div>
 
     <div style="break-inside:avoid;margin-bottom:18px;">
@@ -913,22 +1026,37 @@
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Meniscus:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A C-shaped cartilage in the knee that cushions and stabilizes the joint.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Muscle strain:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">An injury caused by overstretching or tearing of muscle fibers or tendons.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Mobility:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The ability of a joint or body part to move freely and easily.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Microtears:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">Tiny tears in tissue fibers caused by repeated stress, which can build up faster than the body can repair them.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">MRI (Magnetic Resonance Imaging):</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">An imaging technique that uses magnetic fields to create detailed pictures of soft tissues like ligaments and cartilage.</span></p>
     </div>
 
     <div style="break-inside:avoid;margin-bottom:18px;">
       <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">N</div>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Nerve:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A structure that carries signals between the brain, spinal cord, and body.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Nerve root:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The portion of a spinal nerve where it branches off the spinal cord — a common site of compression in conditions like sciatica.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Neuroplasticity:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The brain's ability to reorganize and form new connections, a key part of retraining movement after injury.</span></p>
     </div>
 
     <div style="break-inside:avoid;margin-bottom:18px;">
       <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">O</div>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Orthopedics:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A branch of medicine focused on the musculoskeletal system, including bones, joints, and muscles.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Osteoblast:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A bone-building cell that produces new bone tissue.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Osteoclast:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A cell that breaks down and removes old bone tissue during remodeling.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Osteomyelitis:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A bone infection, a serious risk after open fractures that expose bone to bacteria.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Overuse injury:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">Damage caused by repetitive stress over time rather than a single traumatic event.</span></p>
     </div>
 
     <div style="break-inside:avoid;margin-bottom:18px;">
       <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">P</div>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Pain response:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The body's reaction to injury or harmful stimuli, signaling damage or stress in tissues.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Physiology:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The study of how the body functions and performs its biological processes.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Platelet-rich plasma (PRP):</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A concentration of a patient's own platelets injected into an injury to promote tissue healing.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Proprioception:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The body's sense of joint position and movement, essential for balance and coordination after injury.</span></p>
+    </div>
+
+    <div style="break-inside:avoid;margin-bottom:18px;">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">Q</div>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Quadriceps:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The large muscle group at the front of the thigh that straightens the knee and controls its tracking.</span></p>
     </div>
 
     <div style="break-inside:avoid;margin-bottom:18px;">
@@ -936,6 +1064,8 @@
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Range of Motion (ROM):</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The full movement potential of a joint, measured in degrees.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Rehabilitation:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A structured recovery process designed to restore strength, movement, and function after injury.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Repair phase:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The stage of healing where damaged tissue is rebuilt and strengthened.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Red flag:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A warning sign that signals a more serious condition requiring urgent evaluation.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Rotator cuff:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The group of four muscles and tendons that stabilize the shoulder joint.</span></p>
     </div>
 
     <div style="break-inside:avoid;margin-bottom:18px;">
@@ -943,6 +1073,9 @@
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Scar tissue:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">Fibrous tissue that replaces normal tissue after injury, often less flexible than original tissue.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Sprain:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">An injury to a ligament caused by stretching or tearing.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Synovial fluid:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A lubricating fluid found in joints that reduces friction and supports smooth movement.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Salter-Harris classification:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A system for classifying growth plate fractures and their risk of growth disturbance.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Skeletal maturity:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The point at which the growth plates close and bone growth is complete.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Subluxation:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A partial dislocation in which the joint surfaces remain partly in contact.</span></p>
     </div>
 
     <div style="break-inside:avoid;margin-bottom:18px;">
@@ -950,11 +1083,34 @@
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Tendon:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A strong connective tissue that connects muscle to bone.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Tissue:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A group of similar cells that work together to perform a function in the body.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Trauma:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">Physical injury or damage to the body caused by external force.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Tendinopathy:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A chronic condition of a degenerated tendon caused by overuse rather than acute inflammation.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Tibial tuberosity:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The bony bump at the top of the shin where the patellar tendon attaches — the site of Osgood-Schlatter disease.</span></p>
+    </div>
+
+    <div style="break-inside:avoid;margin-bottom:18px;">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">U</div>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Ultrasound:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">An imaging technique that uses high-frequency sound waves to examine soft tissues in real time.</span></p>
+    </div>
+
+    <div style="break-inside:avoid;margin-bottom:18px;">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">V</div>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Vascular:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">Relating to blood vessels and the circulation of blood.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Vertebra:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">One of the bones that make up the spinal column.</span></p>
     </div>
 
     <div style="break-inside:avoid;margin-bottom:18px;">
       <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">W</div>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Weight-bearing:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The ability of bones and joints to support the body's weight during movement or standing.</span></p>
+    </div>
+
+    <div style="break-inside:avoid;margin-bottom:18px;">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">X</div>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">X-ray:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">An imaging test that uses radiation to view bones and detect fractures.</span></p>
+    </div>
+
+    <div style="break-inside:avoid;margin-bottom:18px;">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">Z</div>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Zygapophyseal (facet) joint:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">One of the small joints between vertebrae that guide and limit spinal movement.</span></p>
     </div>
 
   </div>
@@ -966,15 +1122,15 @@
   <h2 class="section-title">Progress Tracker</h2>
   <div class="tracker-card" style="margin-bottom:28px;">
     <div class="tracker-header">
-      <div class="tracker-edition">Edition 2</div>
-      <div class="tracker-count" id="trackerCount">35 / 35 Cases</div>
+      <div class="tracker-edition">Edition 3 · Complete</div>
+      <div class="tracker-count" id="trackerCount">40 / 40 Cases</div>
     </div>
     <div class="tracker-bar">
       <div class="tracker-fill" id="trackerFill" style="width:100%"></div>
     </div>
     <div class="tracker-labels">
-      <span>Phase 1-7 Complete</span>
-      <span>Edition 2 Goal: 35 Cases ✓</span>
+      <span>Phase 1-8 Complete</span>
+      <span>Edition 4 · In Planning</span>
     </div>
   </div>
   <div class="phase-status-list" id="phaseStatusList"></div>
@@ -1071,16 +1227,34 @@
       <span class="edition-status released">Released</span>
     </div>
 
-    <div class="edition-card">
+    <div class="edition-card current">
       <div class="edition-num">3.0</div>
       <div class="edition-body">
         <h3>Major Overhaul</h3>
-        <p class="edition-date">Planned</p>
+        <p class="edition-date">Released · August 2026</p>
         <ul class="edition-highlights">
-          <li>Pediatric injuries</li>
-          <li>Expanded glossary</li>
-          <li>Design overhaul</li>
-          <li>Interactive skeleton</li>
+          <li>+5 pediatric cases (40 total) ✓</li>
+          <li>New Phase 8 · Pediatric Injuries ✓</li>
+          <li>Expanded glossary (81 terms) ✓</li>
+          <li>Interactive skeleton explorer ✓</li>
+          <li>Design overhaul ✓</li>
+        </ul>
+      </div>
+      <span class="edition-status released">Released</span>
+    </div>
+
+    <div class="edition-card current">
+      <div class="edition-num">4.0</div>
+      <div class="edition-body">
+        <h3>Study &amp; Work</h3>
+        <p class="edition-date">Planned · Coming Soon</p>
+        <ul class="edition-highlights">
+          <li>Phase 9 · Occupational &amp; Repetitive Strain</li>
+          <li>Phase 10 · Emergency &amp; Environmental</li>
+          <li>Quiz &amp; flashcard study tools</li>
+          <li>Search, ratings &amp; filtering</li>
+          <li>Reading progress &amp; bookmarks</li>
+          <li>Printable case cards &amp; download library</li>
         </ul>
       </div>
       <span class="edition-status planned">Planned</span>
@@ -1620,6 +1794,78 @@ const cases = {
     ],
     recovery:"Recovery from acute compartment syndrome is highly variable and can take 3 to 9 months, depending entirely on how quickly the emergency surgery was performed to relieve the pressure. The first 2 to 4 weeks are focused on keeping the wide-open surgical wounds clean, performing secondary closures or skin grafts, and managing localized swelling. If surgery was delayed and muscle tissue died, the patient may face a prolonged recovery of 6 to 12 months of physical therapy to manage scar tissue, rebuild muscle function, or adapt to permanent nerve weaknesses.",
     insight:"Acute compartment syndrome represents a time-sensitive surgical emergency where a delay of just a few hours can mean the difference between full recovery and permanent limb amputation. It is one of the few orthopedic conditions where the primary danger is caused by the body's own restrictive anatomy rather than an external force, as the rigid fascia acts like a tourniquet cutting off its own blood supply. Doctors must maintain a high index of suspicion because standard pain medications completely fail to touch the intense ischemia pain caused by dying muscle tissue. Successful long-term management depends entirely on making immediate surgical incisions called a fasciotomy to wide-open the leg, dropping the internal pressure instantly and allowing blood flow to return to the starving tissues before permanent necrosis sets in."
+  },
+  salter: {
+    phase:"Phase 8 · Pediatric Injuries", title:"Case 36: Salter-Harris Growth Plate Fracture", date:"8/8/2026",
+    patient:{name:"Aiden, Age 9", story:"Aiden fell off his skateboard and landed on his outstretched right hand. He felt a sharp pain in his wrist immediately and was unable to grip anything. His wrist swelled quickly, and he cried whenever he tried to move it. At urgent care, X-rays revealed a fracture of the growth plate at the end of his radius bone — a Salter-Harris Type II fracture."},
+    inside:"In growing children, the ends of long bones contain a growth plate (physis) — a layer of cartilage where new bone is continuously produced. This growth plate is the weakest part of the entire skeleton, far softer than the surrounding bone and the ligaments that connect joints. When a child falls onto an outstretched hand, the force that might sprain an adult's wrist can instead crack the growth plate. The Salter-Harris classification describes how the fracture line runs through the plate — Type II, the most common, runs through the plate and out through the shaft of the bone.",
+    symptoms:["Pain and tenderness directly over the growth plate at the wrist","Swelling around the end of the bone","Difficulty moving or using the injured limb","Inability to put weight on the hand or press on the wrist","A visible deformity if the fracture is displaced","Reduced range of motion in the joint near the injury"],
+    treatment:["Gentle closed reduction to realign the bone pieces without surgery","A cast or splint to immobilize the wrist while the plate heals","Follow-up X-rays to confirm the alignment is maintained","Surgery with pins for displaced fractures that cannot be aligned manually","Close monitoring of the growth plate for months to years afterward"],
+    timeline: [
+      {time:"Wk 1-2", label:"Acute Phase", desc:"Gentle reduction, splint/cast, ice, pain management"},
+      {time:"Wk 3-6", label:"Immobilization", desc:"Cast care, restricted activity, repeat imaging"},
+      {time:"Wk 6-8", label:"Rehabilitation", desc:"Cast removal, range of motion, strength return"},
+      {time:"Month 3+", label:"Growth Monitoring", desc:"Long-term follow-up X-rays to check plate closure"}
+    ],
+    recovery:"Most growth plate fractures heal within 4 to 6 weeks in a cast, with children's bones knitting together remarkably quickly. The most important part of recovery is not the healing itself but the monitoring that follows — doctors check the growth plate for months to years afterward to make sure it continues producing bone evenly.",
+    insight:"Children's bones heal faster than adults' precisely because of the growth plate — it is packed with actively dividing cartilage cells that churn out new bone at an astonishing rate. But that same growth activity is what makes these injuries serious: if the plate is damaged unevenly, the bone can stop growing on one side, causing the arm to grow crooked or shortened over time. This is why a wrist fracture in a child is followed for years, long after the cast comes off."
+  },
+  greenstick: {
+    phase:"Phase 8 · Pediatric Injuries", title:"Case 37: Greenstick Fracture", date:"8/9/2026",
+    patient:{name:"Emma, Age 6", story:"Emma was playing on the climbing frame at school when she jumped down and landed awkwardly, twisting her lower leg. She felt a sharp crack and immediately refused to put any weight on it. Her shin began to swell, and she screamed whenever anyone touched it. X-rays revealed a greenstick fracture of her tibia — a partial break where one side of the bone cracked while the other side only bent."},
+    inside:"Children's bones are still growing and contain more collagen and water than adult bone, which makes them softer, more flexible, and more bendable. When a force is applied to a young bone, it behaves like a green twig from a tree — it bends and snaps partway through on one side, while the outer edge of the other side simply stretches and bows instead of breaking. Because one side of the bone remains intact, the fracture is often unstable, acting like a hinge that can bend further if not properly supported.",
+    symptoms:["Pain at the site of the fracture","Swelling and tenderness along the bone","A visible bowing or curving of the affected limb","Difficulty moving the injured arm or leg","Reluctance to bear weight or use the limb","Bruising that develops within the first day or two"],
+    treatment:["Gentle closed reduction to straighten the bent bone","A cast that immobilizes the joints above and below the fracture","Ice and elevation to reduce swelling","Regular X-rays to monitor the bone's position during healing","Physical therapy after the cast is removed to restore strength and motion"],
+    timeline: [
+      {time:"Wk 1-2", label:"Acute Phase", desc:"Gentle reduction, long cast, ice, elevation"},
+      {time:"Wk 3-6", label:"Immobilization", desc:"Cast care, restricted activity, repeat imaging"},
+      {time:"Wk 6-8", label:"Rehabilitation", desc:"Cast removal, range of motion, strength return"}
+    ],
+    recovery:"Greenstick fractures typically heal within 3 to 6 weeks in a cast. Because children's bones remodel so effectively, a small amount of residual bend straightens out naturally over the following years as the bone continues to grow and reshape itself.",
+    insight:"The flexibility that makes a child's bone bend instead of break is the same property that makes greenstick fractures unstable — the intact side of the bone acts like a hinge. That is why the cast must immobilize the joints above and below the break. On the bright side, a young child's bone has a remarkable ability to remodel: mild angulation that would require surgery in an adult straightens itself out with growth."
+  },
+  scfe: {
+    phase:"Phase 8 · Pediatric Injuries", title:"Case 38: Slipped Capital Femoral Epiphysis", date:"8/10/2026",
+    patient:{name:"Jordan, Age 13", story:"Jordan had noticed a dull ache in his left hip and groin for a few weeks, along with a slight limp that came and went. He chalked it up to growing pains. But one afternoon during a basketball game, he jumped for a rebound and landed with a sharp, sudden pain in his hip that forced him to the ground. He could no longer put weight on his leg. After X-rays, doctors diagnosed him with a slipped capital femoral epiphysis (SCFE)."},
+    inside:"During the adolescent growth spurt, the ball of the hip (the femoral head) is attached to the femur by a relatively weak growth plate that is still producing bone rapidly. In SCFE, the head slips backward and downward off the neck of the femur — like a scoop of ice cream sliding off the top of a cone. The slip is usually gradual but can become sudden and severe. Because the blood vessels that supply the femoral head run along the neck of the bone, a slip can stretch or tear them, cutting off blood flow and risking death of the bone (avascular necrosis).",
+    symptoms:["Pain in the hip, groin, thigh, or knee","A limp that may come and go at first","Decreased range of motion in the hip, especially internal rotation","The affected leg appearing slightly turned outward","Difficulty bearing weight on the affected leg","Sudden worsening of pain after a jump, fall, or even minor activity"],
+    treatment:["Urgent surgical fixation with a screw to stop further slipping","No weight-bearing on the leg immediately after surgery","Close monitoring of the opposite hip, which is often affected too","Physical therapy to restore strength and range of motion","Long-term follow-up to monitor the blood supply of the femoral head"],
+    timeline: [
+      {time:"Wk 1-6", label:"Protection Phase", desc:"Surgery, non-weight-bearing, wound care"},
+      {time:"Wk 6-12", label:"Early Rehabilitation", desc:"Gradual weight-bearing, hip range of motion, strengthening"},
+      {time:"Month 3-6", label:"Strengthening", desc:"Progressive resistance, gait retraining, return to activity"},
+      {time:"Month 6-12", label:"Monitoring", desc:"Long-term follow-up of both hips and femoral head blood supply"}
+    ],
+    recovery:"SCFE is a surgical emergency — the slip is fixed with a screw to prevent it from sliding further and to protect the blood supply to the femoral head. Most patients use crutches and avoid weight-bearing for 6 to 12 weeks after surgery, then progress through physical therapy over 3 to 6 months. The opposite hip is monitored closely because it is affected in a significant number of patients.",
+    insight:"SCFE is one of the few pediatric injuries where clinical suspicion must come before imaging — a limping adolescent with a leg that turns outward needs urgent attention, because every hour of delay increases the risk of avascular necrosis, where the femoral head dies from lost blood supply. The other hip is so commonly involved that surgeons often fix it prophylactically in the same operation. It is a stark reminder that in a growing skeleton, the blood supply to the growth zones can be as fragile as the bone itself."
+  },
+  osgood: {
+    phase:"Phase 8 · Pediatric Injuries", title:"Case 39: Osgood-Schlatter Disease", date:"8/10/2026",
+    patient:{name:"Noah, Age 13", story:"Noah was a goalkeeper for his soccer team and had just hit a rapid growth spurt. For months, he felt a nagging ache just below his right kneecap that flared up after every match. He noticed a firm, tender bump forming on the top of his shin, and the pain became sharp whenever he jumped, kicked, or knelt. After a clinical examination and X-rays, doctors diagnosed him with Osgood-Schlatter disease."},
+    inside:"During growth spurts, bones lengthen faster than the tendons and muscles around them can adapt. The quadriceps muscle pulls through the patellar tendon onto the tibial tuberosity — a growth plate (apophysis) at the top of the shin that has not yet fused. Every jump, kick, or sprint yanks on this tender growth zone, causing micro-trauma, inflammation, and the formation of a bony bump. Because the traction force continues as long as the growth plate remains open, the condition flares up during active periods and settles during rest.",
+    symptoms:["Pain and tenderness at the bump below the kneecap","A firm, visible lump on the tibial tuberosity","Pain that worsens with running, jumping, squatting, or kneeling","Discomfort that improves with rest","Pain when the knee is pressed or when kneeling on hard surfaces","Usually affects one knee, though it can occur in both"],
+    treatment:["Relative rest and reduction of high-impact sports","Ice over the painful bump after activity","Anti-inflammatory medications for flare-ups","Quadriceps and hamstring stretching and strengthening","A knee strap or patellar tendon brace to reduce traction forces","Rarely surgery, reserved for persistent pain after growth is complete"],
+    timeline: [
+      {time:"Month 1-2", label:"Load Management", desc:"Activity modification, ice, stretching, pain control"},
+      {time:"Month 3-6", label:"Strengthening", desc:"Quad/hamstring strengthening, gradual return to sport"},
+      {time:"Month 6-18", label:"Growth Monitoring", desc:"Flare-ups managed as the growth plate closes"}
+    ],
+    recovery:"Osgood-Schlatter disease is self-limiting — it resolves on its own once the growth plate fuses, usually by the end of the teen years. Most athletes manage their symptoms with load modification and stretching rather than full rest, since the goal is to keep the growth zone calm until the skeleton matures.",
+    insight:"Osgood-Schlatter is not really a disease at all — it is a traction injury where the powerful quadriceps keeps pulling on a growth plate that cannot keep up with a growth spurt. Because the growth plate eventually fuses, the condition always ends, but the window of vulnerability can last years. Notably, complete rest is neither necessary nor ideal: the treatment is relative rest and strengthening, because a strong quadriceps absorbs force better than a tight one. And the bony lump often remains even after the pain is gone."
+  },
+  severs: {
+    phase:"Phase 8 · Pediatric Injuries", title:"Case 40: Sever's Disease (Calcaneal Apophysitis)", date:"8/10/2026",
+    patient:{name:"Maya, Age 10", story:"Maya was a competitive runner who had just started a new track season after a summer growth spurt. She began feeling a deep ache in the back of her right heel that worsened every time she ran, jumped, or landed. She limped for the first few minutes after getting out of bed in the morning, and squeezing the back of her heel made her wince. After a clinical examination, doctors diagnosed her with Sever's disease."},
+    inside:"At the back of the heel, the Achilles tendon attaches to a growth plate (apophysis) on the calcaneus that has not yet closed. During a growth spurt, the calf muscles become tighter relative to the lengthening bones, pulling harder on this tender growth zone with every foot strike. Repetitive running, jumping, and landing — especially in stiff or unsupportive shoes — irritates the growth plate and triggers pain. Like Osgood-Schlatter in the knee, the condition is self-limiting and resolves once the growth plate fuses.",
+    symptoms:["Heel pain, usually at the back or bottom, often in both heels","Tenderness when squeezing the sides of the heel","Pain that worsens with running, jumping, or barefoot walking","Stiffness and limping in the morning or after rest","Pain that improves with rest and ice","Symptoms that flare during growth spurts or intense training"],
+    treatment:["Relative rest from high-impact running and jumping","Ice and massage over the painful heel","Heel lifts or heel cups to reduce Achilles tendon tension","Calf and Achilles stretching and strengthening exercises","Supportive, cushioned footwear","Gradual return to sports as pain allows"],
+    timeline: [
+      {time:"Month 1-2", label:"Load Management", desc:"Activity modification, heel lifts, ice, stretching"},
+      {time:"Month 3-6", label:"Strengthening", desc:"Calf strengthening, gradual return to running"},
+      {time:"Month 6-18", label:"Growth Monitoring", desc:"Flare-ups managed until the growth plate fuses"}
+    ],
+    recovery:"Sever's disease typically resolves within a few months to a couple of years, settling down once the growth plate at the heel closes. Most young athletes can keep training with modified load, using heel lifts, ice, and stretching to keep the flare-ups under control.",
+    insight:"Sever's disease is the heel's version of Osgood-Schlatter — the Achilles tendon yanking on an unfused growth plate during a growth spurt. The immediate fix is often as simple as a heel lift, which reduces the stretch on the Achilles and offloads the tender growth zone. Because the condition resolves with skeletal maturity, the treatment goal is symptom control and load management, not rest until the pain fully disappears."
   }
 };
 
@@ -1661,7 +1907,12 @@ const caseMeta = {
   spinal_cord: { location:"Neck (C5)", severity:"Critical", tissue:"Spinal cord", recoveryShort:"6–12+ months", system:"nervous", notes:"The secondary injury cascade in the first 24 to 72 hours can do more damage than the initial impact, which is why the timing of decompression surgery is one of the most consequential decisions in orthopedics." },
   multi_lig_knee: { location:"Knee", severity:"Critical", tissue:"Ligaments & Vasculature", recoveryShort:"9–18 months", system:"cardiovascular", notes:"Just like a full dislocation, the vascular exam comes before the ligament exam — a normal pulse at first check doesn't rule out a developing vascular injury, so serial monitoring is non-negotiable." },
   pelvic_fracture: { location:"Pelvis", severity:"Critical", tissue:"Bone & Vasculature", recoveryShort:"3–12 months", system:"cardiovascular", notes:"The instinct is to fix the bone first, but the actual priority is controlling hemorrhage — this is the rare orthopedic case where the fracture itself is not the most dangerous part of the injury." },
-  compartment: { location:"Lower leg", severity:"Critical", tissue:"Muscle & Vasculature", recoveryShort:"3–6+ months", system:"cardiovascular", notes:"Waiting for all of the classic warning signs to appear is waiting too long — by the time pallor and pulselessness show up, the window for saving the muscle without permanent damage has often already closed." }
+  compartment: { location:"Lower leg", severity:"Critical", tissue:"Muscle & Vasculature", recoveryShort:"3–6+ months", system:"cardiovascular", notes:"Waiting for all of the classic warning signs to appear is waiting too long — by the time pallor and pulselessness show up, the window for saving the muscle without permanent damage has often already closed." },
+  salter: { location:"Wrist (distal radius growth plate)", severity:"Moderate", tissue:"Bone & Growth plate", recoveryShort:"4–8 weeks + monitoring", system:"skeletal", notes:"The growth plate is the weakest link in a child's skeleton, so a wrist injury that would sprain an adult's ligaments often fractures the physis instead. The Salter-Harris type dictates the risk of growth disturbance — which is why pediatric fractures are monitored for years after healing, not just until the cast comes off." },
+  greenstick: { location:"Tibia (shin)", severity:"Moderate", tissue:"Bone", recoveryShort:"3–6 weeks", system:"skeletal", notes:"A child's bone bends like green wood — one side cracks while the other side bows — so a greenstick fracture is inherently unstable and must be held in a cast that locks the joints above and below. The saving grace is remodeling: a few degrees of residual bend that would be a problem in an adult straightens itself out with growth." },
+  scfe: { location:"Hip (femoral head)", severity:"Severe", tissue:"Bone & Growth plate", recoveryShort:"3–6 months + monitoring", system:"skeletal", notes:"SCFE is a surgical emergency, not a rehab case — the femoral head slips off the neck like ice cream off a cone, and the real clock that matters is the fragile blood supply to the femoral head. It's also commonly bilateral, so the healthy hip gets pinned at the same time rather than risk a second slip." },
+  osgood: { location:"Knee (tibial tuberosity)", severity:"Mild–Moderate", tissue:"Bone growth plate", recoveryShort:"Months to skeletal maturity", system:"skeletal", notes:"The decision here is managing load, not curing anything — the condition self-resolves when the growth plate fuses, so the treatment is calming the traction with relative rest, ice, and stretching while keeping the young athlete as active as pain allows." },
+  severs: { location:"Heel (calcaneus)", severity:"Mild–Moderate", tissue:"Bone growth plate", recoveryShort:"Months to skeletal maturity", system:"skeletal", notes:"Sever's is a traction apophysitis — the Achilles yanking an unfused heel growth plate during a growth spurt. The elegant first-line fix is a heel lift that instantly reduces tendon tension, and like all apophysitis it resolves when the growth plate fuses, so management is about calming flares, not banning sport." }
 };
 
 function renderCaseFiles() {
@@ -1739,7 +1990,8 @@ function renderPhaseStatusList() {
     { num:4, name:"Extreme Cases", status:"done" },
     { num:5, name:"Chronic Overuse & Degenerative Injuries", status:"done" },
     { num:6, name:"Neuromuscular & Nerve Injuries", status:"done" },
-    { num:7, name:"High-Impact & Catastrophic Trauma", status:"done" }
+    { num:7, name:"High-Impact & Catastrophic Trauma", status:"done" },
+    { num:8, name:"Pediatric Injuries", status:"done" }
   ];
   const icons = { done:"✅", progress:"🔄", locked:"🔒" };
   const list = document.getElementById('phaseStatusList');
@@ -1760,8 +2012,10 @@ function renderVisualTimeline() {
     { date:"Jul 2, 2026", label:"Phase 5", sub:"Chronic Overuse &amp; Degenerative", status:"done" },
     { date:"Jul 16, 2026", label:"Phase 6", sub:"Neuromuscular &amp; Nerve Injuries", status:"done" },
     { date:"Jul 30, 2026", label:"Phase 7", sub:"High-Impact &amp; Catastrophic Trauma", status:"done" },
-    { date:"Jul 30, 2026", label:"Edition 2.0", sub:"All 35 cases complete", status:"current" },
-    { date:"Planned", label:"Edition 3.0", sub:"Major overhaul", status:"upcoming" }
+    { date:"Jul 30, 2026", label:"Edition 2.0", sub:"All 35 cases complete", status:"done" },
+    { date:"Aug 10, 2026", label:"Phase 8", sub:"Pediatric Injuries", status:"done" },
+    { date:"Aug 10, 2026", label:"Edition 3.0", sub:"Skeleton + design overhaul", status:"done" },
+    { date:"Planned", label:"Edition 4.0", sub:"Coming next", status:"upcoming" }
   ];
   const wrap = document.getElementById('vTimeline');
   if (!wrap) return;
@@ -1794,7 +2048,7 @@ function openModal(key) {
       </div>`).join('');
     return `<div class="timeline-wrap"><h4>Recovery Timeline</h4><div class="timeline-strip">${steps}</div></div>`;
   }
-  const diagSvg = diagrams[key] ? `<div class="modal-diagram" style="background:#1a3a7c;padding:12px;">${diagrams[key]}</div>` : '';
+  const diagSvg = diagrams[key] ? `<div class="modal-diagram" style="background:#12306e;padding:12px;">${diagrams[key]}</div>` : '';
   const meta = caseMeta[key];
   const notesHtml = meta ? `<div class="surgeon-notes"><h4>🩺 Surgeon's Notes</h4><p>"${meta.notes}"</p></div>` : '';
   const fileStripHtml = meta ? `<div class="case-file-meta" style="justify-content:center;margin-bottom:24px;font-size:0.75rem;">
@@ -1837,23 +2091,23 @@ function handleOverlayClick(e) {
 }
 
 // Region filtering
-function filterRegion(region) {
+function filterRegion(region, noScroll) {
   const allRows = document.querySelectorAll('.case-row');
   const allChips = document.querySelectorAll('.region-chip');
-  const allParts = document.querySelectorAll('.body-part, .body-part-stroke');
+  const allParts = document.querySelectorAll('.bone-part, .bone-stroke');
 
   allChips.forEach(c => c.classList.remove('active-chip'));
   allParts.forEach(p => p.classList.remove('active-part'));
 
   if (region === 'all') {
     allRows.forEach(r => { r.classList.remove('dimmed'); r.classList.remove('highlighted'); });
-    const showAll = document.getElementById('showAllChip');
-    if (showAll) showAll.classList.add('active-chip');
+    document.querySelectorAll('.region-chip[data-region="all"]').forEach(c => c.classList.add('active-chip'));
+    if (typeof renderSkeletonPanel === 'function') renderSkeletonPanel('all');
     return;
   }
 
   document.querySelectorAll(`.region-chip[data-region="${region}"]`).forEach(c => c.classList.add('active-chip'));
-  document.querySelectorAll(`.body-part[data-region="${region}"], .body-part-stroke[data-region="${region}"]`).forEach(p => p.classList.add('active-part'));
+  document.querySelectorAll(`.bone-part[data-region="${region}"], .bone-stroke[data-region="${region}"]`).forEach(p => p.classList.add('active-part'));
 
   allRows.forEach(r => {
     if (r.dataset.region === region) {
@@ -1873,19 +2127,61 @@ function filterRegion(region) {
     }
   });
 
-  const first = document.querySelector(`.case-row[data-region="${region}"]`);
-  if (first) first.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  if (typeof renderSkeletonPanel === 'function') renderSkeletonPanel(region);
+
+  if (!noScroll) {
+    const first = document.querySelector(`.case-row[data-region="${region}"]`);
+    if (first) first.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
 }
 
-// Body part clicks
-document.querySelectorAll('.body-part, .body-part-stroke').forEach(p => {
-  p.addEventListener('click', () => filterRegion(p.dataset.region));
+// Bone clicks
+document.querySelectorAll('.bone-part, .bone-stroke').forEach(p => {
+  p.addEventListener('click', () => filterRegion(p.dataset.region, true));
 });
 
 // Region chip clicks
 document.querySelectorAll('.region-chip').forEach(c => {
   c.addEventListener('click', () => filterRegion(c.dataset.region));
 });
+
+// ── ANATOMY EXPLORER (Interactive Skeleton) ──
+const skeletonRegions = {
+  head: { name:'Head & Neck', icon:'🧠', desc:'The skull protects the brain, while the cervical spine carries nerve signals between the head and the body. Injuries here range from concussions to nerve-root compression that can radiate down the arm.', cases:['concussion','cervical_nerve'] },
+  shoulder: { name:'Shoulder', icon:'💪', desc:'The shoulder is the body\u2019s most mobile joint, built from the clavicle, scapula, and humerus. Its stability depends on a network of muscles and tendons — a balance that tears and dislocations can easily disturb.', cases:['rotator','shoulder'] },
+  wrist: { name:'Arm & Wrist', icon:'🤚', desc:'The arm and wrist transmit force from the shoulder to the hand. The radius and ulna bear the brunt of falls, and the carpal tunnel can trap the nerves passing through the wrist.', cases:['wrist','ucl','nerve_entrapment','salter'] },
+  hip: { name:'Spine & Hips', icon:'🦴', desc:'The spine and hips form the body\u2019s central support column. The vertebrae cushion the spinal cord, and the pelvis anchors the legs — both are frequent sites of trauma, degeneration, and nerve compression.', cases:['hip','spine','lumbar_disc','sciatica','spinal_cord','pelvic_fracture','scfe'] },
+  thigh: { name:'Thigh', icon:'🦵', desc:'The femur is the longest and strongest bone in the body. The large muscles of the thigh generate powerful movements but are also prone to strains, tears, and force-related fractures.', cases:['hamstring','femur','it_band','muscle_atrophy','hamstring_inhibition'] },
+  knee: { name:'Knee', icon:'🦵', desc:'The knee is the largest joint in the body, held together by a network of ligaments, cartilage, and tendons. Its complexity makes it the most frequently injured joint in the collection.', cases:['acl','meniscus','mcl_acl','multi_ligament','patellar','ocd','knee_disloc','runners_knee','multi_lig_knee','osgood'] },
+  shin: { name:'Shin & Lower Leg', icon:'🦴', desc:'The tibia and fibula carry the body\u2019s full weight during standing and running. They are the most common site of stress fractures, and high-energy impacts can cause open and life-threatening injuries here.', cases:['stress','tibia','shin_stress2','compound_fracture','compartment','greenstick'] },
+  foot: { name:'Foot & Ankle', icon:'🦶', desc:'The foot and ankle absorb impact, adapt to uneven surfaces, and push the body forward. A complex web of ligaments, tendons, and small bones keeps the arch working.', cases:['ankle','achilles','tendinopathy','severs'] }
+};
+
+const caseNumbers = {};
+document.querySelectorAll('.case-row[data-case]').forEach(r => {
+  const n = r.querySelector('.case-row-num');
+  if (n) caseNumbers[r.dataset.case] = n.textContent.trim().replace('CASE #','');
+});
+
+function renderSkeletonPanel(region) {
+  const panel = document.getElementById('skeletonPanel');
+  if (!panel) return;
+  if (region === 'all' || !skeletonRegions[region]) {
+    panel.innerHTML = '<div class="skeleton-welcome"><div class="sw-icon">🦴</div><h3>Anatomy Explorer</h3><p>Click a bone on the skeleton to see the cases connected to that region of the body — or click a region chip below the skeleton.</p></div>';
+    return;
+  }
+  const info = skeletonRegions[region];
+  const items = info.cases.map(key => {
+    const c = cases[key];
+    if (!c) return '';
+    const zone = document.querySelector('.case-row[data-case="' + key + '"] .case-row-zone');
+    return '<div class="skeleton-case" data-key="' + key + '"><span class="sc-num">#' + (caseNumbers[key] || '') + '</span><span class="sc-name">' + c.title.replace(/^Case \d+: /, '') + '</span><span class="sc-zone">' + (zone ? zone.textContent : '') + '</span></div>';
+  }).join('');
+  panel.innerHTML = '<h3>' + info.icon + ' ' + info.name + '</h3><p class="region-desc">' + info.desc + '</p><div class="panel-case-count">' + info.cases.length + ' Related Case' + (info.cases.length > 1 ? 's' : '') + '</div><div class="skeleton-case-list">' + items + '</div>';
+  panel.querySelectorAll('.skeleton-case').forEach(el => {
+    el.addEventListener('click', () => openModal(el.dataset.key));
+  });
+}
 
 // Case row clicks
 document.querySelectorAll('.case-row.filed').forEach(r => {
@@ -1975,7 +2271,14 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     { a:'tibia', b:'compound_fracture', reasons:['Bone fracture progression','Both affect lower leg','Severity spectrum'] },
     { a:'patellar', b:'runners_knee', reasons:['Both involve kneecap mechanics','Same activity triggers','Quadriceps strength is key'] },
     { a:'concussion', b:'cervical_nerve', reasons:['Both involve head/neck','Neurological symptoms','Return-to-play protocols'] },
-    { a:'femur', b:'pelvic_fracture', reasons:['High-energy trauma','Both require surgical fixation','Extended recovery timeline'] }
+    { a:'femur', b:'pelvic_fracture', reasons:['High-energy trauma','Both require surgical fixation','Extended recovery timeline'] },
+    { a:'salter', b:'wrist', reasons:['Same body region (wrist)','Same mechanism — fall on outstretched hand','Growth plate fracture vs adult fracture'] },
+    { a:'salter', b:'greenstick', reasons:['Both pediatric fractures','Both heal quickly in children','Growth and remodeling guide recovery'] },
+    { a:'greenstick', b:'tibia', reasons:['Same body region (shin)','Fracture severity spectrum','Children\'s bone vs adult bone response'] },
+    { a:'scfe', b:'femur', reasons:['Same bone (femur)','Both require surgical fixation','Similar lengthy recovery'] },
+    { a:'osgood', b:'severs', reasons:['Both traction apophysitis','Both caused by growth spurts','Knee and heel versions of the same injury'] },
+    { a:'osgood', b:'runners_knee', reasons:['Both cause knee pain in young athletes','Patellar tendon and quadriceps involvement','Activity-related flare-ups'] },
+    { a:'severs', b:'achilles', reasons:['Same body region (heel)','Achilles tendon involvement','Both flare with running and jumping'] }
   ];
   var grid = document.getElementById('connectionsGrid');
   connections.forEach(function(c) {
@@ -2045,8 +2348,12 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     { label:'25 Cases', done:true },
     { label:'Website Released', done:true },
     { label:'Anatomy Explorer', done:true },
-    { label:'35 Cases', done:false },
-    { label:'Edition 2 Complete', done:false }
+    { label:'35 Cases', done:true },
+    { label:'Edition 2 Complete', done:true },
+    { label:'40 Cases (Edition 3)', done:true },
+    { label:'Pediatric Phase Complete', done:true },
+    { label:'Edition 3 Complete', done:true },
+    { label:'Edition 4 — TBD', done:false }
   ];
   var grid = document.getElementById('milestonesGrid');
   milestones.forEach(function(m) {
