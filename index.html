@@ -452,6 +452,21 @@
   .path-node-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1rem; text-transform: uppercase; }
   .path-node-sub { font-size: 0.7rem; color: rgba(255,255,255,0.4); margin-top: 4px; }
   .path-arrow { font-size: 1.2rem; color: var(--pale); flex-shrink: 0; }
+  .path-steps { display: flex; flex-direction: column; gap: 6px; margin-top: 14px; }
+  .path-step {
+    display: flex; align-items: center; gap: 8px; text-align: left;
+    padding: 8px 10px; border-radius: 6px; cursor: pointer;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .path-step:hover { border-color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.12); }
+  .path-step-num {
+    flex-shrink: 0; width: 18px; height: 18px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem; font-weight: 700; color: var(--navy); background: var(--pale);
+  }
+  .path-step-name { font-size: 0.78rem; font-weight: 700; color: rgba(255,255,255,0.9); }
+  .path-step-note { margin-left: auto; font-size: 0.62rem; color: rgba(255,255,255,0.4); white-space: nowrap; }
 
   /* MEDICAL WORD SPOTLIGHT */
   .word-spotlight {
@@ -525,6 +540,7 @@
     display: flex; flex-direction: column; align-items: center; gap: 8px;
     background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px;
     padding: 28px 20px; cursor: pointer; text-decoration: none; color: var(--white);
+    font-family: inherit; font-size: 0.9rem; width: 100%; text-align: center;
     transition: border-color 0.2s, background 0.2s, transform 0.15s;
   }
   .download-btn:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); transform: translateY(-2px); }
@@ -1237,16 +1253,16 @@
   <h2 class="section-title">References &amp; Sources</h2>
   <p style="font-size:0.92rem;line-height:1.7;color:rgba(255,255,255,0.65);max-width:780px;margin:-32px 0 32px;">Each case card lists the public education source it was written to align with. The references below are the organizations and standard texts this collection stays consistent with — they are starting points for deeper reading, not citations for individual claims.</p>
   <div style="columns:2;column-gap:48px;max-width:900px;font-size:0.88rem;line-height:2;color:rgba(255,255,255,0.78);">
-    <p>· OrthoInfo — American Academy of Orthopaedic Surgeons (AAOS)</p>
-    <p>· Mayo Clinic — Patient Care &amp; Health Information</p>
-    <p>· MedlinePlus — U.S. National Library of Medicine</p>
-    <p>· HealthyChildren.org — American Academy of Pediatrics</p>
-    <p>· CDC Heads Up — Concussion Awareness Program</p>
-    <p>· National Athletic Trainers' Association (NATA)</p>
-    <p>· Campbell's Operative Orthopaedics</p>
-    <p>· Netter's Atlas of Human Anatomy</p>
-    <p>· ACSM's Guidelines for Exercise Testing and Prescription</p>
-    <p>· Journal of Orthopaedic &amp; Sports Physical Therapy (JOSPT)</p>
+    <p>· <a href="https://orthoinfo.aaos.org" target="_blank" rel="noopener" style="color:#ffd700;text-decoration:underline;">OrthoInfo — American Academy of Orthopaedic Surgeons (AAOS)</a></p>
+    <p>· <a href="https://www.mayoclinic.org" target="_blank" rel="noopener" style="color:#ffd700;text-decoration:underline;">Mayo Clinic — Patient Care &amp; Health Information</a></p>
+    <p>· <a href="https://medlineplus.gov" target="_blank" rel="noopener" style="color:#ffd700;text-decoration:underline;">MedlinePlus — U.S. National Library of Medicine</a></p>
+    <p>· <a href="https://www.healthychildren.org" target="_blank" rel="noopener" style="color:#ffd700;text-decoration:underline;">HealthyChildren.org — American Academy of Pediatrics</a></p>
+    <p>· <a href="https://www.cdc.gov/headsup" target="_blank" rel="noopener" style="color:#ffd700;text-decoration:underline;">CDC Heads Up — Concussion Awareness Program</a></p>
+    <p>· <a href="https://www.nata.org" target="_blank" rel="noopener" style="color:#ffd700;text-decoration:underline;">National Athletic Trainers' Association (NATA)</a></p>
+    <p>· <a href="https://www.elsevier.com" target="_blank" rel="noopener" style="color:#ffd700;text-decoration:underline;">Campbell's Operative Orthopaedics (Elsevier)</a></p>
+    <p>· <a href="https://www.elsevier.com" target="_blank" rel="noopener" style="color:#ffd700;text-decoration:underline;">Netter's Atlas of Human Anatomy (Elsevier)</a></p>
+    <p>· <a href="https://www.acsm.org" target="_blank" rel="noopener" style="color:#ffd700;text-decoration:underline;">ACSM's Guidelines for Exercise Testing and Prescription</a></p>
+    <p>· <a href="https://www.jospt.org" target="_blank" rel="noopener" style="color:#ffd700;text-decoration:underline;">Journal of Orthopaedic &amp; Sports Physical Therapy (JOSPT)</a></p>
   </div>
   <p style="font-size:0.82rem;line-height:1.7;color:rgba(255,255,255,0.5);max-width:780px;margin-top:24px;">Educational disclaimer: This collection is a study aid about how the musculoskeletal system works and heals. The patient stories are composite teaching narratives, not real medical records, and the site is not medical advice. If you or someone you know is injured, see a qualified healthcare professional.</p>
 </div>
@@ -1289,23 +1305,23 @@
 <div class="section" id="downloads" style="border-top: 1px solid rgba(255,255,255,0.1);">
   <p class="section-label">Resources</p>
   <h2 class="section-title">Download Center</h2>
-  <p style="font-size:0.92rem;line-height:1.7;color:rgba(255,255,255,0.65);max-width:640px;margin:-32px 0 40px;">Get offline copies, source files, and release notes for every edition.</p>
+  <p style="font-size:0.92rem;line-height:1.7;color:rgba(255,255,255,0.65);max-width:640px;margin:-32px 0 40px;">Take this collection offline — print it as a PDF, save the HTML source file, or grab the release notes.</p>
   <div class="download-grid">
-    <a class="download-btn" href="#" onclick="alert('PDF download would start here');return false;">
+    <button class="download-btn" type="button" onclick="window.print()">
       <div class="download-icon">📄</div>
-      <div class="download-label">PDF</div>
-      <div class="download-meta">Edition 1 · 2.4 MB</div>
-    </a>
-    <a class="download-btn" href="#" onclick="alert('ZIP download would start here');return false;">
+      <div class="download-label">Print / PDF</div>
+      <div class="download-meta">Opens the print dialog — choose "Save as PDF"</div>
+    </button>
+    <button class="download-btn" type="button" onclick="downloadHTML()">
       <div class="download-icon">📦</div>
-      <div class="download-label">ZIP</div>
-      <div class="download-meta">Edition 1 · 1.8 MB</div>
-    </a>
-    <a class="download-btn" href="#" onclick="alert('Release notes would open here');return false;">
+      <div class="download-label">HTML Source</div>
+      <div class="download-meta">Save this page as a single offline HTML file</div>
+    </button>
+    <button class="download-btn" type="button" onclick="downloadReleaseNotes()">
       <div class="download-icon">📝</div>
       <div class="download-label">Release Notes</div>
-      <div class="download-meta">v1.0 · Changelog</div>
-    </a>
+      <div class="download-meta">Download a plain-text summary of every edition</div>
+    </button>
   </div>
 </div>
 
@@ -1769,7 +1785,7 @@ const cases = {
       {time:"Wk 6-8", label:"Return to Activity", desc:"Gradual return to running, mileage progression, full clearance"}
     ],
     recovery:"Iliotibial band syndrome is one of the most common leading causes of lateral knee pain in runners, cyclists, and military personnel due to its repetitive overuse nature. Unlike a muscle strain, the IT band is a dense connective tissue structure that cannot easily stretch, meaning treatments focused solely on stretching the band itself are rarely effective. Instead, successful long-term resolution relies heavily on correcting underlying biomechanical deficits, such as weak hip abductors that cause the knee to collapse inward during impact. Addressing these root muscle imbalances and slowly scaling mileage prevents the outer knee from absorbing destructive friction forces during athletic activity.",
-    insight:"Because the IT band is a dense, largely inelastic sheet of connective tissue rather than a contractile muscle, it cannot be lengthened or loosened through stretching the way people often assume. The real driver of the friction is almost always upstream — weak hip abductors that let the thigh drift inward with every stride, increasing compression at the knee with each step. This is why the most durable fix targets the hip and glutes rather than the knee itself, and why athletes who only foam-roll the IT band tend to see their symptoms return."
+    insight:"Because the IT band is a dense, largely inelastic sheet of connective tissue rather than a contractile muscle, it is not meaningfully lengthened or loosened by stretching the way people often assume. The real driver of the friction is almost always upstream — weak hip abductors that let the thigh drift inward with every stride, increasing compression at the knee with each step. This is why the most durable fix targets the hip and glutes rather than the knee itself, and why athletes who only foam-roll the IT band tend to see their symptoms return."
   },
   tendinopathy: {
     phase:"Phase 5 · Chronic Overuse & Degenerative Injuries", title:"Case 23: Chronic Tendinopathy", date:"7/05/2026",
@@ -2222,6 +2238,30 @@ function renderVisualTimeline() {
 }
 renderVisualTimeline();
 
+function linkSource(s) {
+  var map = [
+    { re: /OrthoInfo/, url: 'https://orthoinfo.aaos.org', label: 'OrthoInfo (AAOS)' },
+    { re: /Mayo Clinic/, url: 'https://www.mayoclinic.org', label: 'Mayo Clinic' },
+    { re: /HealthyChildren|American Academy of Pediatrics/, url: 'https://www.healthychildren.org', label: 'HealthyChildren.org (AAP)' },
+    { re: /MedlinePlus/, url: 'https://medlineplus.gov', label: 'MedlinePlus (NIH)' },
+    { re: /NINDS/, url: 'https://www.ninds.nih.gov', label: 'NINDS (NIH)' },
+    { re: /JOSPT/, url: 'https://www.jospt.org', label: 'JOSPT' },
+    { re: /Sports Health/, url: 'https://journals.sagepub.com/home/sph', label: 'Sports Health' },
+    { re: /UpToDate/, url: 'https://www.uptodate.com', label: 'UpToDate' },
+    { re: /CDC/, url: 'https://www.cdc.gov', label: 'CDC' },
+    { re: /NIH/, url: 'https://www.nih.gov', label: 'NIH' }
+  ];
+  var detail = '';
+  var dash = s.indexOf(' - ');
+  if (dash > 0) detail = s.substring(dash + 3);
+  for (var i = 0; i < map.length; i++) {
+    if (map[i].re.test(s)) {
+      return '<a href="' + map[i].url + '" target="_blank" rel="noopener" style="color:#ffd700;text-decoration:underline;">' + map[i].label + '</a>' + (detail ? ' — ' + detail : '');
+    }
+  }
+  return s;
+}
+
 function openModal(key) {
   const c = cases[key];
   if (!c) return;
@@ -2261,7 +2301,7 @@ function openModal(key) {
     <div class="modal-section"><h4>How It's Treated</h4><ul>${c.treatment.map(t=>`<li>${t}</li>`).join('')}</ul></div>
     ${c.timeline ? renderTimeline(c.timeline) : ''}
     ${notesHtml}
-    ${c.sources ? `<div class="modal-section" style="margin-top:18px;"><h4>📚 Sources &amp; References</h4><ul style="font-size:0.82rem;line-height:1.7;color:rgba(255,255,255,0.62);padding-left:18px;">${c.sources.map(s=>`<li>${s}</li>`).join('')}</ul><p style="font-size:0.7rem;color:rgba(255,255,255,0.4);font-style:italic;margin-top:6px;">Patient-education references from major medical organizations. General summaries only - not medical advice.</p></div>` : ''}
+    ${c.sources ? `<div class="modal-section" style="margin-top:18px;"><h4>📚 Sources &amp; References</h4><ul style="font-size:0.82rem;line-height:1.7;color:rgba(255,255,255,0.62);padding-left:18px;">${c.sources.map(s=>`<li>${linkSource(s)}</li>`).join('')}</ul><p style="font-size:0.7rem;color:rgba(255,255,255,0.4);font-style:italic;margin-top:6px;">Patient-education references from major medical organizations. General summaries only - not medical advice.</p></div>` : ''}
     <div class="modal-two-col"><div><h4>Recovery Notes</h4><p>${c.recovery}</p></div><div><h4>Human Repair Log Insight</h4><p>${c.insight}</p></div></div>
     ${diagSvg}
     <div class="modal-date-stamp">${c.date}</div>`;
@@ -2422,20 +2462,20 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 // ── DID YOU KNOW ──
 (function() {
   var facts = [
-    'Bone is constantly remodeling throughout your life — old tissue is broken down and replaced with new bone every 10 years.',
+    'Bone is constantly remodeling throughout your life — most of your skeleton is renewed over roughly a decade.',
     'Ligaments heal slower than muscles because they have limited blood supply — some never fully regain their original strength.',
-    'The femur (thigh bone) is the strongest bone in the human body, able to support up to 30 times your body weight.',
+    'The femur (thigh bone) is the longest and strongest bone in the human body — in laboratory tests it can theoretically withstand up to 30 times an adult\'s body weight before breaking.',
     'Your Achilles tendon is the largest and strongest tendon in the body, yet it\'s one of the most commonly ruptured.',
     'Cartilage has almost no blood supply, which is why cartilage injuries like meniscus tears heal very slowly.',
-    'The human body has over 600 muscles, but only about half are involved in voluntary movement.',
+    'The human body has more than 600 named muscles — most are skeletal muscles that move bones and joints under voluntary control.',
     'Stress fractures happen when bone breakdown outpaces bone repair — a problem of imbalance, not just impact.',
-    'Inflammation is the body\'s first essential step toward healing — without it, tissue repair cannot begin.',
-    'The meniscus acts as a shock absorber in your knee, distributing up to 50% of your body weight during walking.',
-    'The sciatic nerve is the largest nerve in the human body — about as thick as your thumb at its widest point.',
-    'Bones are about 31% water — the rest is a mix of collagen and minerals that give them strength and flexibility.',
-    'Your knee contains about 14 bursae — fluid-filled sacs that reduce friction between bones, tendons, and muscles.',
-    'A single bone cell called an osteocyte can live for up to 25 years.',
-    'The skin is the body\'s largest organ, but bone is the largest organ system by mass.',
+    'Inflammation is the body\'s first step toward healing — it signals repair cells into the damaged area.',
+    'The meniscus cushions the knee, transmitting about 50% of the load when the knee is straight and up to 85% when it is bent.',
+    'The sciatic nerve is the largest nerve in the human body — about as wide as a thumb at its thickest point.',
+    'Bone tissue is roughly 20% water — the rest is a mix of collagen and calcium-phosphate minerals that give it strength and flexibility.',
+    'Your knee contains about a dozen bursae — fluid-filled sacs that reduce friction between bones, tendons, and muscles.',
+    'An osteocyte is one of the longest-lived cells in the body, with an average half-life of about 25 years.',
+    'Bone holds about 99% of the body\'s calcium, which is why bone loss can affect muscles, nerves, and the heart.',
     'Tendons are made of densely packed collagen fibers arranged like a rope — which is why they can handle such high forces.'
   ];
   document.getElementById('didyouText').textContent = facts[Math.floor(Math.random() * facts.length)];
@@ -2509,17 +2549,41 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 // ── READING PATHS ──
 (function() {
   var paths = [
-    { label:'Sports Injuries', sub:'Ankle · ACL · Meniscus' },
-    { label:'Joint Injuries', sub:'Shoulder · Knee · Hip' },
-    { label:'Fractures', sub:'Stress · Tibia · Femur' },
-    { label:'Recovery', sub:'Rehab · Therapy · Return' }
+    { label:'Sports Injuries', sub:'How everyday injuries heal', steps:[
+      { key:'ankle', note:'Ligament basics' },
+      { key:'acl', note:'Knee stabilizer' },
+      { key:'meniscus', note:'Cartilage under load' }
+    ]},
+    { label:'Joint Injuries', sub:'Joints and their supports', steps:[
+      { key:'shoulder', note:'Most mobile joint' },
+      { key:'rotator', note:'Four stabilizers' },
+      { key:'hip', note:'Deep socket repair' }
+    ]},
+    { label:'Fractures', sub:'From microdamage to healing', steps:[
+      { key:'stress', note:'Microdamage first' },
+      { key:'tibia', note:'A major break' },
+      { key:'femur', note:'Largest bone' }
+    ]},
+    { label:'Emergency & Recovery', sub:'Where minutes decide', steps:[
+      { key:'knee_disloc', note:'Vascular emergency' },
+      { key:'compartment', note:'Pressure emergency' },
+      { key:'scfe', note:'Pediatric emergency' }
+    ]}
   ];
   var flow = document.getElementById('pathsFlow');
   paths.forEach(function(p, i) {
     var node = document.createElement('div');
     node.className = 'path-node';
-    node.innerHTML = '<div class="path-node-label">' + p.label + '</div><div class="path-node-sub">' + p.sub + '</div>';
+    var stepsHtml = p.steps.map(function(s, si) {
+      var c = cases[s.key];
+      var nm = c ? c.title.replace(/^Case \d+: /, '') : s.key;
+      return '<div class="path-step" data-key="' + s.key + '"><span class="path-step-num">' + (si + 1) + '</span><span class="path-step-name">' + nm + '</span><span class="path-step-note">' + s.note + '</span></div>';
+    }).join('');
+    node.innerHTML = '<div class="path-node-label">' + p.label + '</div><div class="path-node-sub">' + p.sub + '</div><div class="path-steps">' + stepsHtml + '</div>';
     flow.appendChild(node);
+    node.querySelectorAll('.path-step').forEach(function(el) {
+      el.addEventListener('click', function() { openModal(el.dataset.key); });
+    });
     if (i < paths.length - 1) {
       var arrow = document.createElement('div');
       arrow.className = 'path-arrow';
@@ -2574,6 +2638,56 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     grid.appendChild(div);
   });
 })();
+// ── DOWNLOAD CENTER ──
+function downloadHTML() {
+  var html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+  var blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'human-repair-log.html';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(a.href);
+}
+
+function downloadReleaseNotes() {
+  var notes = [
+    'HRL | The Human Repair Log — Release Notes',
+    'Case Collection 2026 · By Muntasir Mahir',
+    '========================================',
+    '',
+    'Edition 1.0 — Released June 2026',
+    '  · 20 cases, 4 phases, glossary, website launch',
+    '',
+    'Edition 1.5 — Released July 2026',
+    '  · Recovery timelines, featured case, word spotlight',
+    '  · Case connections, reading paths',
+    '',
+    'Edition 2.0 — Released July 2026',
+    '  · +15 cases (35 total), +3 phases (7 total)',
+    '  · All 20 original cases rewritten',
+    '  · Case files and surgeon\'s notes',
+    '',
+    'Edition 3.0 — Released August 2026',
+    '  · +5 pediatric cases (40 total), new Phase 8',
+    '  · Expanded glossary (81 terms)',
+    '  · Interactive skeleton explorer, design overhaul',
+    '',
+    'Edition 4.0 — Planned',
+    '  · Phases 9-10, quiz and flashcard study tools',
+    '  · Search, ratings, reading progress'
+  ].join('\n');
+  var blob = new Blob([notes], { type: 'text/plain;charset=utf-8' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'release-notes.txt';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(a.href);
+}
+
 </script>
 </body>
 </html>
