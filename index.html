@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -610,9 +611,12 @@
 <div style="background:linear-gradient(135deg,#12306e,#1e4db7 60%,#2a5a9c);color:#dbe7fb;text-align:center;padding:9px 20px;font-size:0.78rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.1);">Edition 3 Complete · 40 Cases · 8 Phases · Interactive Skeleton</div>
 <div style="background:linear-gradient(90deg,#6b4e00,#ffd700 30%,#ffe27a 50%,#ffd700 70%,#6b4e00);background-size:200% 100%;animation:editionBannerShine 4s linear infinite;color:#241a00;text-align:center;padding:16px 20px;font-size:1.02rem;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;border-bottom:1px solid rgba(255,255,255,0.35);box-shadow:0 6px 28px rgba(255,215,0,0.22);">🏆 Edition 3 Completed — All 40 Cases Across 8 Phases Are Now Live 🏆</div>
 <style>@keyframes editionBannerShine { 0% { background-position: 0% 0; } 100% { background-position: 200% 0; } }
-#explore .explore-body { display:none; }
-#explore.open .explore-body { display:block; }
-.explore-head:hover .explore-toggle { background:rgba(255,215,0,0.12); }
+#explore .explore-body > .section { display:none; }
+#explore .explore-body > .section.active { display:block; }
+.explore-menu { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; max-width:760px; margin:16px auto 8px; }
+.explore-menu-btn { cursor:pointer; padding:9px 16px; border:1px solid rgba(255,215,0,0.5); border-radius:999px; background:rgba(255,215,0,0.07); color:#ffd700; font-size:0.78rem; font-weight:700; transition:background 0.2s; }
+.explore-menu-btn:hover { background:rgba(255,215,0,0.16); }
+.explore-menu-btn.active { background:rgba(255,215,0,0.25); }
 
 </style>
 
@@ -842,11 +846,11 @@
 
 <!-- EXPLORE MORE (secondary features) -->
 <div id="explore">
-  <div class="explore-head" onclick="this.parentElement.classList.toggle('open')" style="max-width:1100px;margin:0 auto;cursor:pointer;text-align:center;padding:40px 24px 8px;">
+  <div class="explore-head" style="max-width:1100px;margin:0 auto;text-align:center;padding:40px 24px 8px;">
     <div style="font-size:1.5rem;margin-bottom:6px;">🔍</div>
     <div class="section-title" style="margin-bottom:4px;">Explore More</div>
-    <p style="font-size:0.78rem;color:rgba(255,255,255,0.55);max-width:620px;margin:0 auto 10px;">Case connections, reading paths, the anatomy explorer, glossary, progress tracker, and project notes — everything beyond the core cases, one click away.</p>
-    <div class="explore-toggle" style="display:inline-block;margin-top:6px;padding:8px 18px;border:1px solid rgba(255,215,0,0.5);border-radius:999px;color:#ffd700;font-size:0.8rem;font-weight:700;">Show everything <span class="explore-arrow">▼</span></div>
+    <p style="font-size:0.78rem;color:rgba(255,255,255,0.55);max-width:620px;margin:0 auto 10px;">Case connections, reading paths, the anatomy explorer, glossary, progress tracker, and project notes — pick a section below to open it.</p>
+    <div class="explore-menu" id="exploreMenu"></div>
   </div>
   <div class="explore-body">
 
@@ -900,7 +904,7 @@
     <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:32px;">
       <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#0f2a63;background:#c8d8f0;padding:3px 9px;border-radius:3px;display:inline-block;margin-bottom:16px;">Phase 5 Reflection</div>
       <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.4rem;text-transform:uppercase;margin-bottom:16px;line-height:1.1;">Analysis of Chronic Overuse and Degenerative Trauma</div>
-      <p style="font-size:0.92rem;line-height:1.78;color:rgba(255,255,255,0.82);font-style:italic;">Phase 5 was my reminder that injuries do not always announce themselves loudly. None of these conditions appeared in a single dramatic moment — they built up over weeks and months of repeated stress until the tissue could no longer keep repairing itself. Chronic tendinopathy rewrote what I thought I knew about tendon pain. I had always assumed tendon pain meant inflammation, but these cases showed a non-inflammatory breakdown of collagen instead - which means complete rest can actually make things worse, because the tendon needs controlled loading to rebuild. The uncomfortable truth of this phase is that most of these injuries come from doing the same thing, the same way, day after day. Prevention is unglamorous, and that is exactly why it works.</p>
+      <p style="font-size:0.92rem;line-height:1.78;color:rgba(255,255,255,0.82);font-style:italic;">Phase 5 was my reminder that injuries do not always announce themselves loudly. None of these conditions appeared in a single dramatic moment — they built up over weeks and months of repeated stress until the tissue could no longer keep repairing itself. Chronic tendinopathy rewrote what I thought I knew about tendon pain. I had always assumed tendon pain meant acute inflammation, but these cases showed a more complex picture: a chronically overloaded tendon develops disorganized collagen and fails to repair normally. The role of inflammation in tendinopathy is not simply "absent" — it is more subtle and less classic than in an acute injury, which is why ice and rest rarely fix it. That is also why complete rest can actually make things worse, because the tendon needs controlled loading to rebuild. The uncomfortable truth of this phase is that most of these injuries come from doing the same thing, the same way, day after day. Prevention is unglamorous, and that is exactly why it works.</p>
     </div>
 
     <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:32px;grid-column:1/-1;">
@@ -1018,7 +1022,7 @@
   <div class="word-spotlight">
     <div class="word-term" id="wordTerm">Periosteum</div>
     <div class="word-def" id="wordDef">The outer layer covering bones that contains nerves and blood vessels.</div>
-    <button class="word-btn" onclick="document.getElementById('glossary').scrollIntoView({behavior:'smooth'})">View Glossary →</button>
+    <button class="word-btn" onclick="exploreOpenSection('glossary', true)">View Glossary →</button>
   </div>
 </div>
 
@@ -1031,7 +1035,7 @@
     <div style="break-inside:avoid;margin-bottom:18px;">
       <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">A</div>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Adhesion:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">Bands of scar-like tissue that form between internal tissues or organs, often limiting movement after injury.</span></p>
-      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Ankle:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The tibiotalar joint, where the tibia and fibula meet the talus bone of the foot, allowing the foot to move up and down.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Ankle:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The talocrural joint, where the tibia and fibula form a socket (mortise) around the talus bone of the foot, allowing the foot to move up and down.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Anatomy:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The study of the structure of the human body and how its parts are organized.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Apophysis:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A growth plate that forms where a tendon attaches to bone — a common site of overuse injury in growing children, as in Osgood-Schlatter and Sever's disease.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Atrophy:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The decrease in size or wasting of a tissue, typically muscle, from disuse, immobilization, or nerve damage.</span></p>
@@ -1048,9 +1052,9 @@
 
     <div style="break-inside:avoid;margin-bottom:18px;">
       <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">C</div>
-      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Cartilage:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A smooth, flexible connective tissue that cushions joints and reduces friction between bones.</span></p>
-      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Contraction (muscle):</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The process where muscle fibers shorten to produce movement or maintain tension.</span></p>
-      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Callus:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The new bone tissue that forms around a fracture site to bridge the broken pieces during healing.</span></p>
+          <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Cartilage:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A smooth, firm connective tissue that cushions joints and reduces friction between bones.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Contraction (muscle):</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The process by which muscle fibers generate force — shortening (concentric), lengthening while loaded (eccentric), or holding length (isometric).</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Callus:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">New tissue that forms around a fracture during healing — first as soft fibrous and cartilage tissue (soft callus), which then hardens into woven bone (hard callus) before being reshaped by remodeling.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Collagen:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The main structural protein in connective tissue, giving tendons, ligaments, and bones their strength.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Comminuted fracture:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A fracture in which the bone is broken into three or more pieces.</span></p>
     </div>
@@ -1083,7 +1087,7 @@
     <div style="break-inside:avoid;margin-bottom:18px;">
       <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">G</div>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Gait:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The pattern of walking or movement of the legs and feet.</span></p>
-      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Growth plate (physis):</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A layer of cartilage near the ends of growing bones where new bone is produced — the weakest part of a child's skeleton.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Growth plate (physis):</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A layer of cartilage near the ends of growing bones where new bone is produced; in a child it is biomechanically more vulnerable than the surrounding bone and ligaments, which is why many pediatric fractures run through it.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Greenstick fracture:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A pediatric fracture where the bone bends and cracks on one side like a green twig, while the other side bows without breaking.</span></p>
     </div>
 
@@ -1119,7 +1123,7 @@
 
     <div style="break-inside:avoid;margin-bottom:18px;">
       <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">M</div>
-      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Meniscus:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A C-shaped cartilage in the knee that cushions and stabilizes the joint.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Meniscus:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A C-shaped wedge of fibrocartilage in the knee that cushions and stabilizes the joint.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Muscle strain:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">An injury caused by overstretching or tearing of muscle fibers or tendons.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Mobility:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The ability of a joint or body part to move freely and easily.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Microtears:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">Tiny tears in tissue fibers caused by repeated stress, which can build up faster than the body can repair them.</span></p>
@@ -1129,7 +1133,7 @@
     <div style="break-inside:avoid;margin-bottom:18px;">
       <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">N</div>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Nerve:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A structure that carries signals between the brain, spinal cord, and body.</span></p>
-      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Nerve root:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The portion of a spinal nerve where it branches off the spinal cord — a common site of compression in conditions like sciatica.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Nerve root:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The segment of a spinal nerve that exits the spinal canal through an opening between vertebrae (the intervertebral foramen); a common site of compression by a herniated disc or bone spur, as in sciatica.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Neuroplasticity:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The brain's ability to reorganize and form new connections, a key part of retraining movement after injury.</span></p>
     </div>
 
@@ -1146,7 +1150,7 @@
       <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;color:#c8d8f0;margin-bottom:10px;">P</div>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Pain response:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The body's reaction to injury or harmful stimuli, signaling damage or stress in tissues.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Physiology:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The study of how the body functions and performs its biological processes.</span></p>
-      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Platelet-rich plasma (PRP):</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A concentration of a patient's own platelets injected into an injury to promote tissue healing.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Platelet-rich plasma (PRP):</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A preparation made from the patient's own blood in which platelets (and the growth factors they contain) are concentrated and injected into an injury to promote healing; evidence for benefit varies by condition.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Proprioception:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The body's sense of joint position and movement, essential for balance and coordination after injury.</span></p>
     </div>
 
@@ -1179,7 +1183,7 @@
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Tendon:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A strong connective tissue that connects muscle to bone.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Tissue:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A group of similar cells that work together to perform a function in the body.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Trauma:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">Physical injury or damage to the body caused by external force.</span></p>
-      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Tendinopathy:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A chronic condition of a degenerated tendon, usually from repetitive overuse, that typically involves little acute inflammation.</span></p>
+      <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Tendinopathy:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">A chronic disorder of a tendon from repetitive overload, in which the tendon's repair response falls behind the damage — leading to disorganized collagen and abnormal blood vessels and cells. The picture is not classic acute inflammation, but immune and inflammatory signaling do participate in the failed repair process.</span></p>
       <p style="margin-bottom:8px;"><span style="font-weight:700;text-decoration:underline;">Tibial tuberosity:</span> <span style="color:rgba(255,255,255,0.78);font-size:0.88rem;">The bony bump at the front of the upper tibia (shinbone) where the patellar tendon attaches — the site of Osgood-Schlatter disease.</span></p>
     </div>
 
@@ -1485,6 +1489,7 @@ const diagrams = {};
 const cases = {ankle: {
     phase:"Phase 1 · Common Sports Injuries", title:"Case 01: Ankle Sprain", date:"6/12/2026",
     sources:["OrthoInfo (AAOS) - patient education on ankle sprains", "Mayo Clinic - sprained ankle"],
+    citations:{ mechanism:[0,1], diagnosis:[0,1], rehab:[0,1], recovery:[0,1], redFlags:[0,1], insight:[0,1], anatomy:[0,1], treatment:[0,1] },
     patient:{name:"Maya, Age 14", story:"Maya was playing badminton during gym class when she jumped to reach a shot. As she landed, her foot rolled inward. She immediately felt a sharp pain in her ankle and had trouble putting weight on it. Within an hour, her ankle became swollen and bruised. At the doctor's office, she learned she had suffered a lateral ankle sprain."},
     inside:"A lateral ankle sprain occurs when the foot rolls inward with enough force to overstretch or tear the ligaments on the outside of the ankle. These ligaments, especially the anterior talofibular ligament (ATFL), help stabilize the joint and prevent excessive movement. When damaged, the ankle becomes less stable and inflammation develops as the body begins repairing the injured tissue.",
     mechanism:"Maya's ankle rolled inward and downward \u2014 an inversion injury. The force came from a slightly off-balance landing after a jump: the foot planted while her weight was still moving, and the lateral (outside) structures of the ankle took the full load. How far the ankle travels past neutral, and how fast, decides how much the ligaments stretch or tear.",
@@ -1514,6 +1519,7 @@ const cases = {ankle: {
   },acl: {
     phase:"Phase 1 · Common Sports Injuries", title:"Case 02: ACL Tear", date:"6/13/2026",
     sources:["OrthoInfo (AAOS) - patient education on ACL injuries", "Mayo Clinic - ACL injury"],
+    citations:{ mechanism:[0,1], diagnosis:[0,1], rehab:[0,1], recovery:[0,1], redFlags:[0,1], insight:[0,1], anatomy:[0,1], treatment:[0,1] },
     patient:{name:"Jordan, Age 15", story:"Jordan was playing soccer during a weekend match when he quickly changed direction to avoid a defender. As he planted his left foot and twisted, he felt a sudden pop in his knee. He immediately fell to the ground and experienced severe pain. Within a short time, his knee became swollen, and he found it difficult to stand or walk without feeling like his knee was giving way. After visiting an orthopedic specialist and getting an MRI, Jordan learned that he had torn his Anterior Cruciate Ligament (ACL)."},
     inside:"The ACL is one of the primary stabilizing ligaments of the knee, helping control forward movement and rotation of the shin bone. During a sudden pivot, landing, or change in direction, excessive force can exceed the ligament's strength and cause its fibers to tear. This loss of stability can make the knee feel as though it may buckle or give way during movement.",
     mechanism:"Jordan's injury is a non-contact pivot: he planted the left foot and twisted while changing direction, so the knee was loaded in a valgus (inward-bending) and rotational direction. The shin bone was driven forward relative to the thigh bone \u2014 a direction the ACL exists to stop \u2014 and the ligament failed. This same mechanism explains why cutting and landing sports produce most ACL tears.",
@@ -1544,6 +1550,7 @@ const cases = {ankle: {
   },meniscus: {
     phase:"Phase 1 · Common Sports Injuries", title:"Case 03: Meniscus Tear", date:"6/14/2026",
     sources:["OrthoInfo (AAOS) - patient education on meniscus tears", "Mayo Clinic - torn meniscus"],
+    citations:{ mechanism:[0,1], diagnosis:[0,1], rehab:[0,1], recovery:[0,1], redFlags:[0,1], insight:[0,1], anatomy:[0,1], treatment:[0,1] },
     patient:{name:"Ethan, Age 16", story:"Ethan was playing basketball when he quickly pivoted to drive toward the hoop. As he twisted on his planted foot, he felt a sharp pain deep inside his knee followed by a popping sensation. He had trouble fully straightening his leg and noticed swelling developing later that day. After an MRI scan, Ethan was diagnosed with a meniscus tear."},
     inside:"The meniscus is a C-shaped pad of fibrocartilage that distributes weight and absorbs shock within the knee joint. When excessive twisting forces are applied to a planted knee, the cartilage can tear, reducing its ability to cushion and stabilize the joint. Depending on the location of the tear, healing potential may vary significantly.",
     mechanism:"The tear came from a twist on a planted knee — when a loaded knee rotates while the foot stays fixed, the femur grinds against the tibia and the meniscus can split between them. Squatting or pivoting with a bent, loaded knee puts the meniscus at greatest risk.",
@@ -1573,6 +1580,7 @@ const cases = {ankle: {
   },hamstring: {
     phase:"Phase 1 · Common Sports Injuries", title:"Case 04: Hamstring Strain", date:"6/15/2026",
     sources:["OrthoInfo (AAOS) - patient education on hamstring muscle injuries", "Sports Health - hamstring strain management"],
+    citations:{ mechanism:[0,1], diagnosis:[0,1], rehab:[0,1], recovery:[0,1], redFlags:[0,1], insight:[0,1], anatomy:[0,1], treatment:[0,1] },
     patient:{name:"Ava, Age 15", story:"Ava was sprinting during a track practice when she suddenly felt a sharp pain in the back of her thigh. She immediately slowed down and had difficulty continuing to run. After being examined by a doctor, she learned that she had suffered a hamstring strain."},
     inside:"The hamstrings are a group of muscles located along the back of the thigh that help bend the knee and extend the hip. During rapid acceleration, sprinting, or sudden stretching, the muscle fibers can become overloaded and partially tear. This damage reduces the muscle's ability to generate force and causes pain during movement.",
     mechanism:"The strain happened during acceleration or a sudden lengthening — when the hamstrings contract while the leg is also being stretched in the late swing phase of sprinting, the fibers are asked to produce force at maximum length and overload. High-speed running is the classic trigger.",
@@ -1601,6 +1609,7 @@ const cases = {ankle: {
   },concussion: {
     phase:"Phase 1 · Common Sports Injuries", title:"Case 05: Concussion", date:"6/16/2026",
     sources:["CDC Heads Up - concussion basics", "Mayo Clinic - concussion"],
+    citations:{ mechanism:[0,1], diagnosis:[0,1], rehab:[0,1], recovery:[0,1], redFlags:[0,1], insight:[0,1], anatomy:[0,1], treatment:[0,1] },
     patient:{name:"Liam, Age 14", story:"Liam was playing soccer when he accidentally collided with another player while going for a header. He felt dizzy afterward and developed a headache, making it difficult to focus. After being evaluated by a doctor, Liam was diagnosed with a concussion."},
     inside:"A concussion is a mild traumatic brain injury caused by a sudden impact or rapid acceleration of the head. The force causes the brain to move within the skull, stretching brain cells and disrupting normal communication between neurons. These changes can temporarily affect memory, concentration, balance, and other cognitive functions.",
     mechanism:"The impact — a blow to the head or a rapid stop — sets the brain moving inside the skull. Because the brain is soft tissue floating in fluid, it lags behind the skull during acceleration, stretches, and the stretch disrupts how neurons communicate. No fracture is needed.",
@@ -1629,6 +1638,7 @@ const cases = {ankle: {
   },stress: {
     phase:"Phase 2 · Moderate Injuries", title:"Case 06: Stress Fracture", date:"6/18/2026",
     sources:["OrthoInfo (AAOS) - patient education on stress fractures", "Mayo Clinic - stress fractures"],
+    citations:{ mechanism:[0,1], diagnosis:[0,1], rehab:[0,1], recovery:[0,1], redFlags:[0,1], insight:[0,1], anatomy:[0,1], treatment:[0,1] },
     distinct:"The foundational stress-injury case — where repetitive force is introduced as a cause of bone damage. The same mechanism returns in its advanced, chronic form in Phase 5 (Case 21).",
     patient:{name:"Olivia, Age 16", story:"Olivia had been training for her first cross-country championship, running long distances every day with very few rest days. After several weeks, she began feeling a dull ache in her lower leg that gradually became worse during practice. Eventually, the pain became too severe to continue running, and an X-ray followed by an MRI confirmed that she had a stress fracture in her tibia."},
     inside:"A stress fracture is a tiny crack in a bone caused by repetitive force rather than a single traumatic event. Repeated impact from running creates microscopic damage faster than the bone can repair itself, gradually weakening its structure. As the damage builds up, the bone becomes painful and may eventually develop a small fracture.",
@@ -1658,6 +1668,7 @@ const cases = {ankle: {
   },wrist: {
     phase:"Phase 2 · Moderate Injuries", title:"Case 07: Wrist Fracture", date:"6/19/2026",
     sources:["OrthoInfo (AAOS) - patient education on wrist (distal radius) fractures"],
+    citations:{ mechanism:[0], diagnosis:[0], rehab:[0], recovery:[0], redFlags:[0], insight:[0], anatomy:[0], treatment:[0] },
     patient:{name:"Noah, Age 14", story:"Noah was riding his skateboard when he hit a crack in the sidewalk and fell forward. Instinctively, he stretched out his hand to break the fall, landing directly on his wrist. He immediately felt sharp pain, and his wrist quickly became swollen and difficult to move. At the hospital, X-rays confirmed that he had fractured his wrist."},
     inside:"A wrist fracture usually occurs when the force of a fall travels through the hand into the bones of the wrist, most commonly the radius. The impact causes the bone to crack or break, damaging nearby blood vessels and soft tissues. Almost immediately, the body begins an inflammatory response, sending blood cells and healing proteins to the fracture site to start the repair process.",
     mechanism:"The break came from a fall onto an outstretched hand: the force travels up the palm into the wrist, and the radius — the forearm bone that bears most of the load — fails at its weakest point just above the joint. Whether it is a clean crack or a displaced break depends on the height and angle of the fall.",
@@ -1686,6 +1697,7 @@ const cases = {ankle: {
   },rotator: {
     phase:"Phase 2 · Moderate Injuries", title:"Case 08: Rotator Cuff Tear", date:"6/20/2026",
     sources:["OrthoInfo (AAOS) - patient education on rotator cuff tears", "Mayo Clinic - rotator cuff injury"],
+    citations:{ mechanism:[0,1], diagnosis:[0,1], rehab:[0,1], recovery:[0,1], redFlags:[0,1], insight:[0,1], anatomy:[0,1], treatment:[0,1] },
     patient:{name:"Daniel, Age 17", story:"Daniel was pitching during a baseball game when he felt a sudden sharp pain in his shoulder after throwing a fastball. He noticed weakness whenever he tried to lift his arm, and the pain became worse over the next few days. An MRI revealed that he had torn his rotator cuff."},
     inside:"The rotator cuff is a group of four muscles and tendons that stabilize the shoulder and allow it to move in many directions. When Daniel threw the ball, excessive force caused one of these tendons to tear, reducing the shoulder's strength and stability. The injury triggered inflammation around the torn tendon, leading to pain, swelling, and difficulty moving the arm.",
     mechanism:"The tear came from an overhand throw: the rotator cuff muscles contract hard to decelerate the arm after release, and if the tendon is already weakened by repetitive use, one forceful throw can exceed its strength. The supraspinatus tendon — the one on top — is the most commonly torn.",
@@ -1715,6 +1727,7 @@ const cases = {ankle: {
   },shoulder: {
     phase:"Phase 2 · Moderate Injuries", title:"Case 09: Dislocated Shoulder", date:"6/21/2026",
     sources:["OrthoInfo (AAOS) - patient education on shoulder dislocation"],
+    citations:{ mechanism:[0], diagnosis:[0], rehab:[0], recovery:[0], redFlags:[0], insight:[0], anatomy:[0], treatment:[0] },
     patient:{name:"Olivia, Age 15", story:"Olivia was playing basketball when she jumped to grab a rebound and collided with another player. She landed awkwardly on her arm and immediately felt intense pain in her shoulder. At the emergency room, doctors confirmed that she had suffered a dislocated shoulder."},
     inside:"A shoulder dislocation occurs when the head of the upper arm bone (humerus) is forced out of the shoulder socket. As the joint dislocates, the surrounding ligaments, joint capsule, and muscles are stretched or torn, making the shoulder unstable. The injury also triggers inflammation, causing pain, swelling, and muscle spasms that make moving the shoulder extremely difficult.",
     mechanism:"The dislocation happened when the arm was forced into an outward, upward position — a fall on an outstretched arm or a tackle — and the head of the humerus levered out of the shallow socket. Because the socket is much smaller than the ball, the joint trades stability for mobility, and the ball usually exits forward.",
@@ -1743,6 +1756,7 @@ const cases = {ankle: {
   },achilles: {
     phase:"Phase 2 · Moderate Injuries", title:"Case 10: Achilles Tendon Rupture", date:"6/22/2026",
     sources:["OrthoInfo (AAOS) - patient education on Achilles tendon rupture", "Mayo Clinic - Achilles tendon rupture"],
+    citations:{ mechanism:[0,1], diagnosis:[0,1], rehab:[0,1], recovery:[0,1], redFlags:[0,1], insight:[0,1], anatomy:[0,1], treatment:[0,1] },
     patient:{name:"Daniel, Age 18", story:"Daniel was playing basketball when he jumped for a rebound and felt a sudden snap in the back of his ankle as he landed. He described the sensation as if someone had kicked him from behind, even though no one was near him. Unable to push off his foot or continue playing, Daniel later learned that he had suffered an Achilles tendon rupture."},
     inside:"The Achilles tendon is the strongest and largest tendon in the human body, connecting the calf muscles to the heel bone. When Daniel pushed off with explosive force, the tendon was stretched beyond its limit and completely tore apart. This sudden rupture prevents the calf muscles from effectively pulling on the heel, making it difficult or impossible to walk, run, or stand on the toes.",
     mechanism:"The rupture happened when the tendon was fully loaded while the foot was pushing off — an explosive push. The tendon was shortened at the knee and stretched at the ankle at the same time, and when the load exceeded its strength it tore completely, often with an audible pop that felt like being kicked.",
@@ -1772,6 +1786,7 @@ const cases = {ankle: {
   },tibia: {
     phase:"Phase 3 · Major Injuries", title:"Case 11: Tibia/Fibula Fracture", date:"6/23/2026",
     sources:["OrthoInfo (AAOS) - patient education on tibia (shinbone) shaft fractures"],
+    citations:{ mechanism:[0], diagnosis:[0], rehab:[0], recovery:[0], redFlags:[0], insight:[0], anatomy:[0], treatment:[0] },
     patient:{name:"Ethan, Age 16", story:"Ethan was playing soccer when another player accidentally slid into his lower leg during a tackle. He immediately felt intense pain and was unable to stand or put weight on the injured leg. At the hospital, X-rays revealed that he had suffered a tibia and fibula fracture."},
     inside:"The tibia (shinbone) and fibula are the two bones that make up the lower leg. A tibia/fibula fracture occurs when a strong force causes one or both bones to crack or break. This injury can damage nearby muscles, blood vessels, and soft tissues while triggering the body's bone-healing response.",
     mechanism:"The lower-leg break came from a strong direct force — a kick, a fall, or a high-energy impact on the shin. The tibia, as the main weight-bearing bone of the lower leg, takes the brunt, and the thinner fibula beside it may break with it if the force continues across the leg.",
@@ -1800,6 +1815,7 @@ const cases = {ankle: {
   },mcl_acl: {
     phase:"Phase 3 · Major Injuries", title:"Case 12: Torn MCL + ACL", date:"6/24/2026",
     sources:["OrthoInfo (AAOS) - patient education on ACL and MCL injuries"],
+    citations:{ mechanism:[0], diagnosis:[0], rehab:[0], recovery:[0], redFlags:[0], insight:[0], anatomy:[0], treatment:[0] },
     patient:{name:"Ryan, Age 17", story:"Ryan was playing football when he was tackled from the side while his foot was planted firmly on the ground. He felt a painful pop in his knee and immediately collapsed. His knee swelled rapidly, and after an MRI, doctors determined that he had torn both his Medial Collateral Ligament (MCL) and Anterior Cruciate Ligament (ACL)."},
     inside:"The ACL helps prevent the shin bone from sliding forward, while the MCL stabilizes the inner side of the knee. A strong twisting force combined with a blow to the side of the knee can tear both ligaments at the same time. This causes severe instability, making it difficult for the knee to support normal movement.",
     mechanism:"The blow to the outside of the knee while the foot was planted created a valgus force — the knee was pushed inward. That stretch overloads the MCL on the inner side, while the same twisting and forward-sliding load sheared the ACL. Two different ligaments, one mechanism: the outer force buckled the knee inward and forward at the same time.",
@@ -1829,6 +1845,7 @@ const cases = {ankle: {
   },femur: {
     phase:"Phase 3 · Major Injuries", title:"Case 13: Femur Fracture", date:"6/24/2026",
     sources:["OrthoInfo (AAOS) - patient education on femur (thighbone) shaft fractures"],
+    citations:{ mechanism:[0], diagnosis:[0], rehab:[0], recovery:[0], redFlags:[0], insight:[0], anatomy:[0], treatment:[0] },
     patient:{name:"Marcus, Age 16", story:"Marcus was riding his bike down a hill when he lost control and crashed into a parked car. The impact threw him forward, and he landed hard on his right leg. He immediately felt intense pain in his thigh and could not stand up. His leg looked deformed, and emergency responders transported him to the hospital. X-rays revealed a fractured femur (broken thigh bone)."},
     inside:"The femur is the strongest and largest bone in the body, so it takes a significant force to break it. When the bone fractures, nearby blood vessels tear, causing bleeding, swelling, and intense pain. The body immediately starts an inflammatory response, sending white blood cells to clean up damaged tissue and prepare the area for healing.",
     mechanism:"A femur shaft fracture demands high energy \u2014 a car crash, a fall from height, or, for Marcus, a high-speed bike impact. The thighbone is the strongest long bone in the body, so a break implies force far beyond everyday loading. The fracture pattern (transverse, oblique, spiral, or comminuted) depends on how the force is applied.",
@@ -1859,6 +1876,7 @@ const cases = {ankle: {
   },hip: {
     phase:"Phase 3 · Major Injuries", title:"Case 14: Hip Labrum Tear", date:"6/24/2026",
     sources:["OrthoInfo (AAOS) - patient education on acetabular labral tears", "Mayo Clinic - hip labral tear"],
+    citations:{ mechanism:[0,1], diagnosis:[0,1], rehab:[0,1], recovery:[0,1], redFlags:[0,1], insight:[0,1], anatomy:[0,1], treatment:[0,1] },
     patient:{name:"Sofia, Age 15", story:"Sofia was a competitive soccer player who felt a sharp pain in her hip after suddenly twisting to change direction during a game. Over the next few weeks, she noticed clicking sensations in her hip and pain whenever she ran, squatted, or sat for long periods. After an MRI, doctors diagnosed her with a hip labrum tear."},
     inside:"The labrum is a ring of cartilage that surrounds the hip socket, helping keep the ball of the femur securely in place. When Sofia twisted her hip, part of this cartilage tore, reducing the stability and cushioning of the joint. The tear can also cause the damaged tissue to catch between moving bones, leading to pain, clicking, or locking sensations.",
     mechanism:"The labrum tore during a sharp twist on a planted leg — when the thigh bone rotated against the rim of the socket under load, the fibrous ring pinched and split. Repetitive pivoting, especially in sports with deep hip rotation, can also grind the labrum down over time until one twist is the last straw.",
@@ -1888,6 +1906,7 @@ const cases = {ankle: {
   },multi_ligament: {
     phase:"Phase 3 · Major Injuries", title:"Case 15: Multiple Ligament Knee Injury", date:"6/24/2026",
     sources:["OrthoInfo (AAOS) - patient education on multi-ligament knee injuries"],
+    citations:{ mechanism:[0], diagnosis:[0], rehab:[0], recovery:[0], redFlags:[0], insight:[0], anatomy:[0], treatment:[0] },
     distinct:"Multiple knee ligaments tear together, but the bones stay in alignment — no dislocation. That matters because the vascular danger seen in Cases 20 and 33 is absent here, so the focus is surgical sequencing rather than limb threat.",
     patient:{name:"Ethan, Age 18", story:"Ethan was playing football when another player struck the outside of his knee while his foot remained planted on the ground. He felt a painful pop and collapsed immediately. His knee swelled rapidly, and he was unable to put weight on his leg. After an MRI, doctors discovered that he had torn multiple ligaments in his knee, including his ACL, MCL, and PCL."},
     inside:"The knee relies on several ligaments working together to keep the joint stable during movement. When a powerful twisting force or direct impact occurs, multiple ligaments can tear at the same time, causing the knee to lose much of its stability. The injury triggers immediate inflammation, swelling, and bleeding within the joint as the body begins responding to the damage.",
@@ -1918,6 +1937,7 @@ const cases = {ankle: {
   },ucl: {
     phase:"Phase 4 · Extreme Cases", title:"Case 16: UCL Tear", date:"6/27/2026",
     sources:["OrthoInfo (AAOS) - patient education on UCL (elbow) injuries", "Mayo Clinic - UCL injury"],
+    citations:{ mechanism:[0,1], diagnosis:[0,1], rehab:[0,1], recovery:[0,1], redFlags:[0,1], insight:[0,1], anatomy:[0,1], treatment:[0,1] },
     patient:{name:"Marcus, Age 19", story:"Marcus was pitching in a baseball game when he threw a high-velocity fastball and felt a sharp, painful pop in his inner elbow. He walked off the mound immediately, unable to straighten his arm as it began to swell. He also noticed a strange tingling sensation radiating down to his ring and pinky fingers. After an MRI, doctors discovered that he had sustained a complete, full-thickness tear of his ulnar collateral ligament (UCL)."},
     inside:"The elbow relies on the ulnar collateral ligament (UCL) to keep the joint stable against the massive forces generated during throwing. When an extreme overhead force or sudden overstretch occurs, the ligament can tear completely, causing the elbow to lose its structural stability. The injury triggers immediate inflammation and swelling, while stretching of the nearby ulnar nerve causes tingling sensations to shoot down the arm into the fingers.",
     mechanism:"The UCL tore during the final, explosive motion of a pitch — the elbow's inner side absorbs the massive force of decelerating the forearm after release. Each pitch has already stressed the ligament; over time, repetitive micro-tears weaken it until a single maximum-effort throw exceeds its strength and it snaps completely.",
@@ -1947,6 +1967,7 @@ const cases = {ankle: {
   },spine: {
     phase:"Phase 4 · Extreme Cases", title:"Case 17: Spinal Disc Herniation", date:"6/27/2026",
     sources:["OrthoInfo (AAOS) - patient education on herniated disk", "Mayo Clinic - herniated disk"],
+    citations:{ mechanism:[0,1], diagnosis:[0,1], rehab:[0,1], recovery:[0,1], redFlags:[0,1], insight:[0,1], anatomy:[0,1], treatment:[0,1] },
     distinct:"An acute disc herniation pressing on a nerve root — the sudden, structural version of spinal injury. It differs from Case 24 (where the disc breaks down slowly with aging) and Case 26 (where the focus shifts to the nerve pathway itself).",
     patient:{name:"Sarah, Age 34", story:"Sarah was lifting a heavy box from the floor when she felt a sharp, sudden pop in her lower back. She immediately felt severe pain radiating down her right leg, making it difficult to stand straight or walk. She also noticed a persistent numbness and tingling sensation in her right foot. After an MRI, doctors discovered that she had sustained a spinal disc herniation at the L4-L5 level."},
     inside:"The spine relies on rubbery spinal discs to act as cushions between the vertebrae and allow for flexible movement. When a sudden twisting motion or heavy lifting force occurs, the tough outer layer of the disc can tear, allowing the soft inner gel to push outward. This protruding material directly presses against nearby spinal nerves, causing severe inflammation, shooting pain, and neurological symptoms down the leg.",
@@ -1977,6 +1998,7 @@ const cases = {ankle: {
   },patellar: {
     phase:"Phase 4 · Extreme Cases", title:"Case 18: Patellar Tendon Rupture", date:"6/27/2026",
     sources:["OrthoInfo (AAOS) - patient education on patellar (kneecap) tendon tears"],
+    citations:{ mechanism:[0], diagnosis:[0], rehab:[0], recovery:[0], redFlags:[0], insight:[0], anatomy:[0], treatment:[0] },
     patient:{name:"James, Age 28", story:"James was playing basketball when he jumped for a rebound and felt a violent, painful pop just below his kneecap as he pushed off the ground. He collapsed immediately, unable to straighten his leg or support his weight. His knee swelled rapidly, and his kneecap appeared noticeably higher up on his thigh than usual. After an MRI, doctors discovered that he had sustained a complete patellar tendon rupture."},
     inside:"The knee relies on the patellar tendon to connect the patella (kneecap) to the tibia (shinbone), allowing the thigh muscles to straighten the leg. When a sudden, powerful force is applied while the knee is bent, the tendon can tear completely away from the bone, disrupting the knee's extension mechanism. This causes the kneecap to shift upward into the thigh because the quadriceps muscle pulls it without opposition. The injury triggers immediate internal bleeding, massive swelling, and a complete loss of leg control.",
     mechanism:"The tendon ruptured during a forceful push-off with the knee bent — as the quadriceps fired hard to straighten the knee, the patellar tendon, already strained, tore completely away from the kneecap. Without the tendon, the thigh muscle's force can no longer reach the shin, so the knee cannot extend, and the kneecap rides upward on the thigh.",
@@ -2006,6 +2028,7 @@ const cases = {ankle: {
   },ocd: {
     phase:"Phase 4 · Extreme Cases", title:"Case 19: Osteochondritis Dissecans", date:"6/27/2026",
     sources:["OrthoInfo (AAOS) - patient education on osteochondritis dissecans"],
+    citations:{ mechanism:[0], diagnosis:[0], rehab:[0], recovery:[0], redFlags:[0], insight:[0], anatomy:[0], treatment:[0] },
     patient:{name:"Tyler, Age 15", story:"Tyler was playing soccer when he felt a sharp, locking pain deep inside his knee during a sudden turn. He had been dealing with a dull, aching pain for months, but this time his knee swelled rapidly and felt completely unstable. He also noticed that his joint would occasionally catch or freeze when he tried to straighten it. After an MRI, doctors discovered that he had a severe case of osteochondritis dissecans with a loose fragment of bone and cartilage floating in the joint."},
     inside:"The joints rely on a steady blood supply to keep the bone beneath the protective surface cartilage healthy and strong. When a localized loss of blood flow occurs, a small segment of bone begins to die and weaken, causing the overlying cartilage to crack and separate from the joint surface. If left untreated or subjected to repetitive impact, this damaged piece can completely break away and float freely inside the joint space. The loose fragment triggers immediate inflammation, severe pain, and mechanical catching or locking as it blocks normal joint movement.",
     mechanism:"The condition began as a localized loss of blood supply to a small patch of bone beneath the joint cartilage — often from repeated micro-trauma in an active child. Without blood flow the bone dies and softens, the cartilage over it cracks, and the fragment can partially or completely separate. The loose piece is what caused Tyler's locking and catching.",
@@ -2035,6 +2058,7 @@ const cases = {ankle: {
   },knee_disloc: {
     phase:"Phase 4 · Extreme Cases", title:"Case 20: Traumatic Knee Dislocation", date:"6/27/2026",
     sources:["OrthoInfo (AAOS) - patient education on knee dislocation", "UpToDate - knee dislocation and vascular injury risk"],
+    citations:{ mechanism:[0,1], diagnosis:[0,1], rehab:[0,1], recovery:[0,1], redFlags:[0,1], insight:[0,1], anatomy:[0,1], treatment:[0,1] },
     distinct:"The bones actually come apart — a true dislocation, not just torn ligaments. That complete separation is what puts the popliteal artery at risk and makes this a limb-threatening emergency rather than a routine ligament injury.",
     patient:{name:"Carlos, Age 26", story:"Carlos was riding a motorcycle when he was involved in a collision that struck the front of his shin while his foot was caught on the footpeg. He felt a horrific tear and collapse as his knee visibly deformed and shifted entirely out of its socket. He was in excruciating pain, completely unable to move his leg, and noted that his foot felt cold and numb. After a manual reduction in the emergency room and an urgent MRI, doctors discovered that he had sustained a complete traumatic knee dislocation with ruptures of his ACL, PCL, and LCL."},
     inside:"A knee dislocation is a limb-threatening emergency where the tibia (shinbone) completely separates from the femur (thighbone), ripping apart multiple major ligaments in the process. When this massive structural failure occurs, the major blood vessels and nerves running directly behind the knee joint are stretched, compressed, or torn. This disruption of the popliteal artery can severely cut off blood flow to the lower leg and foot, risking tissue death without urgent treatment. The injury causes extreme internal destruction, profound swelling, and complete loss of joint integrity.",
@@ -2065,6 +2089,7 @@ const cases = {ankle: {
   },shin_stress2: {
     phase:"Phase 5 · Chronic Overuse & Degenerative Injuries", title:"Case 21: Shin Stress Fracture", date:"7/02/2026",
     sources:["OrthoInfo (AAOS) - patient education on stress fractures and shin splints"],
+    citations:{ mechanism:[0], diagnosis:[0], rehab:[0], recovery:[0], redFlags:[0], insight:[0], anatomy:[0], treatment:[0] },
     distinct:"Not a repeat of the Phase 2 stress fracture — this is the advanced end of the same spectrum. The tibia has accumulated so much microdamage that the bone is at real risk of completing the break, which is why recovery is longer and more cautious.",
     patient:{name:"Sarah, Age 20", story:"Sarah was training for a marathon when she felt a deep, localized ache along the front of her shinbone that gradually worsened over several weeks. Initially, the pain only occurred at the end of long runs, but it soon became so severe that she could feel it while walking and resting. She also noticed localized swelling and a specific spot on her bone that was extremely tender to the touch. After an MRI, doctors discovered that she had sustained a shin stress fracture in her tibia."},
     inside:"The lower leg relies on the tibia to bear the repetitive impact forces generated during running and jumping. When an athlete increases training intensity too quickly, the surrounding muscles fatigue and lose their ability to absorb shock, transferring the stress directly to the bone. This repetitive overloading causes microscopic damage to build up faster than the body can repair it, eventually forming a small hairline crack. The injury triggers localized inflammation, bone remodeling activity, and sharp pain as the nerve endings inside the bone membrane become highly irritated.",
@@ -2094,6 +2119,7 @@ const cases = {ankle: {
   },it_band: {
     phase:"Phase 5 · Chronic Overuse & Degenerative Injuries", title:"Case 22: Iliotibial (IT) Band Syndrome", date:"7/04/2026",
     sources:["OrthoInfo (AAOS) - patient education on iliotibial band syndrome"],
+    citations:{ mechanism:[0], diagnosis:[0], rehab:[0], recovery:[0], redFlags:[0], insight:[0], anatomy:[0], treatment:[0] },
     distinct:"Pain shows up at the knee, but the fault is upstream — the IT band rubbing over the joint. Compare it with Case 25: this is a connective-tissue tracking problem, not a kneecap cartilage problem, even though both strike runners.",
     patient:{name:"Marcus, Age 24", story:"Marcus was training for a half-marathon when he felt a sharp, burning pain on the outside of his knee during a long downhill run. Initially, the pain only occurred after running several miles, but it soon became so severe that he had to stop workouts early and struggled to walk down stairs. He also noticed a localized clicking sensation and tenderness just above the joint line. After a clinical examination, doctors discovered that he had developed a severe case of Iliotibial (IT) Band Syndrome."},
     inside:"The leg relies on the iliotibial band, a thick band of connective tissue running from the hip to the shin, to help stabilize the knee during movement. When repetitive bending and straightening occurs, particularly with weak hip stabilizers or poor mechanics, the lower end of the band rubs excessively against the prominent outer bone of the knee. This constant friction leads to severe compression and inflammation of the highly sensitive, vascularized fat tissue layer lying beneath the band. The injury triggers localized swelling, structural thickening of the tissue, and sharp, debilitating pain every time the knee bends past a specific angle.",
@@ -2123,14 +2149,15 @@ const cases = {ankle: {
   },tendinopathy: {
     phase:"Phase 5 · Chronic Overuse & Degenerative Injuries", title:"Case 23: Chronic Tendinopathy", date:"7/05/2026",
     sources:["OrthoInfo (AAOS) - patient education on Achilles tendinitis", "JOSPT - tendinopathy rehabilitation perspectives"],
+    citations:{ mechanism:[0,1], diagnosis:[0,1], rehab:[0,1], recovery:[0,1], redFlags:[0,1], insight:[0,1], anatomy:[0,1], treatment:[0,1] },
     patient:{name:"Marcus, Age 42", story:"Marcus was an avid tennis player who felt a dull, constant ache in his Achilles tendon that persisted for over six months. Initially, the tendon only felt stiff and painful during his first few steps in the morning, but it gradually developed into a continuous, burning discomfort that limited his ability to run or jump. He also noticed a firm, visible nodule forming on the back of his heel that was highly sensitive to pressure. After an ultrasound exam, doctors discovered that he had developed chronic tendinopathy with significant tendon degeneration."},
     inside:"The body relies on tendons to transmit massive forces from muscles to bones to generate joint movement. When a tendon is subjected to repetitive mechanical overloading without adequate recovery time, the tissue fails to heal properly, leading to a breakdown of its internal structure rather than standard inflammation. The normally organized, parallel collagen fibers become chaotic, frayed, and weakened, while abnormal blood vessels and nerve endings grow into the damaged area. This degenerative process causes the tendon to lose its elasticity, thicken abnormally, and send chronic pain signals to the brain during basic physical movement.",
-    mechanism:"The tendon degenerated, not inflamed: years of repetitive, high-load tennis play outpaced the tendon's ability to repair itself. Each season's overload produced micro-tears that never fully remodeled, and the tissue's internal structure — its collagen framework — slowly broke down. The nodule on the back of the heel is the scarred, disorganized tissue that replaced healthy tendon.",
+    mechanism:"The tendon's repair response fell behind the damage: years of repetitive, high-load tennis play produced micro-injuries faster than the tissue could remodel them, and the tendon's internal structure — its parallel collagen framework — slowly became disorganized, thickened, and painful. Modern understanding is that this is not simply an 'inflamed' or simply a 'not-inflamed' tissue — immune cells and inflammatory signals do participate, but the dominant problem is a failed healing response rather than classic acute inflammation. The nodule on the back of the heel is that disorganized, scar-like tissue replacing healthy tendon.",
     diagnosis:"Diagnosis is clinical plus imaging: pain and morning stiffness in the tendon, tenderness and a nodule on the tendon itself, and pain when the tendon is loaded (jumping, rising on toes). An ultrasound or MRI shows thickening and disorganized tissue, and confirms this is tendinopathy rather than a partial tear.",
     rehab:"Rehabilitation is built on progressive loading, not rest: the tendon needs graduated, heavy resistance — slow calf raises and eccentric exercises — to reorganize its collagen, and this is done consistently for months. Because the tissue remodels slowly, meaningful improvement typically takes three to six months, and cortisone or quick fixes tend to fail.",
     redFlags:"A sudden snap with a pop in the calf (possible rupture), a hot, red, swollen heel (possible infection or inflammatory condition), or pain that worsens sharply with a new exercise. Tendinopathy that fails to improve after months of loading-based rehab warrants reassessment and possibly specialist treatment.",
-    reflection:{ why:"I chose chronic tendinopathy because it is the tendon injury that reverses everything we think we know — no inflammation, no dramatic moment, and a cure that looks like exercise rather than rest.",
-      surprise:"That the affected tissue is not inflamed — it is structurally degenerated — which is why ice and anti-inflammatories barely help, and why loading the painful tendon, gently but persistently, is the actual treatment.",
+    reflection:{ why:"I chose chronic tendinopathy because it is the tendon injury that reverses everything we think we know — no dramatic moment, no classic inflammation to ice away, and a cure that looks like exercise rather than rest.",
+      surprise:"That the affected tissue is not simply 'inflamed' in the classic sense — it is structurally disorganized and failing to repair — which is why ice and anti-inflammatories barely help, and why loading the painful tendon, gently but persistently, is the actual treatment.",
       anatomy:"The tendon as a parallel bundle of collagen transmitting force — and how that order breaks down under chronic overload into disorganized scar-like tissue that cannot transmit force efficiently.",
       misunderstood:"I assumed chronic tendon pain meant tendinitis — an inflamed tendon needing rest and ice. In chronic cases it is tendinopathy: a remodeling failure that responds to progressive load, the opposite of the classic advice.",
       connection:"This case is the chronic end of the Achilles rupture story — the same tendon that snaps suddenly after years of silent degeneration — and it connects to the hamstring-inhibition case, where healing the tissue is only half the recovery.",
@@ -2147,19 +2174,20 @@ const cases = {ankle: {
       {time:"Month 4-6", label:"Return to Activity", desc:"Sport-specific loading, maintenance program, full clearance"}
     ],
     recovery:"Recovery from chronic tendinopathy can take 3 to 6 months of dedicated, slow-resistance rehabilitation because degenerated tendon tissue remodels very slowly. If advanced treatments like shockwave therapy or surgical tenotomy are required for stubborn cases, full recovery can extend from 6 to 9 months before high-impact training can resume. Most patients gradually rebuild tissue resilience, tendon stiffness, and functional strength by consistently sticking to a progressively heavier loading program.",
-    insight:"Chronic tendinopathy represents a structural failure of tissue remodeling rather than an inflammatory disease, which is why traditional treatments like ice, rest, and cortisone injections often fail to provide lasting relief. Because the tissue has entered a degenerative loop, the tendon actually requires carefully controlled mechanical stress — rather than complete rest — to stimulate cells to build new, organized collagen fibers. Managing this condition requires a major shift in patient mindset, as rehabilitation focuses on gradually increasing the tendon's capacity to handle heavy loads without triggering a setback. Long-term success depends on consistency, slowly reintroducing explosive movements, and addressing underlying biomechanical flaws that caused the chronic overloading in the first place."
+    insight:"Chronic tendinopathy represents a structural failure of tissue remodeling rather than a classic acute inflammatory disease, which is why traditional treatments like ice, rest, and cortisone injections often fail to provide lasting relief. Because the tissue has entered a failed-healing loop, the tendon actually requires carefully controlled mechanical stress — rather than complete rest — to stimulate cells to build new, organized collagen fibers. Managing this condition requires a major shift in patient mindset, as rehabilitation focuses on gradually increasing the tendon's capacity to handle heavy loads without triggering a setback. Long-term success depends on consistency, slowly reintroducing explosive movements, and addressing underlying biomechanical flaws that caused the chronic overloading in the first place."
   },lumbar_disc: {
     phase:"Phase 5 · Chronic Overuse & Degenerative Injuries", title:"Case 24: Lumbar Disc Degeneration", date:"7/06/2026",
     sources:["OrthoInfo (AAOS) - patient education on low back pain", "Mayo Clinic - herniated disk"],
+    citations:{ mechanism:[0,1], diagnosis:[0,1], rehab:[0,1], recovery:[0,1], redFlags:[0,1], insight:[0,1], anatomy:[0,1], treatment:[0,1] },
     distinct:"Not a herniation — this is the slow, age-related breakdown of the disc itself, often with no single injury event. The disc loses height and cushioning over time, so care is about supporting a worn joint rather than treating an acute tear.",
     patient:{name:"Marcus, Age 48", story:"Marcus was lifting a cooler from his car when he felt a deep, localized ache across his lower back that had been progressively worsening for over a year. Initially, the discomfort only occurred after long drives or heavy yard work, but it eventually turned into a chronic, daily stiffness that made it difficult to sit or stand for more than twenty minutes. He also noticed a dull, aching tightness that occasionally radiated into his upper thighs. After a specialized spine MRI, doctors discovered that he had developed severe lumbar disc degeneration at the L5-S1 level."},
     inside:"The lower spine relies on fluid-filled intervertebral discs to act as shock absorbers and maintain flexible spacing between the vertebrae. As the body ages or endures repetitive spinal stress, these discs can lose their water content, dry out, and begin to thin or flatten. This structural loss of disc height reduces the spine's cushioning capability, forcing the surrounding vertebrae closer together and increasing mechanical stress on the spinal joints. The injury triggers localized inflammation, bone spur development around the worn joints, and chronic lower back pain as the surrounding muscles chronically spasm to stabilize the weakened spinal column.",
     mechanism:"The discs degenerated gradually, not in a single event: with age and years of spinal loading, the intervertebral discs lost water content, thinned, and flattened at the L5-S1 level. The discs have almost no direct blood supply and rely on movement and fluid exchange for nutrition, so decades of sitting and heavy lifting slowly dry them out.",
     diagnosis:"Diagnosis starts with the history — chronic, activity-related low-back pain that is worse after sitting or bending — and an exam that rules out nerve involvement. Imaging like an MRI shows the thinned, dehydrated discs and any bulging, but its main job is to confirm that the pain is from the disc and not from nerve compression.",
-    rehab:"Rehabilitation focuses on stabilizing the spine with core and back-strengthening work, improving movement patterns, and managing flare-ups — often over six to twelve weeks of structured physical therapy. Because the disc cannot regenerate, treatment is about maintaining motion and strength around it rather than restoring the disc itself.",
+    rehab:"Rehabilitation focuses on stabilizing the spine with core and back-strengthening work, improving movement patterns, and managing flare-ups — often over six to twelve weeks of structured physical therapy. Because the disc has very limited ability to regenerate, treatment is about maintaining motion and strength around it rather than restoring the disc itself.",
     redFlags:"Red flags: leg weakness, loss of bowel or bladder control, numbness in the saddle area, or unrelenting night pain — these can signal nerve or more serious pathology. New, sharp leg-dominant pain (possible herniation) or pain that fails to improve with structured rehab also warrants review.",
     reflection:{ why:"I chose lumbar disc degeneration because it is the quiet, progressive version of the spine's story — no dramatic mechanism, just decades of wear gradually flattening the cushions between the bones.",
-      surprise:"That the disc is effectively an inert structure — the largest avascular tissue in the body — so it cannot heal or regenerate, and the entire treatment goal becomes managing the spine around a disc that will never get better.",
+      surprise:"That a degenerated disc does not regenerate in any clinically meaningful way — it has very limited blood supply and its healing capacity is poor — so a large part of the treatment goal becomes managing the spine around a disc that will not be 'fixed', rather than expecting it to return to normal.",
       anatomy:"The intervertebral disc and its nutrition problem — fed only through the bone endplates by movement and fluid exchange — which is why loading and motion, not rest, keep what's left of the disc healthy.",
       misunderstood:"I assumed a degenerated disc meant constant severe pain. Many people have significant degeneration on MRI with no symptoms; the imaging finding and the pain are far from the same thing.",
       connection:"This case is the slow-burn precursor to the disc herniation case — the weakened, dried disc that eventually ruptures — and it shares its rehab logic with the sciatica case, which is the nerve pain that can follow.",
@@ -2180,6 +2208,7 @@ const cases = {ankle: {
   },runners_knee: {
     phase:"Phase 5 · Chronic Overuse & Degenerative Injuries", title:"Case 25: Patellofemoral Pain Syndrome (Runner's Knee)", date:"7/06/2026",
     sources:["OrthoInfo (AAOS) - patient education on patellofemoral pain syndrome"],
+    citations:{ mechanism:[0], diagnosis:[0], rehab:[0], recovery:[0], redFlags:[0], insight:[0], anatomy:[0], treatment:[0] },
     distinct:"The kneecap's tracking in its groove is the problem, driven by muscle imbalance. It is easy to mix up with Case 22 since both cause knee pain in runners, but this one is about the kneecap and cartilage load, not the IT band.",
     patient:{name:"Marcus, Age 22", story:"Marcus was an avid runner who felt a dull, aching pain behind and around his kneecap during a high-mileage training block. Initially, the discomfort only occurred toward the end of long runs, but it soon escalated into a persistent ache whenever he sat for long periods or walked down stairs. He also noticed a mild grinding sensation and tenderness when pressing along the edges of his kneecap. After a clinical evaluation, doctors discovered that he had developed Patellofemoral Pain Syndrome."},
     inside:"The knee relies on the patella (kneecap) to slide smoothly within a specialized groove at the end of the femur (thighbone) during bending and straightening movements. When a muscle imbalance or tracking flaw occurs, such as weakness in the hip or inner quadriceps, the patella is pulled slightly off-course and rubs unevenly against the femur underneath. This repetitive, faulty tracking causes excessive pressure and friction to wear down the protective cartilage surface behind the kneecap. The injury triggers localized inflammation, irritation of the surrounding joint lining, and a dull, aching pain during activities that heavily load the joint.",
@@ -2209,6 +2238,7 @@ const cases = {ankle: {
   },sciatica: {
     phase:"Phase 6 · Neuromuscular & Nerve Injuries", title:"Case 26: Sciatic Nerve Compression", date:"7/16/2026",
     sources:["OrthoInfo (AAOS) - patient education on sciatica", "Mayo Clinic - sciatica"],
+    citations:{ mechanism:[0,1], diagnosis:[0,1], rehab:[0,1], recovery:[0,1], redFlags:[0,1], insight:[0,1], anatomy:[0,1], treatment:[0,1] },
     distinct:"Sciatica is the symptom, not the diagnosis. Unlike the disc cases (17 and 24), the target here is the nerve pathway — finding exactly where the sciatic nerve is compressed — which is why the case is about tracing the source rather than treating the disc.",
     patient:{name:"Marcus, Age 39", story:"Marcus was sitting at his office desk when he stood up quickly and felt a sharp, electric shock sensation shoot down the back of his right leg. Over the next few days, the pain became a constant, burning ache that traveled from his lower back, through his glutes, and all the way down to his calf. He also noticed a persistent numbness on the outer edge of his foot and struggled to lift his toes while walking. After a clinical examination and spinal imaging, doctors discovered that he had sustained severe sciatic nerve compression."},
     inside:"The lower body relies on the sciatic nerve to supply sensation and motor signals to the legs. When surrounding muscles spasm, spinal discs bulge, or bone spurs form, the narrow pathways where the nerve exits the spinal column become severely restricted. This physical compression cuts off the nerve's internal blood supply, triggering intense neural inflammation and disrupting the electrical signals sent between the brain and the leg muscles. The injury causes severe, shooting pain along the nerve's pathway, alters skin sensitivity, and can temporarily paralyze muscle control in the foot.",
@@ -2238,6 +2268,7 @@ const cases = {ankle: {
   },cervical_nerve: {
     phase:"Phase 6 · Neuromuscular & Nerve Injuries", title:"Case 27: Cervical Nerve Root Compression", date:"7/16/2026",
     sources:["OrthoInfo (AAOS) - patient education on cervical radiculopathy"],
+    citations:{ mechanism:[0], diagnosis:[0], rehab:[0], recovery:[0], redFlags:[0], insight:[0], anatomy:[0], treatment:[0] },
     patient:{name:"Sarah, Age 43", story:"Sarah was driving her car when she turned her head to look over her shoulder and felt a sharp, severe pain stab through the base of her neck. Over the following days, the pain radiated intensely down her shoulder and into her left arm, making it difficult to lift her hand or grip her steering wheel. She also noticed a persistent, waking numbness traveling directly into her thumb and index finger. After a cervical MRI, doctors discovered that she had sustained a cervical nerve root compression at the C5-C6 level."},
     inside:"The upper extremities rely on cervical nerve roots exiting the neck spine to transmit sensory signals and control arm movements. When a cervical disc herniates or a bony overgrowth narrows the exit tunnel, the local nerve root becomes severely pinched and compressed. This immediate pressure blocks normal neurological flow and triggers a massive inflammatory response directly along the nerve's sheath. The injury causes severe, burning pain to shoot down the specific arm pathway, deadens skin sensation, and causes muscle weakness in the shoulder, bicep, or hand.",
     mechanism:"The nerve root was pinched as it left the neck: a herniated disc or a bony spur narrowed the foramen — the tunnel the nerve exits through — at the C5-C6 level. The compression irritated the nerve root that supplies the thumb and index finger, which is why turning her head produced pain that shot down the arm into her hand.",
@@ -2266,6 +2297,7 @@ const cases = {ankle: {
   },muscle_atrophy: {
     phase:"Phase 6 · Neuromuscular & Nerve Injuries", title:"Case 28: Muscle Atrophy After Immobilization", date:"7/16/2026",
     sources:["MedlinePlus (NIH) - muscle atrophy", "NIH - musculoskeletal rehabilitation"],
+    citations:{ mechanism:[0,1], diagnosis:[0,1], rehab:[0,1], recovery:[0,1], redFlags:[0,1], insight:[0,1], anatomy:[0,1], treatment:[0,1] },
     distinct:"The muscle simply shrank — immobilization removed the stimulus that maintains tissue. The problem is structural tissue loss, which is why reloading must be graded. That is the opposite of Case 30, where the tissue looks fine but will not activate.",
     patient:{name:"Thomas, Age 21", story:"Thomas was recovering from a broken shinbone and had his entire leg locked in a rigid orthopedic cast for six straight weeks. On the day his cast was finally removed, he was shocked to see that his injured calf and thigh were visibly shrunken, soft, and less than half the size of his healthy leg. He was completely unable to perform a straight leg raise and lacked the strength to support his own body weight without crutches. After a clinical assessment, doctors diagnosed him with severe muscle atrophy after prolonged immobilization."},
     inside:"The skeletal muscles rely on constant neural stimulation and mechanical loading to maintain their size, protein structure, and cellular mass. When a limb is locked in a cast or splint, the muscle fibers are completely unloaded and kept entirely inactive for weeks at a time. This total lack of contraction signals the body to rapidly break down muscle proteins faster than it can synthesize new ones, causing the individual muscle fibers to shrink. The injury triggers a massive loss of muscle volume, cellular thinning, and a profound drop in the neural pathways required to make the muscle fire.",
@@ -2295,6 +2327,7 @@ const cases = {ankle: {
   },nerve_entrapment: {
     phase:"Phase 6 · Neuromuscular & Nerve Injuries", title:"Case 29: Peripheral Nerve Entrapment", date:"7/16/2026",
     sources:["MedlinePlus (NIH) - nerve compression syndromes", "Mayo Clinic - peripheral nerve compression"],
+    citations:{ mechanism:[0,1], diagnosis:[0,1], rehab:[0,1], recovery:[0,1], redFlags:[0,1], insight:[0,1], anatomy:[0,1], treatment:[0,1] },
     patient:{name:"Jessica, Age 31", story:"Jessica was a data entry specialist who felt a dull, aching pain in her wrist that gradually turned into a sharp, burning sensation spreading into her hand. Over several months, she began waking up in the middle of the night with a completely numb hand and started dropping light objects like coffee mugs due to weakness. She also noticed an electrical tingling whenever she tapped on the inside of her wrist. After an electromyogram (EMG) nerve test, doctors discovered that she had sustained severe peripheral nerve entrapment of the median nerve, commonly known as Carpal Tunnel Syndrome."},
     inside:"The extremities rely on peripheral nerves to slide smoothly through narrow anatomical tunnels to deliver sensory and motor messages to the hands and feet. When repetitive movements, fluid retention, or localized swelling occur, the pressure inside these tight tunnels rises dramatically, squeezing the nerve against surrounding bones or ligaments. This mechanical entrapment cuts off the micro-circulation supplying the nerve fibers, leading to localized ischemia and internal tissue scarring. The injury triggers chronic neural inflammation, blocks electrical impulses, and over time can cause the muscle base at the thumb to physically waste away.",
     mechanism:"The nerve was squeezed in its tunnel: the median nerve passes through the carpal tunnel — a rigid passage formed by wrist bones and a tight band of tissue — and repetitive work, swelling, or sustained wrist posture raised the pressure inside it. Squeezed against the tunnel walls, the nerve's blood flow dropped and its signaling broke down, producing the numbness, tingling, and weakness.",
@@ -2323,6 +2356,7 @@ const cases = {ankle: {
   },hamstring_inhibition: {
     phase:"Phase 6 · Neuromuscular & Nerve Injuries", title:"Case 30: Persistent Hamstring Inhibition After Injury", date:"7/16/2026",
     sources:["JOSPT - neuromuscular control and return to sport after hamstring strain", "Sports Health - hamstring injury rehabilitation"],
+    citations:{ mechanism:[0,1], diagnosis:[0,1], rehab:[0,1], recovery:[0,1], redFlags:[0,1], insight:[0,1], anatomy:[0,1], treatment:[0,1] },
     distinct:"This case study illustrates a pattern, not a formal diagnosis. The muscle is structurally healthy — the brain's protective circuit breaker is what is stuck. The opposite of Case 28: function is lost at the neural level, so retraining the nervous system matters more than rebuilding tissue.",
     patient:{name:"David, Age 23", story:"David was sprinting during a track meet when he felt a sudden, mild tweak in the back of his thigh that forced him to slow down. While the initial muscle strain healed within a few weeks and his ultrasound looked clear, he noticed that his hamstring felt completely dead and lacked explosive power when he tried to sprint again. Every time he attempted to accelerate, his brain seemed unable to \"turn on\" the muscle, and his hip would awkwardly compensate. After a specialized biomechanical assessment, doctors identified a pattern of persistent hamstring neuromuscular inhibition — a protective shutdown that outlasted the tissue injury itself."},
     inside:"The musculoskeletal system relies on a continuous loop of electrical feedback between the brain and muscles to coordinate smooth, powerful movements. Following an acute injury, pain episode, or joint swelling, the nervous system activates a protective reflex loop that intentionally limits the electrical signals traveling to that specific muscle. This neurological shutdown serves as a safety mechanism to prevent the healing tissue from contracting too forcefully and tearing again. However, if this inhibition persists after the tissue has physically healed, the muscle remains structurally weak, uncoordinated, and functionally offline because the brain is actively blocking its power supply.",
@@ -2352,6 +2386,7 @@ const cases = {ankle: {
   },compound_fracture: {
     phase:"Phase 7 · High-Impact & Catastrophic Trauma Cases", title:"Case 31: Open Compound Fracture with Bone Exposure", date:"7/30/2026",
     sources:["OrthoInfo (AAOS) - patient education on open fractures"],
+    citations:{ mechanism:[0], diagnosis:[0], rehab:[0], recovery:[0], redFlags:[0], insight:[0], anatomy:[0], treatment:[0] },
     patient:{name:"Marcus, Age 27", story:"Marcus was riding his motorcycle when he was struck by a car, throwing him onto the pavement. He sustained a high-energy impact to his lower leg, resulting in a severe deformity where a sharp, fractured piece of his tibia pierced completely through the skin, leaving exposed bone bleeding onto the road. He was in excruciating pain and went into shock before emergency responders arrived. After arriving at the trauma bay and undergoing emergency X-rays, doctors diagnosed him with a Grade III open compound tibial fracture with bone exposure."},
     inside:"The skeletal system relies on the skin and surrounding soft tissues to act as a sterile barrier protecting bone from the outside world. When a high-impact force shatters a major weight-bearing bone, the kinetic energy drives the sharp bone fragments outward, tearing through muscle, fascia, and the skin. This exposure instantly contaminates the deep marrow space and bone tissue with environmental bacteria, dirt, and debris, carrying an exceptionally high risk of severe bone infection. The trauma triggers massive internal bleeding from the ruptured bone marrow vessels, severe localized soft-tissue destruction, and intense pain from exposed nerve endings.",
     mechanism:"The tibia shattered from a high-energy impact that bent the leg backward and outward with enormous force. The bone did not just break — the kinetic energy drove sharp fragments outward, tearing through muscle and skin so that bone ended up exposed to the open air. The open wound is what changes this from a fracture into an emergency.",
@@ -2381,6 +2416,7 @@ const cases = {ankle: {
   },spinal_cord: {
     phase:"Phase 7 · High-Impact & Catastrophic Trauma Cases", title:"Case 32: Spinal Cord Compression Injury", date:"7/30/2026",
     sources:["Mayo Clinic - spinal cord injury", "NINDS (NIH) - spinal cord injury information"],
+    citations:{ mechanism:[0,1], diagnosis:[0,1], rehab:[0,1], recovery:[0,1], redFlags:[0,1], insight:[0,1], anatomy:[0,1], treatment:[0,1] },
     patient:{name:"Sarah, Age 35", story:"Sarah was skiing down a mountain when she lost control and crashed back-first into a tree at a high speed. She felt an immediate, crushing pain in her mid-back and collapsed into the snow, instantly realizing she could not feel or move her legs below her waist. Emergency medical services carefully immobilized her spine and rushed her to the trauma center via helicopter. After an urgent spinal CT scan and MRI, doctors discovered that she had sustained a burst fracture of the T12 vertebra causing acute, severe spinal cord compression."},
     inside:"The central nervous system relies on the bony spinal column to shield the delicate spinal cord as it carries electrical signals between the brain and the rest of the body. When a catastrophic, high-velocity impact crushes a vertebra, the bone can shatter into fragments that are driven backward into the spinal canal. This fragment displacement directly mashes, stretches, or cuts the spinal cord tissue, instantly cutting off the pathway for neural electrical impulses. The injury triggers a massive cascade of cellular swelling, internal spinal bleeding, and localized tissue ischemia that halts all sensory and motor communication below the site of compression.",
     mechanism:"The spinal cord was compressed when a high-velocity impact crushed the T12 vertebra — the bone shattered into fragments that drove backward into the canal and pressed on the cord itself. The injury is two-layered: the initial mechanical impact damages the cord's tissue, and the swelling and pressure that follow cause further harm, which is why decompression is time-critical.",
@@ -2410,6 +2446,7 @@ const cases = {ankle: {
   },multi_lig_knee: {
     phase:"Phase 7 · High-Impact & Catastrophic Trauma Cases", title:"Case 33: Multi-Ligament Knee Disruption", date:"7/30/2026",
     sources:["OrthoInfo (AAOS) - patient education on multi-ligament knee injuries"],
+    citations:{ mechanism:[0], diagnosis:[0], rehab:[0], recovery:[0], redFlags:[0], insight:[0], anatomy:[0], treatment:[0] },
     distinct:"A catastrophic, high-energy disruption with the same vascular danger as a full dislocation — that is what separates it from Case 15. The lesson is the urgency of the vascular exam, not just which ligaments tore.",
     patient:{name:"Carlos, Age 22", story:"Carlos was playing football when he ran at full speed into an opponent whose helmet struck the front of his shin while his foot was firmly planted in the turf. He felt a horrific tearing sensation followed by an immediate collapse as his knee visibly shifted completely out of its joint socket. He was in agonizing pain, unable to move his leg, and noticed that his foot felt cold and numb. After a manual reduction in the emergency room and an urgent MRI, doctors discovered that he had sustained a complete multi-ligament knee disruption, ripping his ACL, PCL, and MCL."},
     inside:"The knee relies on a complex network of four primary ligaments working together to keep the femur (thighbone) and tibia (shinbone) securely locked in place during movement. When a catastrophic, high-energy impact occurs, the forces are so massive that they tear through multiple major ligaments simultaneously, allowing the entire joint to dislocate. This extreme structural failure causes the bones to shift completely out of alignment, which severely stretches or tears the major popliteal artery and sciatic nerve running directly behind the knee. The injury triggers massive internal joint bleeding, profound swelling, and an absolute loss of mechanical integrity, threatening blood flow to the lower leg.",
@@ -2440,6 +2477,7 @@ const cases = {ankle: {
   },pelvic_fracture: {
     phase:"Phase 7 · High-Impact & Catastrophic Trauma Cases", title:"Case 34: Pelvic Fracture", date:"7/30/2026",
     sources:["OrthoInfo (AAOS) - patient education on pelvic fractures"],
+    citations:{ mechanism:[0], diagnosis:[0], rehab:[0], recovery:[0], redFlags:[0], insight:[0], anatomy:[0], treatment:[0] },
     patient:{name:"Thomas, Age 41", story:"Thomas was working at a construction site when a heavy piece of machinery malfunctioned and pinned his hips against a concrete wall with crushing force. He felt a sickening crunch in his pelvis, collapsed immediately, and was completely unable to move his legs or sit up due to excruciating deep pain. Emergency crews stabilized him with a pelvic binder and rushed him to the trauma bay as his blood pressure began to drop dangerously. After pelvic X-rays and a CT scan, doctors discovered that he had sustained an unstable, open-book pelvic fracture."},
     inside:"The pelvic ring relies on a dense, rigid architecture of bones and heavy ligaments to support the weight of the upper body and shield major internal organs and blood vessels. When a massive crushing force strikes the hips, it can tear the strong ligaments holding the front of the pelvis together, forcing the hip bones to spring open like a book. This major structural disruption rips open the rich network of large veins and arteries running along the back of the pelvis, causing rapid, massive internal bleeding into the pelvic cavity. The injury triggers life-threatening hemorrhagic shock, deep internal hematomas, and severe instability across the entire pelvic ring.",
     mechanism:"The pelvis broke when a crushing force squeezed the hips together — the heavy machinery pinned the pelvis against a wall, and the force tore the strong ligaments that hold the pelvic ring together at the front. An open-book fracture is exactly what it sounds like: the ring opens at the front like a book, and the bones and vessels that were protected inside are now exposed to the injury.",
@@ -2469,6 +2507,7 @@ const cases = {ankle: {
   },compartment: {
     phase:"Phase 7 · High-Impact & Catastrophic Trauma Cases", title:"Case 35: Compartment Syndrome", date:"7/30/2026",
     sources:["OrthoInfo (AAOS) - patient education on compartment syndrome", "Mayo Clinic - compartment syndrome"],
+    citations:{ mechanism:[0,1], diagnosis:[0,1], rehab:[0,1], recovery:[0,1], redFlags:[0,1], insight:[0,1], anatomy:[0,1], treatment:[0,1] },
     patient:{name:"Jessica, Age 29", story:"Jessica was crushed under a heavy piece of furniture during an earthquake, trapping her lower leg for several hours before rescue teams cleared the debris. Shortly after arriving at the emergency room, she began experiencing an agonizing, deep throbbing pain in her calf that was completely disproportionate to her visible bruising and grew steadily worse despite receiving high-dose narcotic medications. Her lower leg became visibly tense, swollen, and rock-hard to the touch, and she cried out in pain whenever a doctor gently wiggled her toes. After measuring her internal tissue pressures with a specialized needle gauge, doctors diagnosed her with acute compartment syndrome."},
     inside:"The limbs rely on tough, inelastic sheets of connective tissue called fascia to group muscles, nerves, and blood vessels into tight compartments. When a severe crushing injury, fracture, or prolonged muscle compression occurs, fluid and blood rapidly accumulate within these closed fascial spaces. Because the tough fascia cannot stretch to accommodate the swelling, the internal pressure inside the compartment skyrockets to dangerous levels, eventually exceeding the patient's blood pressure. This extreme pressure collapses the small capillaries supplying the muscles and nerves, cutting off all oxygen, causing rapid muscle tissue death, and creating irreversible nerve damage within hours.",
     mechanism:"The pressure built inside a closed space: the lower leg's muscles sit in tight compartments wrapped in tough, inelastic fascia, and the crushing injury caused fluid and blood to pour into one of them. The compartment cannot expand, so the pressure rose until it blocked the blood flow through the tissue — starving the muscles and nerves inside of oxygen.",
@@ -2498,15 +2537,16 @@ const cases = {ankle: {
   },salter: {
     phase:"Phase 8 · Pediatric Injuries", title:"Case 36: Salter-Harris Growth Plate Fracture", date:"8/8/2026",
     sources:["OrthoInfo (AAOS) - patient education on growth plate fractures", "HealthyChildren (AAP) - growth plate injuries"],
-    ageMatters:"The growth plate is still open, which makes it the weakest link in a child's skeleton. The same fall that would sprain an adult's wrist can crack a growth plate, and because this plate is where the bone actually grows, a serious injury here can change how the arm develops. That is why pediatric fractures are followed so carefully until the plate fuses.",
+    citations:{ mechanism:[0,1], diagnosis:[0,1], rehab:[0,1], recovery:[0,1], redFlags:[0,1], insight:[0,1], anatomy:[0,1], treatment:[0,1] },
+    ageMatters:"The growth plate is still open, and its cartilage is biomechanically more vulnerable than the surrounding bone and ligaments. The same fall that would sprain an adult's wrist can crack a growth plate, and because this plate is where the bone actually grows, a serious injury here can change how the arm develops. That is why pediatric fractures are followed so carefully until the plate fuses.",
     patient:{name:"Aiden, Age 9", story:"Aiden fell off his skateboard and landed on his outstretched right hand. He felt a sharp pain in his wrist immediately and was unable to grip anything. His wrist swelled quickly, and he cried whenever he tried to move it. At urgent care, X-rays revealed a fracture of the growth plate at the end of his radius bone — a Salter-Harris Type II fracture."},
-    inside:"In growing children, the ends of long bones contain a growth plate (physis) — a layer of cartilage where new bone is continuously produced. This growth plate is the weakest part of the entire skeleton, far softer than the surrounding bone and the ligaments that connect joints. When a child falls onto an outstretched hand, the force that might sprain an adult's wrist can instead crack the growth plate. The Salter-Harris classification describes how the fracture line runs through the plate — Type II, the most common, runs through the plate and out through the shaft of the bone.",
-    mechanism:"The break went through the growth plate: a fall on an outstretched hand drove force up the arm into the wrist, and in a child the weakest point in that chain is the growth plate — a layer of cartilage softer than the bone around it. In a Salter-Harris Type II fracture, the break runs through the plate and up into the shaft of the bone, taking a small piece with it.",
+    inside:"In growing children, the ends of long bones contain a growth plate (physis) — a layer of cartilage where new bone is continuously produced. This growth plate is biomechanically more vulnerable than the surrounding bone and the ligaments that connect joints — cartilage under tension, compression, and shear fails at lower forces than the mature structures around it. When a child falls onto an outstretched hand, the force that might sprain an adult's wrist can instead crack the growth plate. The Salter-Harris classification describes how the fracture line runs through the plate — Type II, the most common, runs through the plate and out through the shaft of the bone.",
+    mechanism:"The break went through the growth plate: a fall on an outstretched hand drove force up the arm into the wrist, and in a child the likely point of failure is the growth plate — a layer of cartilage that resists shear and compression less well than the bone around it. In a Salter-Harris Type II fracture, the break runs through the plate and up into the shaft of the bone, taking a small piece with it.",
     diagnosis:"Diagnosis is on X-ray, which shows the fracture line through the growth plate and how far the fragments are displaced. The Salter-Harris classification — which type, from I through V — matters because it predicts whether the growth plate's function is at risk, and Type II is the most common.",
     rehab:"Most growth-plate fractures heal in a cast within four to six weeks, because a child's actively dividing cartilage cells knit bone remarkably fast. The longer-term care is monitoring: follow-up X-rays check that the growth plate keeps producing bone evenly, since a damaged plate can alter how that bone grows.",
     redFlags:"Red flags: displacement of the fracture that is not properly aligned, or a growth-plate injury that is not recognized at all — an untreated or poorly aligned Salter-Harris injury can cause the bone to stop growing straight. Any wrist injury in a child with swelling and tenderness near the joint needs an X-ray, not just a splint.",
-    reflection:{ why:"I chose the growth-plate fracture because it is the injury that makes children's anatomy genuinely different — the same fall that sprains an adult's wrist can, in a child, break the skeleton at its one weakest, most important point.",
-      surprise:"That the growth plate is the weakest part of a child's entire skeleton — weaker than the bone and the ligaments around it — which is why children break through the plate where adults would sprain or break the bone itself.",
+    reflection:{ why:"I chose the growth-plate fracture because it is the injury that makes children's anatomy genuinely different — the same fall that sprains an adult's wrist can, in a child, break the skeleton at its most vulnerable point for growth.",
+      surprise:"That the growth plate fails before the surrounding bone and ligaments do — the fall that sprains an adult's wrist or knee instead fractures a child's growth plate, because the physis is biomechanically more vulnerable than the mature structures around it.",
       anatomy:"The growth plate as the factory that produces new bone length — and the fact that injuring the factory, unlike injuring the bone, can change how long the bone grows to be.",
       misunderstood:"I assumed a child's wrist injury was just a smaller version of an adult's. The growth plate changes the whole risk profile: the fracture heals fast, but the possible effect on growth makes follow-up more important than the cast.",
       connection:"This case connects to the wrist fracture as the same fall with a different weak link — and to the SCFE and Osgood-Schlatter cases, which are all growth-plate injuries at different sites.",
@@ -2528,6 +2568,7 @@ const cases = {ankle: {
   },greenstick: {
     phase:"Phase 8 · Pediatric Injuries", title:"Case 37: Greenstick Fracture", date:"8/9/2026",
     sources:["OrthoInfo (AAOS) - patient education on pediatric fractures", "HealthyChildren (AAP) - broken bones in children"],
+    citations:{ mechanism:[0,1], diagnosis:[0,1], rehab:[0,1], recovery:[0,1], redFlags:[0,1], insight:[0,1], anatomy:[0,1], treatment:[0,1] },
     ageMatters:"Child bone is still flexible - it has more collagen and is less mineralized than adult bone. The same twisting force that snaps an adult shin clean in two makes a child's bone bend and split on one side like a fresh green branch. Age matters here because flexible bone changes how the fracture looks, how it heals, and what the doctor looks for on X-ray.",
     patient:{name:"Emma, Age 6", story:"Emma was playing on the climbing frame at school when she jumped down and landed awkwardly, twisting her lower leg. She felt a sharp crack and immediately refused to put any weight on it. Her shin began to swell, and she screamed whenever anyone touched it. X-rays revealed a greenstick fracture of her tibia — a partial break where one side of the bone cracked while the other side only bent."},
     inside:"Children's bones are still growing and contain more collagen and water than adult bone, which makes them softer, more flexible, and more bendable. When a force is applied to a young bone, it behaves like a green twig from a tree — it bends and snaps partway through on one side, while the outer edge of the other side simply stretches and bows instead of breaking. Because one side of the bone remains intact, the fracture is often unstable, acting like a hinge that can bend further if not properly supported.",
@@ -2557,6 +2598,7 @@ const cases = {ankle: {
   },scfe: {
     phase:"Phase 8 · Pediatric Injuries", title:"Case 38: Slipped Capital Femoral Epiphysis", date:"8/10/2026",
     sources:["OrthoInfo (AAOS) - patient education on slipped capital femoral epiphysis"],
+    citations:{ mechanism:[0], diagnosis:[0], rehab:[0], recovery:[0], redFlags:[0], insight:[0], anatomy:[0], treatment:[0] },
     ageMatters:"The femoral head stays on the thigh bone only because a growth plate holds it there. During the rapid growth spurt of early adolescence - especially in heavier or very active kids - the plate widens and softens, and the head can slip off. This is a condition with a narrow age window, and catching it early decides whether the hip heals aligned or needs surgery to reset the position.",
     patient:{name:"Jordan, Age 13", story:"Jordan had noticed a dull ache in his left hip and groin for a few weeks, along with a slight limp that came and went. He chalked it up to growing pains. But one afternoon during a basketball game, he jumped for a rebound and landed with a sharp, sudden pain in his hip that forced him to the ground. He could no longer put weight on his leg. After X-rays, doctors diagnosed him with a slipped capital femoral epiphysis (SCFE)."},
     inside:"During the adolescent growth spurt, the ball of the hip (the femoral head) is attached to the femur by a relatively weak growth plate that is still producing bone rapidly. In SCFE, the head slips backward and downward off the neck of the femur — like a scoop of ice cream sliding off the top of a cone. The slip is usually gradual but can become sudden and severe. Because the blood vessels that supply the femoral head run along the neck of the bone, a slip can stretch or tear them, cutting off blood flow and risking death of the bone (avascular necrosis).",
@@ -2587,6 +2629,7 @@ const cases = {ankle: {
   },osgood: {
     phase:"Phase 8 · Pediatric Injuries", title:"Case 39: Osgood-Schlatter Disease", date:"8/10/2026",
     sources:["OrthoInfo (AAOS) - patient education on Osgood-Schlatter disease", "HealthyChildren (AAP) - Osgood-Schlatter disease"],
+    citations:{ mechanism:[0,1], diagnosis:[0,1], rehab:[0,1], recovery:[0,1], redFlags:[0,1], insight:[0,1], anatomy:[0,1], treatment:[0,1] },
     distinct:"Traction on the growth plate where the patellar tendon attaches to the shin. It is the knee version of the same mechanism as Case 40 (Sever's disease) — same process, different growth plate — so the load management differs from the heel.",
     ageMatters:"The tibial tuberosity is a growth plate that only fuses in the late teens. During a growth spurt, bones lengthen faster than tendons can adapt, so every jump or sprint yanks on a tender, un-fused anchor point. The pain is a symptom of growing bone - once the plate closes, the mechanism disappears, which is why this condition always self-limits with age.",
     patient:{name:"Noah, Age 13", story:"Noah was a goalkeeper for his soccer team and had just hit a rapid growth spurt. For months, he felt a nagging ache just below his right kneecap that flared up after every match. He noticed a firm, tender bump forming on the top of his shin, and the pain became sharp whenever he jumped, kicked, or knelt. After a clinical examination and X-rays, doctors diagnosed him with Osgood-Schlatter disease."},
@@ -2617,6 +2660,7 @@ const cases = {ankle: {
   },severs: {
     phase:"Phase 8 · Pediatric Injuries", title:"Case 40: Sever's Disease (Calcaneal Apophysitis)", date:"8/10/2026",
     sources:["OrthoInfo (AAOS) - patient education on Sever disease", "HealthyChildren (AAP) - heel pain in children"],
+    citations:{ mechanism:[0,1], diagnosis:[0,1], rehab:[0,1], recovery:[0,1], redFlags:[0,1], insight:[0,1], anatomy:[0,1], treatment:[0,1] },
     distinct:"Traction apophysitis at the heel — the Achilles pulling on the calcaneus growth plate. It mirrors Case 39 (Osgood-Schlatter) in mechanism, but at the ankle end of the leg, which is why a heel lift is the classic first-line fix.",
     ageMatters:"The heel's growth plate fuses only in the early-to-mid teens. Until then, the Achilles tendon pulls on it with every stride, which is why heel pain flares up during growth spurts and in running-heavy sports. As the plate fuses and the pull and the bone balance out, the pain typically fades on its own.",
     patient:{name:"Maya, Age 10", story:"Maya was a competitive runner who had just started a new track season after a summer growth spurt. She began feeling a deep ache in the back of her right heel that worsened every time she ran, jumped, or landed. She limped for the first few minutes after getting out of bed in the morning, and squeezing the back of her heel made her wince. After a clinical examination, doctors diagnosed her with Sever's disease."},
@@ -2877,8 +2921,15 @@ function openModal(key) {
     if (!rc) return '';
     return '<span class="related-chip" data-open="' + r.key + '" style="cursor:pointer;padding:6px 12px;border:1px solid rgba(255,215,0,0.5);border-radius:999px;font-size:0.75rem;color:#ffd700;background:rgba(255,215,0,0.08);">' + rc.title.replace(/^Case \d+: /, '') + '</span>';
   }).join('')}</div><p style="font-size:0.7rem;color:rgba(255,255,255,0.4);margin-top:8px;">Cases that share anatomy, mechanism, or healing principles.</p></div>` : '';
-  function sec(title, body) {
-    return body ? '<div class="modal-section"><h4>' + title + '</h4><p>' + body + '</p></div>' : '';
+  function citeSup(cites) {
+    if (!cites || !cites.length || !c.sources) return '';
+    return ' <span class="cite-sups" style="font-size:0.68rem;font-weight:600;vertical-align:super;white-space:nowrap;">' + cites.map(function(i){
+      var n = i + 1;
+      return '<a href="#src-' + n + '" style="color:#ffd700;text-decoration:none;margin-left:3px;" title="' + (c.sources[i] || '') + '">[' + n + ']</a>';
+    }).join('') + '</span>';
+  }
+  function sec(title, body, cites) {
+    return body ? '<div class="modal-section"><h4>' + title + citeSup(cites) + '</h4><p>' + body + '</p></div>' : '';
   }
   function ulSection(title, items) {
     return (items && items.length) ? '<div class="modal-section"><h4>' + title + '</h4><ul>' + items.map(function(s){ return '<li>' + s + '</li>'; }).join('') + '</ul></div>' : '';
@@ -2893,23 +2944,23 @@ function openModal(key) {
     ['A connection I discovered', ref.connection],
     ['What I would investigate next', ref.next]
   ].map(function(pair){ return pair[1] ? '<p style="margin-bottom:10px;"><span style="font-weight:700;color:#ffd700;">' + pair[0] + ':</span> ' + pair[1] + '</p>' : ''; }).join('') + '</div></div>' : '';
-  const sourcesHtml = c.sources ? '<div class="modal-section" style="margin-top:18px;"><h4>📚 Sources &amp; References</h4><ul style="font-size:0.82rem;line-height:1.7;color:rgba(255,255,255,0.62);padding-left:18px;">' + c.sources.map(function(s){ return '<li>' + linkSource(s) + '</li>'; }).join('') + '</ul><p style="font-size:0.7rem;color:rgba(255,255,255,0.4);font-style:italic;margin-top:6px;">Patient-education references from major medical organizations. General summaries only - not medical advice.</p></div>' : '';
+  const sourcesHtml = c.sources ? '<div class="modal-section" style="margin-top:18px;"><h4>📚 Sources &amp; References</h4><ul style="font-size:0.82rem;line-height:1.7;color:rgba(255,255,255,0.62);padding-left:18px;list-style:none;">' + c.sources.map(function(s, idx){ return '<li style="margin-bottom:4px;" id="src-' + (idx + 1) + '"><span style="color:#ffd700;font-weight:700;margin-right:6px;">[' + (idx + 1) + ']</span>' + linkSource(s) + '</li>'; }).join('') + '</ul><p style="font-size:0.7rem;color:rgba(255,255,255,0.4);font-style:italic;margin-top:6px;">Bracketed numbers [1], [2] in each section link to the sources that support those claims. Patient-education references from major medical organizations. General summaries only - not medical advice.</p></div>' : '';
   document.getElementById('modalBody').innerHTML = `
     <div style="border:1px solid rgba(255,215,0,0.45);background:rgba(255,215,0,0.08);border-radius:10px;padding:10px 14px;margin-bottom:20px;font-size:0.75rem;color:rgba(255,255,255,0.85);line-height:1.55;"><strong>Education, not medical advice.</strong> Each case is a general summary of how a common injury happens and heals — written to teach anatomy and the biology of repair. It is not guidance for treating your own injury; that decision belongs to a clinician examining the actual patient.</div>
     ${fileStripHtml}
     <div class="patient-case"><h4>Patient Case: ${c.patient.name}</h4><p>${c.patient.story}</p></div>
-    ${sec('⚙️ Mechanism', c.mechanism)}
-    ${sec('🦴 Anatomy & Pathology', anatomyText)}
+    ${sec('⚙️ Mechanism', c.mechanism, c.citations && c.citations.mechanism)}
+    ${sec('🦴 Anatomy & Pathology', anatomyText, c.citations && c.citations.anatomy)}
     ${c.distinct ? `<div class="modal-section" style="border-left:3px solid #ffd700;padding-left:16px;"><h4>🎯 Why This Case Is Different</h4><p style="font-style:italic;">${c.distinct}</p></div>` : ''}
     ${ulSection('Symptoms', c.symptoms)}
-    ${sec('🔬 Diagnosis', c.diagnosis)}
-    <div class="modal-section"><h4>How It's Treated</h4>${renderTreatment(c.treatment)}</div>
+    ${sec('🔬 Diagnosis', c.diagnosis, c.citations && c.citations.diagnosis)}
+    <div class="modal-section"><h4>How It's Treated${citeSup(c.citations && c.citations.treatment)}</h4>${renderTreatment(c.treatment)}</div>
     ${c.ageMatters ? `<div class="modal-section" style="border-left:3px solid #5ee6c0;padding-left:16px;"><h4>🌱 Why Age Matters</h4><p style="font-style:italic;">${c.ageMatters}</p></div>` : ''}
-    ${sec('🏋️ Rehabilitation', c.rehab)}
-    ${sec('⏱️ Recovery', c.recovery)}
+    ${sec('🏋️ Rehabilitation', c.rehab, c.citations && c.citations.rehab)}
+    ${sec('⏱️ Recovery', c.recovery, c.citations && c.citations.recovery)}
     ${c.timeline ? renderTimeline(c.timeline) : ''}
-    ${c.redFlags ? `<div class="modal-section" style="border-left:3px solid #ff6b6b;padding-left:16px;background:rgba(255,80,80,0.06);"><h4>🚩 Red Flags</h4><p style="color:rgba(255,255,255,0.9);">${c.redFlags}</p></div>` : ''}
-    ${c.insight ? sec('🧬 Human Repair Log Insight', c.insight) : ''}
+    ${c.redFlags ? `<div class="modal-section" style="border-left:3px solid #ff6b6b;padding-left:16px;background:rgba(255,80,80,0.06);"><h4>🚩 Red Flags${citeSup(c.citations && c.citations.redFlags)}</h4><p style="color:rgba(255,255,255,0.9);">${c.redFlags}</p></div>` : ''}
+    ${c.insight ? sec('🧬 Human Repair Log Insight', c.insight, c.citations && c.citations.insight) : ''}
     ${reflectionHtml}
     ${notesHtml}
     ${sourcesHtml}
@@ -3225,13 +3276,13 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   var terms = [
     { term:'Periosteum', def:'The outer layer covering bones that contains nerves and blood vessels.' },
     { term:'Adhesion', def:'Bands of scar-like tissue that form between internal tissues or organs, often limiting movement after injury.' },
-    { term:'Cartilage', def:'A smooth, flexible connective tissue that cushions joints and reduces friction between bones.' },
+    { term:'Cartilage', def:'A smooth, firm connective tissue that cushions joints and reduces friction between bones.' },
     { term:'Edema', def:'Swelling caused by excess fluid trapped in body tissues, often following injury.' },
     { term:'Fascia', def:'A layer of connective tissue that surrounds muscles, organs, and structures in the body.' },
     { term:'Hematoma', def:'A collection of blood outside blood vessels, usually forming a firm swelling after injury.' },
     { term:'Inflammation', def:'The body\'s response to injury, commonly marked by swelling, redness, heat, and pain.' },
     { term:'Ligament', def:'A strong band of tissue that connects bone to bone and stabilizes joints.' },
-    { term:'Meniscus', def:'A C-shaped piece of cartilage in the knee that cushions and stabilizes the joint.' },
+    { term:'Meniscus', def:'A C-shaped wedge of fibrocartilage in the knee that cushions and stabilizes the joint.' },
     { term:'Tendon', def:'A strong connective tissue that connects muscle to bone.' },
     { term:'Biomechanics', def:'The study of how forces interact with the human body and how the body responds to movement and stress.' },
     { term:'Fracture', def:'A partial or complete break or crack in a bone, most often from trauma or repetitive stress and occasionally from a bone weakened by disease.' },
@@ -3314,6 +3365,77 @@ function downloadReleaseNotes() {
   document.body.removeChild(a);
   URL.revokeObjectURL(a.href);
 }
+
+// ── EXPLORE MORE ──
+(function() {
+  var sections = [
+    { id: 'connections', label: 'Case Connections' },
+    { id: 'paths', label: 'Reading Paths' },
+    { id: 'journal', label: 'Phase Reflections' },
+    { id: 'learning', label: 'Learning Progression' },
+    { id: 'wordspotlight', label: 'Word Spotlight' },
+    { id: 'glossary', label: 'Glossary' },
+    { id: 'references', label: 'References & Sources' },
+    { id: 'tracker', label: 'Progress Tracker' },
+    { id: 'visual-timeline', label: 'Visual Timeline' },
+    { id: 'milestones', label: 'Milestones' },
+    { id: 'downloads', label: 'Download Center' },
+    { id: 'editions', label: 'Editions' }
+  ];
+  var menu = document.getElementById('exploreMenu');
+  if (!menu) return;
+  var btns = {};
+  sections.forEach(function(s) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'explore-menu-btn';
+    b.textContent = s.label;
+    b.setAttribute('data-target', s.id);
+    b.addEventListener('click', function() {
+      toggleSection(s.id, true);
+    });
+    menu.appendChild(b);
+    btns[s.id] = b;
+  });
+  function toggleSection(id, scroll) {
+    var on = document.getElementById(id).classList.contains('active');
+    sections.forEach(function(s) {
+      var el = document.getElementById(s.id);
+      var b = btns[s.id];
+      if (s.id === id) {
+        el.classList.toggle('active', !on);
+        b.classList.toggle('active', !on);
+      } else {
+        el.classList.remove('active');
+        b.classList.remove('active');
+      }
+    });
+    if (scroll && !on) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+  function openFromHash() {
+    var id = location.hash ? location.hash.substring(1) : '';
+    if (id && btns[id]) {
+      var el = document.getElementById(id);
+      if (!el.classList.contains('active')) {
+        el.classList.add('active');
+        btns[id].classList.add('active');
+        sections.forEach(function(s) {
+          if (s.id !== id) {
+            document.getElementById(s.id).classList.remove('active');
+            btns[s.id].classList.remove('active');
+          }
+        });
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  }
+  window.addEventListener('hashchange', openFromHash);
+  openFromHash();
+  window.exploreOpenSection = toggleSection;
+})();
+
 
 </script>
 </body>
