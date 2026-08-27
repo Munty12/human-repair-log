@@ -1552,6 +1552,26 @@
         <li>Why growing pains in a child deserve a serious look</li>
       </ul>
     </div>
+    <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:20px;">
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#1a1400;background:#ffd700;padding:3px 9px;border-radius:3px;display:inline-block;margin-bottom:12px;">Phase 9</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.05rem;text-transform:uppercase;margin-bottom:10px;line-height:1.15;">Occupational &amp; Repetitive Strain</div>
+      <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#ffd700;margin-bottom:8px;">You understand</div>
+      <ul style="margin:0;padding-left:16px;font-size:0.85rem;line-height:1.6;color:rgba(255,255,255,0.78);">
+        <li>How repetitive occupational loading affects nerves and tendon systems</li>
+        <li>How compression differs from tissue degeneration</li>
+        <li>Why modifying exposure matters</li>
+      </ul>
+    </div>
+    <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:20px;">
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#fff;background:#0f2a63;padding:3px 9px;border-radius:3px;display:inline-block;margin-bottom:12px;">Phase 10</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.05rem;text-transform:uppercase;margin-bottom:10px;line-height:1.15;">Environmental &amp; Systemic Emergencies</div>
+      <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#ffd700;margin-bottom:8px;">You understand</div>
+      <ul style="margin:0;padding-left:16px;font-size:0.85rem;line-height:1.6;color:rgba(255,255,255,0.78);">
+        <li>How environmental stress can overwhelm homeostasis</li>
+        <li>Why systemic emergencies take priority over local injury</li>
+        <li>How early emergency response affects outcomes</li>
+      </ul>
+    </div>
   </div>
 </div>
 
@@ -1572,7 +1592,7 @@
 <div class="section-toggle-wrap"><button class="section-toggle-btn" id="toggle-glossary" onclick="toggleSectionGroup(this, 'glossary,references')">Glossary & References <span class="toggle-arrow">&#9660;</span></button></div>
 <div class="section" id="glossary" style="border-top: 1px solid rgba(255,255,255,0.1);">
   <p class="section-label">Reference</p>
-  <h2 class="section-title">Glossary of Terms <span style="font-size:0.5em;font-weight:600;color:rgba(255,255,255,0.45);letter-spacing:0.08em;">· 66 TERMS, A TO Z</span></h2>
+  <h2 class="section-title">Glossary of Terms <span style="font-size:0.5em;font-weight:600;color:rgba(255,255,255,0.45);letter-spacing:0.08em;">· 67 TERMS, A TO Z</span></h2>
   <div class="glossary-cols" style="columns:2;column-gap:48px;max-width:900px;" id="glossaryGrid">
 </div>
 </div>
@@ -1722,7 +1742,7 @@
         <ul class="edition-highlights">
           <li>+5 pediatric cases (40 total) ✓</li>
           <li>New Phase 8 · Pediatric Injuries ✓</li>
-          <li>Expanded glossary (66 terms) ✓</li>
+          <li>Expanded glossary (67 terms) ✓</li>
           <li>Interactive skeleton explorer ✓</li>
           <li>Design overhaul ✓</li>
         </ul>
@@ -3589,7 +3609,7 @@ function downloadReleaseNotes() {
     '',
     'Edition 3.0 — Released August 2026',
     '  · +5 pediatric cases (40 total), new Phase 8',
-    '  · Expanded glossary (66 terms, searchable)',
+    '  · Expanded glossary (67 terms, searchable)',
     '  · Interactive skeleton explorer, design overhaul',
     '',
     'Edition 4.0 — Released August 2026',
@@ -4981,6 +5001,7 @@ var glossaryData = {
   "Neuromuscular inhibition": { cat:"Biology", def:"A protective mechanism where the nervous system limits muscle activation, often after injury or pain.", cases:["hamstring_inhibition","muscle_atrophy"] },
   "Osteochondritis dissecans": { cat:"Injuries", def:"A condition where a segment of bone and its overlying cartilage lose blood supply and may separate from the surrounding bone.", cases:["ocd"] },
   "Osteochondral fragment": { cat:"Injuries", def:"A piece of bone and cartilage that has partially or fully separated from the joint surface.", cases:["ocd","knee_disloc"] },
+  "Platelet-rich plasma (PRP)": { cat:"Treatment", def:"A preparation made from a patient's own blood that concentrates platelets and is sometimes injected as part of treatment for certain musculoskeletal conditions.", cases:["ucl","tendinopathy"] },
   "Proprioception": { cat:"Biology", def:"The body's ability to sense its position and movement in space, critical for balance and joint stability.", cases:["ankle","acl","sciatica","nerve_entrapment"] },
   "Rehabilitation": { cat:"Rehabilitation", def:"The process of restoring function, strength, and movement after injury through structured exercise and therapy.", cases:["ankle","acl","tibia","achilles","rotator"] },
   "Remodeling": { cat:"Biology", def:"The phase of healing where new tissue is reorganized and strengthened along lines of stress.", cases:["stress","femur","tibia","greenstick"] },
@@ -5110,7 +5131,7 @@ function initGlossary() {
   cats.forEach(function(c) {
     filterHtml += '<button class="glossary-cat-btn" data-cat="' + c + '" onclick="filterGlossaryCategory(\'' + c + '\')" style="background:' + (c === 'all' ? 'rgba(94,230,192,0.2)' : 'rgba(255,255,255,0.06)') + ';border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:5px 10px;font-size:0.72rem;color:' + (c === 'all' ? '#5ee6c0' : 'rgba(255,255,255,0.6)') + ';cursor:pointer;font-weight:600;letter-spacing:0.05em;">' + (c === 'all' ? 'All' : c) + '</button>';
   });
-  filterHtml += ' <span id="glossaryCount" style="font-size:0.7rem;color:rgba(255,255,255,0.4);margin-left:8px;">66 TERMS</span>';
+  filterHtml += ' <span id="glossaryCount" style="font-size:0.7rem;color:rgba(255,255,255,0.4);margin-left:8px;">67 TERMS</span>';
   filterHtml += '</div>';
   header.insertAdjacentHTML('afterend', filterHtml);
   renderGlossary();
