@@ -1365,6 +1365,7 @@
       <div class="phase-group collapsed" data-phase="10">
         <div class="phase-group-label" onclick="togglePhase(this)"><span class="phase-arrow">▶</span>Phase 10 · Emergency &amp; Environmental</div>
         <div class="phase-cases">
+        <div style="padding:10px 14px;font-size:0.82rem;color:rgba(255,255,255,0.6);font-style:italic;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:6px;">These are systemic emergencies — not orthopedic injuries. Musculoskeletal damage is secondary to the threat to life. First priority: airway, breathing, circulation.</div>
         <div class="case-row filed" data-case="heat_stroke" data-region="head"><span class="case-row-num">46</span><span class="case-row-name">Heat Stroke</span><span class="case-row-zone">Systemic</span><span class="viewed-dot"></span><button type="button" class="case-bookmark-btn" data-bookmark="heat_stroke" title="Bookmark this case" onclick="event.stopPropagation();toggleBookmark('heat_stroke')">&#9734;</button><span class="case-row-badge done">✓</span></div>
         <div class="case-row filed" data-case="rhabdomyolysis" data-region="thigh"><span class="case-row-num">47</span><span class="case-row-name">Exertional Rhabdomyolysis</span><span class="case-row-zone">Muscular</span><span class="viewed-dot"></span><button type="button" class="case-bookmark-btn" data-bookmark="rhabdomyolysis" title="Bookmark this case" onclick="event.stopPropagation();toggleBookmark('rhabdomyolysis')">&#9734;</button><span class="case-row-badge done">✓</span></div>
         <div class="case-row filed" data-case="lightning_strike" data-region="head"><span class="case-row-num">48</span><span class="case-row-name">Lightning Strike Injury</span><span class="case-row-zone">Nervous</span><span class="viewed-dot"></span><button type="button" class="case-bookmark-btn" data-bookmark="lightning_strike" title="Bookmark this case" onclick="event.stopPropagation();toggleBookmark('lightning_strike')">&#9734;</button><span class="case-row-badge done">✓</span></div>
@@ -1592,7 +1593,7 @@
 <div class="section-toggle-wrap"><button class="section-toggle-btn" id="toggle-glossary" onclick="toggleSectionGroup(this, 'glossary,references')">Glossary & References <span class="toggle-arrow">&#9660;</span></button></div>
 <div class="section" id="glossary" style="border-top: 1px solid rgba(255,255,255,0.1);">
   <p class="section-label">Reference</p>
-  <h2 class="section-title">Glossary of Terms <span style="font-size:0.5em;font-weight:600;color:rgba(255,255,255,0.45);letter-spacing:0.08em;">· 67 TERMS, A TO Z</span></h2>
+    <h2 class="section-title">Glossary of Terms <span id="glossaryHeadingCount" style="font-size:0.5em;font-weight:600;color:rgba(255,255,255,0.45);letter-spacing:0.08em;">· 67 TERMS, A TO Z</span></h2>
   <div class="glossary-cols" style="columns:2;column-gap:48px;max-width:900px;" id="glossaryGrid">
 </div>
 </div>
@@ -1854,7 +1855,7 @@
 <div class="reasoning-overlay" id="reasoningOverlay">
   <button class="reasoning-close" onclick="closeReasoning()" aria-label="Close">&times;</button>
   <div class="reasoning-header">
-    <h2 id="reasoningTitle">Diagnostic Reasoning</h2>
+    <h2 id="reasoningTitle">Case Reasoning</h2>
     <p id="reasoningSubtitle">Work through this case step by step</p>
   </div>
   <div class="reasoning-progress" id="reasoningProgress"></div>
@@ -4323,7 +4324,7 @@ function openReasoning(key) {
   reasonState.step = 0;
   reasonState.userGuess = '';
 
-  document.getElementById('reasoningTitle').textContent = c.title + ' \u2014 Diagnostic Reasoning';
+  document.getElementById('reasoningTitle').textContent = c.title + ' \u2014 Case Reasoning';
   reasonState.steps = buildReasoningSteps(c);
   renderReasoningProgress();
   renderReasoningStep();
@@ -5135,6 +5136,8 @@ function initGlossary() {
   filterHtml += '</div>';
   header.insertAdjacentHTML('afterend', filterHtml);
   renderGlossary();
+  var hc = document.getElementById('glossaryHeadingCount');
+  if (hc) hc.textContent = '\u00B7 ' + Object.keys(glossaryData).length + ' TERMS, A TO Z';
 }
 
 // ═══════════════════════════════════════════════════════
