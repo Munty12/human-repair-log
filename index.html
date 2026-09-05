@@ -1399,6 +1399,9 @@
     .rp-case{display:inline-block;font-size:0.78rem;color:#5ee6c0;cursor:pointer;background:rgba(94,230,192,0.08);border:1px solid rgba(94,230,192,0.25);padding:5px 10px;border-radius:8px;margin:0 6px 6px 0;}
     .rp-case:hover{background:rgba(94,230,192,0.18);}
     .rp-see{font-size:0.72rem;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.1em;font-weight:700;margin-bottom:8px;}
+    .rp-sources{max-width:1040px;margin:36px 0 8px;padding:16px 18px;border:1px dashed rgba(255,255,255,0.18);border-radius:12px;background:rgba(255,255,255,0.03);font-size:0.74rem;line-height:2;color:rgba(255,255,255,0.6);}
+    .rp-sources span{display:block;}
+    .rp-sources .rp-see{margin-bottom:6px;}
   </style>
 
   <p class="section-label">Edition 5 · The Repair Process</p>
@@ -1420,7 +1423,7 @@
     <div class="rp-card">
       <span class="rp-label" style="background:#ff5252;color:#fff;">Part I · The Moment Something Goes Wrong</span>
       <h3>&#x1F7E5; Damage</h3>
-      <div class="rp-desc">Every repair is triggered the same way: a force exceeds what a tissue can take. Cells are damaged, blood vessels may tear, and the injured area becomes a construction site.</div>
+      <div class="rp-desc">Every repair begins the same way: a force exceeds what a tissue can tolerate, tearing or killing cells and often rupturing blood vessels. The damaged tissue triggers the acute inflammatory response — vessel dilation, leakier vessels, and inflammatory cells arriving within hours — which clears dead material and signals the cells that rebuild. [7]</div>
       <div class="rp-topics"><span class="rp-topic">What happens immediately after injury?</span><span class="rp-topic">Cellular damage</span><span class="rp-topic">Hemorrhage</span><span class="rp-topic">Inflammation</span><span class="rp-topic">The acute injury response</span></div>
       <div class="rp-see">See it in the collection</div>
       <div style="margin-bottom:4px;">
@@ -1435,23 +1438,23 @@
     <div class="rp-card">
       <span class="rp-label" style="background:#5ee6c0;color:#0f2a63;">Part II · The Scientific Heart</span>
       <h3>&#x1F9EC; Repair</h3>
-      <div class="rp-desc">The body rebuilds — but not with the same material everywhere. Bone pours in callus, muscle regenerates fibers, tendon and ligament lay down collagen scar, and nerves regrow at millimeters per day.</div>
+      <div class="rp-desc">The body rebuilds — with different strategies for each tissue. A fracture that isn't rigidly fixed heals secondarily: a provisional callus of cartilage and woven bone bridges the gap, then converts to true bone. Skeletal muscle regenerates only partially — surviving satellite cells can rebuild fibers when the fiber's outer scaffold stays intact, but once that scaffold is destroyed the defect fills with scar. Tendons and ligaments heal by laying down collagen, starting as a loose type III scar that remodels toward the stronger type I over months. Injured peripheral nerves regrow at about 1 mm per day, guided by supporting cells, and only when their surrounding tubes remain intact. [1][2][3][4][5][6]</div>
       <div class="rp-topics"><span class="rp-topic">Proliferation</span><span class="rp-topic">Collagen deposition</span><span class="rp-topic">Bone formation</span><span class="rp-topic">Muscle repair</span><span class="rp-topic">Tendon &amp; ligament healing</span><span class="rp-topic">Nerve regeneration</span></div>
       <div class="rp-see">See it in the collection</div>
       <div style="margin-bottom:4px;">
-        <span class="rp-case" onclick="openModal('femur')">Bone formation</span>
+        <span class="rp-case" onclick="openModal('femur')">Callus formation</span>
         <span class="rp-case" onclick="openModal('hamstring')">Muscle repair</span>
         <span class="rp-case" onclick="openModal('achilles')">Tendon healing</span>
         <span class="rp-case" onclick="openModal('acl')">Ligament healing</span>
         <span class="rp-case" onclick="openModal('cervical_nerve')">Nerve regeneration</span>
       </div>
-      <div class="rp-bridge">Repair produces new tissue — but it isn't the original tissue yet.</div>
+      <div class="rp-bridge">Most repair isn't regeneration — it's scar, and scar is structurally and mechanically a poor copy of the original.</div>
     </div>
 
     <div class="rp-card">
       <span class="rp-label">Part III · Repair Isn't the End</span>
       <h3>&#x1F9B4; Remodeling</h3>
-      <div class="rp-desc">The freshly repaired tissue then reorganizes. Woven bone becomes lamellar bone, disorganized scar aligns along stress lines, and tissue gradually gains back strength.</div>
+      <div class="rp-desc">Repaired tissue then matures under load, not by itself. In bone, coupled osteoclast&#8211;osteoblast activity converts woven bone to lamellar bone and reshapes it along stress lines. In scar, collagen fibers become cross-linked and progressively align with applied tension. Tissue regains strength over months — but repaired tissue rarely returns to the structure, mechanics, or load capacity of the original. [1][2][4][5][8]</div>
       <div class="rp-topics"><span class="rp-topic">Scar tissue</span><span class="rp-topic">Bone remodeling</span><span class="rp-topic">Tendon adaptation</span><span class="rp-topic">Muscle remodeling</span><span class="rp-topic">Strength recovery</span><span class="rp-topic">Why healing takes time</span></div>
       <div class="rp-see">See it in the collection</div>
       <div style="margin-bottom:4px;">
@@ -1466,7 +1469,7 @@
     <div class="rp-card">
       <span class="rp-label" style="background:#7fb0ff;color:#0f2a63;">Part IV · From Biology to Recovery</span>
       <h3>&#x1F3C3; Rehabilitation</h3>
-      <div class="rp-desc">Biology hands off to training. Tissue repair and functional recovery run on separate clocks: strength, coordination, and confidence each mature on their own timeline — which is why there is no single "recovery date."</div>
+      <div class="rp-desc">Biology hands off to training — but the two run on separate clocks. Tissue can look healed on imaging while strength, coordination, and confidence lag months behind — or feel ready long before the tissue matures. Recovery proceeds by progressive loading that adapts the tissue while rebuilding function, which is why no single "recovery date" exists.</div>
       <div class="rp-topics"><span class="rp-topic">Why movement matters</span><span class="rp-topic">Progressive loading</span><span class="rp-topic">Rest vs. activity</span><span class="rp-topic">Restoring strength</span><span class="rp-topic">Restoring mobility</span><span class="rp-topic">Return to activity</span><span class="rp-topic">Recovery timelines</span></div>
       <div class="rp-see">See it in the collection</div>
       <div style="margin-bottom:4px;">
@@ -1480,7 +1483,7 @@
     <div class="rp-card">
       <span class="rp-label" style="background:#ff5252;color:#fff;">Part V · Where the Process Breaks</span>
       <h3>&#x26A0;&#xFE0F; When Repair Fails</h3>
-      <div class="rp-desc">If repair always worked, there would be no chronic injuries. Failure wears many faces: healing that stalls, tissue that degenerates, load that returns too soon, or a complication that derails everything.</div>
+      <div class="rp-desc">If repair always worked, there would be no chronic injuries. Failure wears many faces: inflammation that never resolves, healing that stalls or scars poorly, tissue that degenerates, load that returns before repair matures, or a complication that derails the process. [3][4]</div>
       <div class="rp-topics"><span class="rp-topic">Chronic inflammation</span><span class="rp-topic">Delayed healing</span><span class="rp-topic">Poor tissue healing</span><span class="rp-topic">Re-injury</span><span class="rp-topic">Degeneration</span><span class="rp-topic">Complications</span><span class="rp-topic">When healing changes function</span></div>
       <div class="rp-see">See it in the collection</div>
       <div style="margin-bottom:4px;">
@@ -1495,16 +1498,29 @@
     <div class="rp-card">
       <span class="rp-label">Part VI · The Signature Feature</span>
       <h3>&#x1F52C; Case Laboratory</h3>
-      <div class="rp-desc">No new cases needed. Every one of the 50 existing cases becomes evidence: run it through the six stages — damage, response, repair, remodeling, rehabilitation, failure — and see how its repair story connects to the rest of the collection.</div>
+      <div class="rp-desc">No new cases needed. Every one of the 50 existing cases becomes evidence: run it through the six stages — damage, response, repair, remodeling, rehabilitation, failure — and see how its repair story connects to the rest of the collection. Treat the six stages as a teaching scaffold — real injuries blur across them.</div>
       <div style="margin:12px 0 16px;padding:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.12);border-radius:10px;font-size:0.8rem;line-height:1.6;color:rgba(255,255,255,0.75);">
         <div style="font-weight:700;color:#ffd700;margin-bottom:6px;">Three cases, one process</div>
-        <div style="margin-bottom:6px;"><strong style="color:#5ee6c0;">ACL tear:</strong> Damage → ligament disruption · Repair → biological healing + surgical reconstruction where indicated · Remodeling → tissue adaptation · Rehabilitation → strength + neuromuscular recovery · Failure → re-injury / persistent dysfunction.</div>
-        <div style="margin-bottom:6px;"><strong style="color:#5ee6c0;">Fracture:</strong> Damage → bone disruption · Repair → callus formation · Remodeling → bone reorganizes over time · Rehabilitation → restoring function · Failure → impaired healing / complications.</div>
-        <div><strong style="color:#5ee6c0;">Nerve injury:</strong> Damage → neural tissue injury · Repair → depends heavily on type and location · Remodeling / recovery → functional recovery can be prolonged · Rehabilitation → restore useful function · Failure → persistent deficits.</div>
+        <div style="margin-bottom:6px;"><strong style="color:#5ee6c0;">ACL tear:</strong> Damage → ligament rupture · Repair → the ACL has limited intrinsic healing, so reconstruction is often chosen · Remodeling → graft or scar tissue adapts · Rehabilitation → strength + neuromuscular recovery · Failure → persistent instability / re-injury.</div>
+        <div style="margin-bottom:6px;"><strong style="color:#5ee6c0;">Fracture:</strong> Damage → bone disruption · Repair → callus bridges the gap (secondary healing) · Remodeling → woven bone converts to lamellar bone · Rehabilitation → restoring function · Failure → non-union / delayed healing / complications.</div>
+        <div><strong style="color:#5ee6c0;">Nerve injury:</strong> Damage → neural tissue injury · Repair → depends on type and location; peripheral regrowth proceeds at about 1 mm per day · Remodeling / recovery → functional recovery can be prolonged · Rehabilitation → restore useful function · Failure → persistent deficits.</div>
       </div>
       <button onclick="document.getElementById('caselab').scrollIntoView({behavior:'smooth'})" style="padding:12px 22px;border-radius:8px;font-size:0.78rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;border:1px solid rgba(255,215,0,0.4);background:rgba(255,215,0,0.12);color:#ffd700;">Open the Case Laboratory &#9660;</button>
     </div>
 
+  </div>
+
+  <div class="rp-sources">
+    <div class="rp-see">Sources — repair biology</div>
+    <span>[1] Marsell R, Einhorn TA. The biology of fracture healing. Injury. 2011;42(6):551&#8211;5.</span>
+    <span>[2] Einhorn TA. The cell and molecular biology of fracture healing. Clin Orthop Relat Res. 1998;(355 Suppl):S7&#8211;21.</span>
+    <span>[3] J&#228;rvinen TA, J&#228;rvinen TL, K&#228;&#228;ri&#228;inen M, et al. Muscle injuries: biology and treatment. Am J Sports Med. 2005;33(5):745&#8211;64.</span>
+    <span>[4] Voleti PB, Buckley MR, Soslowsky LJ. Tendon healing: repair and regeneration. Annu Rev Biomed Eng. 2012;14:47&#8211;71.</span>
+    <span>[5] Sharma P, Maffulli N. Biology of tendon injury: healing, modeling and remodeling. J Musculoskelet Neuronal Interact. 2006;6(2):181&#8211;90.</span>
+    <span>[6] Burnett MG, Zager EL. Pathophysiology of peripheral nerve injury: a brief review. Neurosurg Focus. 2004;16(5):E1.</span>
+    <span>[7] Kumar V, Abbas AK, Aster JC. Robbins &amp; Cotran Pathologic Basis of Disease. 10th ed. Elsevier; 2021 (inflammation and repair).</span>
+    <span>[8] Frank CB. Ligament structure, physiology and function. J Musculoskelet Neuronal Interact. 2004;4(2):199&#8211;201.</span>
+    <div style="margin-top:8px;font-size:0.72rem;color:rgba(255,255,255,0.45);">Numbers in the cards above refer to these entries. Starting points — see the primary literature for full detail.</div>
   </div>
 </div>
 
@@ -1749,6 +1765,8 @@
   <h2 class="section-title">References &amp; Sources</h2>
   <p style="font-size:0.92rem;line-height:1.7;color:rgba(255,255,255,0.65);max-width:780px;margin:-32px 0 32px;">Each case card lists the public education source it was written to align with. The references below are the organizations and standard texts this collection stays consistent with — they are starting points for deeper reading, not citations for individual claims.</p>
   <div class="references-cols" style="columns:2;column-gap:48px;max-width:900px;font-size:0.88rem;line-height:2;color:rgba(255,255,255,0.78);">
+    <p>· <a href="#repairprocess" style="color:#ffd700;text-decoration:underline;">Repair Process — numbered sources [1&#8211;8]</a></p>
+    <p>· <a href="https://pubmed.ncbi.nlm.nih.gov/?term=%28muscle+injury+repair%29+OR+%28tendon+healing+review%29+OR+%28peripheral+nerve+regeneration%29+OR+%28fracture+healing+cell+molecular%29" target="_blank" rel="noopener" style="color:#ffd700;text-decoration:underline;">Repair biology journal articles — PubMed index</a></p>
     <p>· <a href="https://orthoinfo.aaos.org" target="_blank" rel="noopener" style="color:#ffd700;text-decoration:underline;">OrthoInfo — American Academy of Orthopaedic Surgeons (AAOS)</a></p>
     <p>· <a href="https://www.mayoclinic.org" target="_blank" rel="noopener" style="color:#ffd700;text-decoration:underline;">Mayo Clinic — Patient Care &amp; Health Information</a></p>
     <p>· <a href="https://medlineplus.gov" target="_blank" rel="noopener" style="color:#ffd700;text-decoration:underline;">MedlinePlus — U.S. National Library of Medicine</a></p>
